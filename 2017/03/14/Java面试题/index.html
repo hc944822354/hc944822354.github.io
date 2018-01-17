@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试题," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。 1.hashtable和hashmap的区别， hashmap">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题">
+<meta property="og:url" content="http://ndeper.cn/2017/03/14/Java面试题/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。 1.hashtable和hashmap的区别， hashmap">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-20T06:52:41.255Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试题">
+<meta name="twitter:description" content="java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。 1.hashtable和hashmap的区别， hashmap">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ndeper.cn/2017/03/14/Java面试题/"/>
+
+
+
+
+
+  <title> Java面试题 | Andeper的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2017/03/14/Java面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java面试题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:28:00+08:00">
+                2017-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/14/Java面试题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/Java面试题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。<br>偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。</p>
+<p>1.hashtable和hashmap的区别， hashmap底层的实现机制：负载因子、冲突解决方式。Java 8的优化。<br>2.string 和stringbuffer的区别。<br>3.JVM内存模型，每个区域存放的内容。<br>4.JVM垃圾回收算法。<br>5.JVM类加载机制、双亲委托模型。<br>6.问我notify<br>7.synchronized关键字、Lock，并解释它们之间的区别。</p>
+<h5 id="HashMap原理"><a href="#HashMap原理" class="headerlink" title="HashMap原理"></a>HashMap原理</h5><p>底层是数组加链表实现的哈希表。允许null作为键，null作为值。线程不安全。</p>
+<h5 id="为什么用数组-链表实现？"><a href="#为什么用数组-链表实现？" class="headerlink" title="为什么用数组+链表实现？"></a>为什么用数组+链表实现？</h5><p>利用拉链法解决冲突：把所有的同义词用单链表链接起来。该方法下，哈希表每个单元中存放的不再是元素本身，而是相应同义词单链表的头指针。<br>HashMap维护了一个Entry数组，Entry内部类有key,value，hash和next四个字段，其中next也是一个Entry类型。<br>可以将Entry数组理解为一个个的散列桶。每一个桶实际上是一个单链表。当执行put操作时，会根据key的hashcode定位到相应的桶。<br>遍历单链表检查该key是否已经存在，如果存在，覆盖该value，反之，新建一个新的Entry，并放在单链表的头部。<br>当通过传递key调用get方法时，它再次使用key.hashCode()来找到相应的散列桶，然后使用key.equals()方法找出单链表中正确的Entry，然后返回它的值。 </p>
+<h5 id="Java运行时数据区域？"><a href="#Java运行时数据区域？" class="headerlink" title="Java运行时数据区域？"></a>Java运行时数据区域？</h5><h5 id="方法区里存放什么？"><a href="#方法区里存放什么？" class="headerlink" title="方法区里存放什么？"></a>方法区里存放什么？</h5><p>当时只想到常量和静态变量…然后觉得不妥，赶紧补充：由于程序计数器、JVM栈、本地方法栈3个区域随线程而生随线程而灭，对这几个区域内存的回收和分配具有确定性。<br>而方法区和堆则不一样，程序需要在运行时才知道创建哪些对象，对这部分内存的分配是动态的，GC关注的也就是这部分内存。<br>本地方法栈：和jvm栈所发挥的作用类似，区别是jvm栈为jvm执行java方法（字节码）服务，而本地方法栈为jvm使用的native方法服务。<br>JVM栈：局部变量表、操作数栈、动态链接、方法出口。<br>方法区：用于存储已被虚拟机加载的类信息，常量、静态变量、即时编译器编译后的代码等。<br>堆：存放对象实例。</p>
+<h5 id="怎样判断是否需要收集？"><a href="#怎样判断是否需要收集？" class="headerlink" title="怎样判断是否需要收集？"></a>怎样判断是否需要收集？</h5><p>引用计数法：对象没有任何引用与之关联(无法解决循环引用)<br>可达性分析法：通过一组称为GC<br>Root的对象为起点,从这些节点向下搜索，如果某对象不能从这些根对象的一个(至少一个)所到达,则判定该对象应当回收。</p>
+<h5 id="什么可作为GCRoot的对象？"><a href="#什么可作为GCRoot的对象？" class="headerlink" title="什么可作为GCRoot的对象？"></a>什么可作为GCRoot的对象？</h5><p>虚拟机栈中引用的对象。方法区中类静态属性引用的对象，方法区中类常量引用的对象，本地方法栈中JNI引用的对象。<br>总结：JVM这块是由自己读过的书本引出，总的来说，也算是整个面试环节里答得最好的模块了，因为这一周也的确用心准备了这块的知识点。所以大家一定要着重复习JVM这块的知识。</p>
+<h5 id="红黑树数据结构？"><a href="#红黑树数据结构？" class="headerlink" title="红黑树数据结构？"></a>红黑树数据结构？</h5><p>  看见别人的面经里都是问B+树，所以看了一下午B+树，反而红黑树没怎么着重准备。只回答了红黑树的五个性质。本质是二叉搜索树，左节点小于根节点，右节点大于根节点。</p>
+<p>  看看具体具体答案，又是没回答完整…..</p>
+<p>  红黑树本质上是一颗二叉搜索树，它满足二叉搜索树的基本性质——即树中的任何节点的值大于它的左子节点，且小于它的右子节点。<br>  一颗红黑树必须满足以下几点条件：<br>  规则1、根节点必须是黑色。<br>  规则2、任意从根到叶子的路径不包含连续的红色节点。<br>  规则3、任意从根到叶子的路径的黑色节点总数相同。<br>  作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>  这些约束确保了红黑树的关键特性：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。<br>  因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限<br>  允许红黑树在最坏情况下都是高效的，而不同于普通的二叉查找树。</p>
+<p>  在很多树数据结构的表示中，一个节点有可能只有一个子节点，而叶子节点包含数据。用这种范例表示红黑树是可能的，但是这会改变一些性质并使算法复杂。</p>
+<p>  为此，本文中我们使用”nil叶子”或”空（null）叶子”，如上图所示，它不包含数据而只充当树在此结束的指示。这些节点在绘图中经常被省略，导致了这些树好像同上述原则相矛盾，而实际上不是这样。<br>  与此有关的结论是所有节点都有两个子节点，尽管其中的一个或两个可能是空叶子。<br>  因为每一个红黑树也是一个特化的二叉查找树，因此红黑树上的只读操作与普通二叉查找树上的只读操作相同。<br>  然而，在红黑树上进行插入操作和删除操作会导致不再符合红黑树的性质。恢复红黑树的性质需要少量（O(log<br>  n)）的颜色变更（实际是非常快速的）和不超过三次树旋转（对于插入操作是两次）。<br>  虽然插入和删除很复杂，但操作时间仍可以保持为O(log n)次</p>
+<h5 id="JDK1-8的改进"><a href="#JDK1-8的改进" class="headerlink" title="JDK1.8的改进"></a>JDK1.8的改进</h5><p>（lambda表达式、HashMap升级、ConcurrentHashMap升级、synchronized升级），此处没有答出<br>枚举器的升级（可能是我搞错了），增加了Iteable.forEach方法，Iterator.remove() 现在有一个默认的,会抛出异常的实现,lambda表达式的意义</p>
+<h5 id="快排的思想，Partition"><a href="#快排的思想，Partition" class="headerlink" title="快排的思想，Partition"></a>快排的思想，Partition</h5><h5 id="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"><a href="#垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器" class="headerlink" title="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"></a>垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器</h5><p>你Java学的怎么样？<br>    我：</p>
+<p>   还可以，有研究过部分JDK源码，比如常用的集合类如HashMap/Hashtable、ArrayList/LinkedList、Vector等，还有Java5之后的并发包JUC如concurrentHashMap、Executor框架、CopyOnWrite容器等。自己很欣赏Java巧妙的垃圾回收机制，看过周志明的《深入理解Java虚拟机》，因此对JVM相关的知识有所掌握……</p>
+<pre><code>面：
+</code></pre><p>   嗯，学的挺深的，那你把JVM的结构和类加载原理说下。</p>
+<pre><code>我：
+</code></pre><p>   马上拿起桌上的笔和纸，把虚拟机运行时包含的几个数据区和执行引擎画了下，包括方法区、虚拟机栈、本地方法栈、堆和程序计数器，然后介绍每个区域有什么作用，最后讲ClassLoader的类加载机制，还顺便说了下双亲委派机制。</p>
+<pre><code>面：
+</code></pre><p>   （面试官点头表示满意）你刚刚说Java的GC机制很巧妙，那么它的巧妙之处在哪里？</p>
+<pre><code>我：
+</code></pre><p>   我从两个方面说下自己的理解：一是Java的内存分配原理与C/C++不同，C/C++每次采用malloc或new申请内存时都要进行brk和mmap等系统调用，而系统调用发生在内核空间，每次都要中断进行切换，这需要一定的开销，而Java虚拟机是先一次性分配一块较大的空间，然后每次new时都在该空间上进行分配和释放，减少了系统调用的次数，节省了一定的开销，这有点类似于内存池的概念；二是有了这块空间过后，如何进行分配和回收就跟GC机制有关了，然后我详细介绍了GC原理、画图表示年轻代（Eden区和Survival区）、年老代、比例分配及为啥要这样分代回收（我认为巧妙就在于这里），有了GC基本结构后，我又详述了下GC是具体如何进行内存分配和垃圾回收的。</p>
+<h5 id="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"><a href="#简单描述一下多态（接口）在Java里是如何实现的（运行时多态）" class="headerlink" title="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"></a>简单描述一下多态（接口）在Java里是如何实现的（运行时多态）</h5><p>1、对多态理解<br>2、写两个线程，交替打印1到100的奇数和偶数，在纸上写出<br>     3、有没有使用过Lock，怎么使用，和synchronized有什么区别，从jvm角度解释<br>     4、StringBuilder 和 StringBuffer区别，为什么，里面实现<br>     5、ArrayList 和 LinkedList 区别，原理  </p>
+<pre><code>jvm  
+1、gc垃圾回收  
+2、静态分派和动态分派  
+3、四种引用的区别
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/14/算法面试题/" rel="next" title="算法面试题">
+                <i class="fa fa-chevron-left"></i> 算法面试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/14/基础面试题/" rel="prev" title="基础面试题">
+                基础面试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/14/Java面试题/"
+           data-title="Java面试题" data-url="http://ndeper.cn/2017/03/14/Java面试题/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap原理"><span class="nav-number">1.</span> <span class="nav-text">HashMap原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么用数组-链表实现？"><span class="nav-number">2.</span> <span class="nav-text">为什么用数组+链表实现？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java运行时数据区域？"><span class="nav-number">3.</span> <span class="nav-text">Java运行时数据区域？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法区里存放什么？"><span class="nav-number">4.</span> <span class="nav-text">方法区里存放什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#怎样判断是否需要收集？"><span class="nav-number">5.</span> <span class="nav-text">怎样判断是否需要收集？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么可作为GCRoot的对象？"><span class="nav-number">6.</span> <span class="nav-text">什么可作为GCRoot的对象？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#红黑树数据结构？"><span class="nav-number">7.</span> <span class="nav-text">红黑树数据结构？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JDK1-8的改进"><span class="nav-number">8.</span> <span class="nav-text">JDK1.8的改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快排的思想，Partition"><span class="nav-number">9.</span> <span class="nav-text">快排的思想，Partition</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"><span class="nav-number">10.</span> <span class="nav-text">垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"><span class="nav-number">11.</span> <span class="nav-text">简单描述一下多态（接口）在Java里是如何实现的（运行时多态）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
