@@ -94,22 +94,21 @@
 <meta property="og:site_name" content="Andeper的个人博客">
 <meta property="og:description" content="由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,课程链接,最近的博客基本会以这个课程的笔记为主。 ###What is a neural network?什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。 加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/avatar.jpg">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/housepriceprediction.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/housepriceprediction2.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/networkneuron.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/ReLU.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/housepriceprediction3.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/housepriceprediction4.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/监督式学习.png">
 <meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/CNNRNN.png">
-<meta property="og:image" content="http://ndeper.cn/overview/housepriceprediction2.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/networkneuron.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/ReLU.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/housepriceprediction3.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/housepriceprediction4.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/监督式学习.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/CNNRNN.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/结构化数据与非结构化数据.png">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/Performance.png">
-<meta property="og:updated_time" content="2018-01-18T08:16:16.520Z">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/结构化数据与非结构化数据.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/Performance.png">
+<meta property="og:updated_time" content="2018-01-18T08:21:18.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习概论">
 <meta name="twitter:description" content="由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,课程链接,最近的博客基本会以这个课程的笔记为主。 ###What is a neural network?什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。 加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价">
-<meta name="twitter:image" content="http://ndeper.cn/2018/01/17/深度学习概论/avatar.jpg">
+<meta name="twitter:image" content="http://ndeper.cn/2018/01/17/深度学习概论/housepriceprediction.png">
 
 
 
@@ -478,16 +477,15 @@
       
         <p>由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,<a href="http://mooc.study.163.com/smartSpec/detail/1001319001.htm" target="_blank" rel="noopener">课程链接</a>,最近的博客基本会以这个课程的笔记为主。</p>
 <p>###What is a neural network?<br>什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。</p>
-<p>加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价格。根据这些输入输出，我们要简历一个函数模型，来预测房价。根据这些输入输出，我们要建立一个函数模型，来预测房价：y=f(x)。首先，我们将已知的六间房子的价格和面积关系绘制在二维平面上，如下图所示：</p>
-<p><img src="/2018/01/17/深度学习概论/avatar.jpg" alt="123"><br><img src="/2018/01/17/深度学习概论/CNNRNN.png" alt="123"><br>一般地，我们会用一条之间来拟合图中这些离散点，即建立房价与面积的线性模型。但是从实际考虑，我们知道价格永远不会是负数。所以，我们对该之间做一点点修正，让它编程折线的形状，当面积小于某个值时，价格始终为零，如下图蓝色折线所示，这就是我们建立的房价预测模型<br><img src="/overview/housepriceprediction2.png" alt="housepriceprediction2"><br>其实这个简单的模型(蓝色折线)就可以看成是一个神经网络，而且几乎是一个最简单的神经网络，我们把房价预测用一个最简单的神经网络模型来表示，如下图所示<br><img src="/深度学习概论/networkneuron.png" alt="networkneuron"><br>该神经网络的输入x是房屋面积，输入y是房屋价格，中间包含了一个神经元(neuron)，房价预测函数(蓝色折线)。该神经元的功能就是实现函数f(x)的功能。</p>
-<p>上图神经元的预测函数在神经网络应用中比较常见，我们把这个函数称为ReLU函数，即线性整流函数，如下图所示<br><img src="/深度学习概论/ReLU.png" alt="ReLU"></p>
+<p>加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价格。根据这些输入输出，我们要简历一个函数模型，来预测房价。根据这些输入输出，我们要建立一个函数模型，来预测房价：y=f(x)。首先，我们将已知的六间房子的价格和面积关系绘制在二维平面上，如下图所示：<br><img src="/2018/01/17/深度学习概论/housepriceprediction.png" alt="housepriceprediction"><br>一般地，我们会用一条之间来拟合图中这些离散点，即建立房价与面积的线性模型。但是从实际考虑，我们知道价格永远不会是负数。所以，我们对该之间做一点点修正，让它编程折线的形状，当面积小于某个值时，价格始终为零，如下图蓝色折线所示，这就是我们建立的房价预测模型<br><img src="/2018/01/17/深度学习概论/housepriceprediction2.png" alt="housepriceprediction2"><br>其实这个简单的模型(蓝色折线)就可以看成是一个神经网络，而且几乎是一个最简单的神经网络，我们把房价预测用一个最简单的神经网络模型来表示，如下图所示<br><img src="/2018/01/17/深度学习概论/networkneuron.png" alt="networkneuron"><br>该神经网络的输入x是房屋面积，输入y是房屋价格，中间包含了一个神经元(neuron)，房价预测函数(蓝色折线)。该神经元的功能就是实现函数f(x)的功能。</p>
+<p>上图神经元的预测函数在神经网络应用中比较常见，我们把这个函数称为ReLU函数，即线性整流函数，如下图所示<br><img src="/2018/01/17/深度学习概论/ReLU.png" alt="ReLU"></p>
 <p>上面讲的只是由单个神经元(输入x仅仅是房屋面积一个因素)组成的神经网络，而通常一个大型的神经网络往往由许多个神经元组成。</p>
-<p>现在，我们把上面房价预测例子变得更复杂，而不仅仅使用房屋面积(size)一个判断因素。例如，除了考虑房屋面积之外，我们还考虑卧室数目(bedrooms)。这两点实际上与家庭成员的个数(family size)有关。还有房屋的邮政编码(zip code)，代表着该房屋位置的交通便利性，是否需要步行还是开车？即决定了可步行性(walkability)。另外，还有可能邮政编码和地区财富水平(wealth)共同影响了房屋所在地区的学校质量(school quality)。如下图所示，该神经网络共有三个神经元，分别代表了family size，walkability和school quality。每个神经元都包含了一个ReLU函数(或者其他非线性函数)。那么，根据这个模型，我们可以根据房屋面积和卧室个数来估计family size，根据邮政编码来估计walkability，根据邮政编码和财富水平来估计school quality。最后，由family size，walkability和school quality灯这些人们比较关心的因素来预测最终的房屋价格。<br><img src="/深度学习概论/housepriceprediction3.png" alt="housepriceprediction3"><br>所以，在这个例子中，x是size，bedrooms，zip code，wealth这四个输入；y是房屋的预测价格。这个神经网络模型包含的神经元个数更多一些，相对之前的单个神经元的模型更加复杂。那么，在建立一个表现良好的神经网络模型之后，在给定输入x时，就能得到比较好的输出y，即房屋的预测价格。</p>
-<p>实际上，上面这个例子神经网络模型结构如下所示，分别是size，bedrooms，zip code和wealth。在给定这四个输入后，神经网络所做的就是输出房屋的预测价格y。图中，三个神经元所在的位置称之称之为中间层或者隐藏层(x所在的称之为输入层，y所在的称之为输出层)，每个神经元与所有的输入x都有关联。<br><img src="/深度学习概论/housepriceprediction4.png" alt="housepriceprediction4"><br>这就是基本的神经网络模型结构。在训练的过程中，只要有足够的输入x和输出y，就能训练出较好的神经网络模型，该模型在此类房价预测问题中，能够得到比较准确的结果。</p>
-<p>###Supervised Learning with Neural Network<br>目前为止，由神经网络模型创造的价值基本上都是基于监督式学习(Supervised Learning)的，监督式学习与非监督式学习本质区别就是是否已知训练样本的输出y。在实际应用中，机器学习解决的大部分问题都属于监督式学习，神经网络模型也大都属于监督式学习。下面举几个监督式学习在神经网络中应用的例子。<br>第一个例子是房屋价格预测。根据训练样本的输入x和输出y，训练神经网络模型，预测房价。<br>第二个例子是线上广告，输入x是广告和用户个人信息，输入y是用户是否对广告进行点击。神经网络模型经过训练，能够根据广告类型和用户信息对用户的点击行为进行预测，从而向用户提供自己可能感兴趣的广告。<br>第三个例子是电脑视觉(computer vision)。输入x是图片像素值，输出是图片所属的不同类别。<br>第四个例子是语音识别(speech recognition).可以将一段语音信号辨识为相应的文字信息。<br>第五个例子是智能翻译，通过神经网络输入英文，然后直接输出中文。<br>第六个例子是自动驾驶。通过输入一张图片或者汽车雷达信息，神经网络通过训练来告诉你相应的路况并做出相应的决策。<br>如下图所示<br><img src="/深度学习概论/监督式学习.png" alt="监督式学习"></p>
-<p>对于不同的问题和应用场合，应该使用不同类型的神经网络模型。上面介绍的几个例子中，<br>对于一般的监督式学习(房价预测和线上广告问题)，我们只要使用标准的神经网络模型就可以了。图像识别处理问题，我们则要使用卷积神经网络(Convolution Neural Network)即CNN。而对于处理类似语音这样的序列信号时，则要使用循环神经网络(Recurrent Neural Network),即RNN。还有其他例如自动驾驶这样的复杂问题则需要更加复杂的混合神经网络模型。<br>下面给出Standard NN，Convolutional NN和Recurrent NN的神经网络结构图。<br><img src="/深度学习概论/CNNRNN.png" alt="CNNRNN"><br>CNN一般处理图像问题，RNN一般处理语音信号。</p>
-<p>数据类型一般分为两种：结构化数据(Structured Data)和非结构化数据(Unstructured Data)。<br><img src="/深度学习概论/结构化数据与非结构化数据.png" alt="结构化数据与非结构化数据"></p>
-<p>###Why is Deep Learning taking off?<br>深度学习和神经网络背后的技术思想已经出现了数十年了，那么为什么直到现在才开始发挥作用呢？<br>深度学习为什么强大？下面我们用一张图来说明。如下图所示，横坐标x表示数据量(Amount of data),纵坐标y表示机器学习模型的性能表现(Performance)。<br><img src="/深度学习概论/Performance.png" alt="Performance"><br>上面共有4条曲线。最底下那条红色曲线代表了传统机器学习算法的表现，例如是SVM，logistic regression，decision tree等，当数据量比较小的时候，传统学习模型的表现是比较好的，但是当数据量很大的时候表现很一般。黄色曲线代表了规模较小的神经网络模型(Small NN)。它在数据量大的时候性能优于传统机器学习。蓝色曲线代表了规模中等的神经网络模型(Media NN),它在数据量更大的时候表现比Small NN更好。绿色曲线代表了更大规模的神经网络(Large NN),即深度学习模型。从图中可以看出，在数据量很大的时候，它的表现仍然是最好的，而且基本上保持了较快的上升趋势。<br>深度学习强大的原因归结为3个因素：<br><strong>Data</strong><br><strong>Computation</strong><br><strong>Algorithms</strong><br>数据量的几何级数增加<br>GPU出现，计算机运算能力大大提升。<br>举个算法改进的例子：之前神经网络神经元的激活函数是Sigmoid函数，后来改成了ReLU函数。更改的原因是对于Sigmoid函数，在远离Sigmoid函数，后来改成了ReLU函数。之所以这样更改的原因是对于Sigmoid函数，在远离零点的位置，函数曲线非常平缓，其梯度始终为0，所以造成神经网络模型学习速度变得很慢。然而，ReLU函数在x大于零的区域，其梯度始终为1，尽管x在小于零的区域梯度为0，但是在实际应用中采用ReLU函数确实比Sigmoid函数快很多。<br>构建一个深度学习的流程是首先开始产生Idea，然后把Idea转化为Code，最后进行Experiment。根据结果修改Idea，继续这种循环，直到最终训练得到表现不错的深度学习网络模型。</p>
+<p>现在，我们把上面房价预测例子变得更复杂，而不仅仅使用房屋面积(size)一个判断因素。例如，除了考虑房屋面积之外，我们还考虑卧室数目(bedrooms)。这两点实际上与家庭成员的个数(family size)有关。还有房屋的邮政编码(zip code)，代表着该房屋位置的交通便利性，是否需要步行还是开车？即决定了可步行性(walkability)。另外，还有可能邮政编码和地区财富水平(wealth)共同影响了房屋所在地区的学校质量(school quality)。如下图所示，该神经网络共有三个神经元，分别代表了family size，walkability和school quality。每个神经元都包含了一个ReLU函数(或者其他非线性函数)。那么，根据这个模型，我们可以根据房屋面积和卧室个数来估计family size，根据邮政编码来估计walkability，根据邮政编码和财富水平来估计school quality。最后，由family size，walkability和school quality灯这些人们比较关心的因素来预测最终的房屋价格。<br><img src="/2018/01/17/深度学习概论/housepriceprediction3.png" alt="housepriceprediction3"><br>所以，在这个例子中，x是size，bedrooms，zip code，wealth这四个输入；y是房屋的预测价格。这个神经网络模型包含的神经元个数更多一些，相对之前的单个神经元的模型更加复杂。那么，在建立一个表现良好的神经网络模型之后，在给定输入x时，就能得到比较好的输出y，即房屋的预测价格。</p>
+<p>实际上，上面这个例子神经网络模型结构如下所示，分别是size，bedrooms，zip code和wealth。在给定这四个输入后，神经网络所做的就是输出房屋的预测价格y。图中，三个神经元所在的位置称之称之为中间层或者隐藏层(x所在的称之为输入层，y所在的称之为输出层)，每个神经元与所有的输入x都有关联。<br><img src="/2018/01/17/深度学习概论/housepriceprediction4.png" alt="housepriceprediction4"><br>这就是基本的神经网络模型结构。在训练的过程中，只要有足够的输入x和输出y，就能训练出较好的神经网络模型，该模型在此类房价预测问题中，能够得到比较准确的结果。</p>
+<p>###Supervised Learning with Neural Network<br>目前为止，由神经网络模型创造的价值基本上都是基于监督式学习(Supervised Learning)的，监督式学习与非监督式学习本质区别就是是否已知训练样本的输出y。在实际应用中，机器学习解决的大部分问题都属于监督式学习，神经网络模型也大都属于监督式学习。下面举几个监督式学习在神经网络中应用的例子。<br>第一个例子是房屋价格预测。根据训练样本的输入x和输出y，训练神经网络模型，预测房价。<br>第二个例子是线上广告，输入x是广告和用户个人信息，输入y是用户是否对广告进行点击。神经网络模型经过训练，能够根据广告类型和用户信息对用户的点击行为进行预测，从而向用户提供自己可能感兴趣的广告。<br>第三个例子是电脑视觉(computer vision)。输入x是图片像素值，输出是图片所属的不同类别。<br>第四个例子是语音识别(speech recognition).可以将一段语音信号辨识为相应的文字信息。<br>第五个例子是智能翻译，通过神经网络输入英文，然后直接输出中文。<br>第六个例子是自动驾驶。通过输入一张图片或者汽车雷达信息，神经网络通过训练来告诉你相应的路况并做出相应的决策。<br>如下图所示<br><img src="/2018/01/17/深度学习概论/监督式学习.png" alt="监督式学习"></p>
+<p>对于不同的问题和应用场合，应该使用不同类型的神经网络模型。上面介绍的几个例子中，<br>对于一般的监督式学习(房价预测和线上广告问题)，我们只要使用标准的神经网络模型就可以了。图像识别处理问题，我们则要使用卷积神经网络(Convolution Neural Network)即CNN。而对于处理类似语音这样的序列信号时，则要使用循环神经网络(Recurrent Neural Network),即RNN。还有其他例如自动驾驶这样的复杂问题则需要更加复杂的混合神经网络模型。<br>下面给出Standard NN，Convolutional NN和Recurrent NN的神经网络结构图。<br><img src="/2018/01/17/深度学习概论/CNNRNN.png" alt="CNNRNN"><br>CNN一般处理图像问题，RNN一般处理语音信号。</p>
+<p>数据类型一般分为两种：结构化数据(Structured Data)和非结构化数据(Unstructured Data)。<br><img src="/2018/01/17/深度学习概论/结构化数据与非结构化数据.png" alt="结构化数据与非结构化数据"></p>
+<p>###Why is Deep Learning taking off?<br>深度学习和神经网络背后的技术思想已经出现了数十年了，那么为什么直到现在才开始发挥作用呢？<br>深度学习为什么强大？下面我们用一张图来说明。如下图所示，横坐标x表示数据量(Amount of data),纵坐标y表示机器学习模型的性能表现(Performance)。<br><img src="/2018/01/17/深度学习概论/Performance.png" alt="Performance"><br>上面共有4条曲线。最底下那条红色曲线代表了传统机器学习算法的表现，例如是SVM，logistic regression，decision tree等，当数据量比较小的时候，传统学习模型的表现是比较好的，但是当数据量很大的时候表现很一般。黄色曲线代表了规模较小的神经网络模型(Small NN)。它在数据量大的时候性能优于传统机器学习。蓝色曲线代表了规模中等的神经网络模型(Media NN),它在数据量更大的时候表现比Small NN更好。绿色曲线代表了更大规模的神经网络(Large NN),即深度学习模型。从图中可以看出，在数据量很大的时候，它的表现仍然是最好的，而且基本上保持了较快的上升趋势。<br>深度学习强大的原因归结为3个因素：<br><strong>Data</strong><br><strong>Computation</strong><br><strong>Algorithms</strong><br>数据量的几何级数增加<br>GPU出现，计算机运算能力大大提升。<br>举个算法改进的例子：之前神经网络神经元的激活函数是Sigmoid函数，后来改成了ReLU函数。更改的原因是对于Sigmoid函数，在远离Sigmoid函数，后来改成了ReLU函数。之所以这样更改的原因是对于Sigmoid函数，在远离零点的位置，函数曲线非常平缓，其梯度始终为0，所以造成神经网络模型学习速度变得很慢。然而，ReLU函数在x大于零的区域，其梯度始终为1，尽管x在小于零的区域梯度为0，但是在实际应用中采用ReLU函数确实比Sigmoid函数快很多。<br>构建一个深度学习的流程是首先开始产生Idea，然后把Idea转化为Code，最后进行Experiment。根据结果修改Idea，继续这种循环，直到最终训练得到表现不错的深度学习网络模型。</p>
 
       
     </div>
