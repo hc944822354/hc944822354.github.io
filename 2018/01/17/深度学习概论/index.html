@@ -94,8 +94,8 @@
 <meta property="og:site_name" content="Andeper的个人博客">
 <meta property="og:description" content="由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,课程链接,最近的博客基本会以这个课程的笔记为主。 ###What is a neural network?什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。 加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://mooc.study.163.com/smartSpec/detail/1001319001.htm">
-<meta property="og:image" content="http://ndeper.cn/深度学习概论/housepriceprediction.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/深度学习概论/housepriceprediction.png">
+<meta property="og:image" content="http://ndeper.cn/2018/01/17/深度学习概论/深度学习概论/CNNRNN.png">
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/housepriceprediction2.png">
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/networkneuron.png">
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/ReLU.png">
@@ -105,11 +105,11 @@
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/CNNRNN.png">
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/结构化数据与非结构化数据.png">
 <meta property="og:image" content="http://ndeper.cn/深度学习概论/Performance.png">
-<meta property="og:updated_time" content="2018-01-18T03:42:30.179Z">
+<meta property="og:updated_time" content="2018-01-18T07:46:30.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习概论">
 <meta name="twitter:description" content="由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,课程链接,最近的博客基本会以这个课程的笔记为主。 ###What is a neural network?什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。 加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价">
-<meta name="twitter:image" content="http://mooc.study.163.com/smartSpec/detail/1001319001.htm">
+<meta name="twitter:image" content="http://ndeper.cn/2018/01/17/深度学习概论/深度学习概论/housepriceprediction.png">
 
 
 
@@ -476,10 +476,9 @@
       
 
       
-        <p>由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,课程链接<img src="http://mooc.study.163.com/smartSpec/detail/1001319001.htm" alt="课程链接">,最近的博客基本会以这个课程的笔记为主。</p>
+        <p>由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,<a href="http://mooc.study.163.com/smartSpec/detail/1001319001.htm" target="_blank" rel="noopener">课程链接</a>,最近的博客基本会以这个课程的笔记为主。</p>
 <p>###What is a neural network?<br>什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。</p>
-<p>加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价格。根据这些输入输出，我们要简历一个函数模型，来预测房价。根据这些输入输出，我们要建立一个函数模型，来预测房价：y=f(x)。首先，我们将已知的六间房子的价格和面积关系绘制在二维平面上，如下图所示：<br><img src="/深度学习概论/housepriceprediction.png" alt="housepriceprediction"></p>
-<p>一般地，我们会用一条之间来拟合图中这些离散点，即建立房价与面积的线性模型。但是从实际考虑，我们知道价格永远不会是负数。所以，我们对该之间做一点点修正，让它编程折线的形状，当面积小于某个值时，价格始终为零，如下图蓝色折线所示，这就是我们建立的房价预测模型<br><img src="/深度学习概论/housepriceprediction2.png" alt="housepriceprediction2"><br>其实这个简单的模型(蓝色折线)就可以看成是一个神经网络，而且几乎是一个最简单的神经网络，我们把房价预测用一个最简单的神经网络模型来表示，如下图所示<br><img src="/深度学习概论/networkneuron.png" alt="networkneuron"><br>该神经网络的输入x是房屋面积，输入y是房屋价格，中间包含了一个神经元(neuron)，房价预测函数(蓝色折线)。该神经元的功能就是实现函数f(x)的功能。</p>
+<p>加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价格。根据这些输入输出，我们要简历一个函数模型，来预测房价。根据这些输入输出，我们要建立一个函数模型，来预测房价：y=f(x)。首先，我们将已知的六间房子的价格和面积关系绘制在二维平面上，如下图所示：<br><img src="/2018/01/17/深度学习概论/深度学习概论/housepriceprediction.png" alt="housepriceprediction"><br><img src="/2018/01/17/深度学习概论/深度学习概论/CNNRNN.png" alt="sdas"><br>一般地，我们会用一条之间来拟合图中这些离散点，即建立房价与面积的线性模型。但是从实际考虑，我们知道价格永远不会是负数。所以，我们对该之间做一点点修正，让它编程折线的形状，当面积小于某个值时，价格始终为零，如下图蓝色折线所示，这就是我们建立的房价预测模型<br><img src="/深度学习概论/housepriceprediction2.png" alt="housepriceprediction2"><br>其实这个简单的模型(蓝色折线)就可以看成是一个神经网络，而且几乎是一个最简单的神经网络，我们把房价预测用一个最简单的神经网络模型来表示，如下图所示<br><img src="/深度学习概论/networkneuron.png" alt="networkneuron"><br>该神经网络的输入x是房屋面积，输入y是房屋价格，中间包含了一个神经元(neuron)，房价预测函数(蓝色折线)。该神经元的功能就是实现函数f(x)的功能。</p>
 <p>上图神经元的预测函数在神经网络应用中比较常见，我们把这个函数称为ReLU函数，即线性整流函数，如下图所示<br><img src="/深度学习概论/ReLU.png" alt="ReLU"></p>
 <p>上面讲的只是由单个神经元(输入x仅仅是房屋面积一个因素)组成的神经网络，而通常一个大型的神经网络往往由许多个神经元组成。</p>
 <p>现在，我们把上面房价预测例子变得更复杂，而不仅仅使用房屋面积(size)一个判断因素。例如，除了考虑房屋面积之外，我们还考虑卧室数目(bedrooms)。这两点实际上与家庭成员的个数(family size)有关。还有房屋的邮政编码(zip code)，代表着该房屋位置的交通便利性，是否需要步行还是开车？即决定了可步行性(walkability)。另外，还有可能邮政编码和地区财富水平(wealth)共同影响了房屋所在地区的学校质量(school quality)。如下图所示，该神经网络共有三个神经元，分别代表了family size，walkability和school quality。每个神经元都包含了一个ReLU函数(或者其他非线性函数)。那么，根据这个模型，我们可以根据房屋面积和卧室个数来估计family size，根据邮政编码来估计walkability，根据邮政编码和财富水平来估计school quality。最后，由family size，walkability和school quality灯这些人们比较关心的因素来预测最终的房屋价格。<br><img src="/深度学习概论/housepriceprediction3.png" alt="housepriceprediction3"><br>所以，在这个例子中，x是size，bedrooms，zip code，wealth这四个输入；y是房屋的预测价格。这个神经网络模型包含的神经元个数更多一些，相对之前的单个神经元的模型更加复杂。那么，在建立一个表现良好的神经网络模型之后，在给定输入x时，就能得到比较好的输出y，即房屋的预测价格。</p>
