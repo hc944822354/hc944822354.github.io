@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -132,13 +132,13 @@
 
 
 
-  <title> Java面试题 | Andeper的个人博客 </title>
+  <title> Java面试题 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
-<script>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '',
@@ -489,10 +489,10 @@
 <pre><code>我：
 </code></pre><p>   我从两个方面说下自己的理解：一是Java的内存分配原理与C/C++不同，C/C++每次采用malloc或new申请内存时都要进行brk和mmap等系统调用，而系统调用发生在内核空间，每次都要中断进行切换，这需要一定的开销，而Java虚拟机是先一次性分配一块较大的空间，然后每次new时都在该空间上进行分配和释放，减少了系统调用的次数，节省了一定的开销，这有点类似于内存池的概念；二是有了这块空间过后，如何进行分配和回收就跟GC机制有关了，然后我详细介绍了GC原理、画图表示年轻代（Eden区和Survival区）、年老代、比例分配及为啥要这样分代回收（我认为巧妙就在于这里），有了GC基本结构后，我又详述了下GC是具体如何进行内存分配和垃圾回收的。</p>
 <h5 id="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"><a href="#简单描述一下多态（接口）在Java里是如何实现的（运行时多态）" class="headerlink" title="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"></a>简单描述一下多态（接口）在Java里是如何实现的（运行时多态）</h5><p>1、对多态理解<br>2、写两个线程，交替打印1到100的奇数和偶数，在纸上写出<br>     3、有没有使用过Lock，怎么使用，和synchronized有什么区别，从jvm角度解释<br>     4、StringBuilder 和 StringBuffer区别，为什么，里面实现<br>     5、ArrayList 和 LinkedList 区别，原理  </p>
-<pre><code>jvm  
-1、gc垃圾回收  
-2、静态分派和动态分派  
-3、四种引用的区别
+<pre><code> jvm  
+ 1、gc垃圾回收  
+ 2、静态分派和动态分派  
+ 3、四种引用的区别
 </code></pre>
       
     </div>
@@ -888,7 +888,7 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

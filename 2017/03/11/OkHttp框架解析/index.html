@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -135,13 +135,13 @@
 
 
 
-  <title> OkHttp框架解析 | Andeper的个人博客 </title>
+  <title> OkHttp框架解析 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
-<script>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '',
@@ -544,6 +544,7 @@
 <h6 id="条件GET请求-Conditional-GET-Requests-与304"><a href="#条件GET请求-Conditional-GET-Requests-与304" class="headerlink" title="条件GET请求(Conditional GET Requests)与304"></a>条件GET请求(Conditional GET Requests)与304</h6><p>如缓存果过期或者强制放弃缓存，在此情况下，缓存策略全部交给服务器判断，客户端只用发送条件get请求即可，如果缓存是有效的，则返回304 Not Modifiled，否则直接返回body。<br>请求的方式有两种：<br>4.1. Last-Modified-Date:<br>客户端第一次网络请求时，服务器返回了<br>Last-Modified: Tue, 12 Jan 2016 09:31:27 GMT<br>客户端再次请求时，通过发送<br>If-Modified-Since: Tue, 12 Jan 2016 09:31:27 GMT<br>交给服务器进行判断，如果仍然可以缓存使用，服务器就返回304<br>4.2. ETag<br>ETag是对资源文件的一种摘要，客户端并不需要了解实现细节。当客户端第一请求时，服务器返回了<br>ETag: “5694c7ef-24dc”<br>客户端再次请求时，通过发送<br>If-None-Match:”5694c7ef-24dc”<br>交给服务器进行判断，如果仍然可以缓存使用，服务器就返回304<br>如果 ETag 和 Last-Modified 都有，则必须一次性都发给服务器，它们没有优先级之分，反正这里客户端没有任何判断的逻辑。</p>
 <h6 id="其它标签"><a href="#其它标签" class="headerlink" title="其它标签"></a>其它标签</h6><p>no-cache/no-store: 不使用缓存，no-cache指令的目的是防止从缓存中返回过期的资源。客户端发送的请求中如果包含no-cache指令的话，表示客户端将不会接受缓存过的相应，于是缓存服务器必须把客户端请求转发给源服务器。服务器端返回的相应中包含no-cache指令的话那么缓存服务器不能对资源进行缓存。<br>only-if-cached: 只使用缓存<br>Date: The date and time that the message was sent<br>Age: The Age response-header field conveys the sender’s estimate of the amount of time since the response (or its revalidation) was generated at the origin server. 说人话就是CDN反代服务器到原始服务器获取数据延时的缓存时间<br><img src="http://omjy3y3o5.bkt.clouddn.com/78357eee1a7414813f7a1777729fd198.png" alt="缓存"></p>
 <h4 id="缓存源码"><a href="#缓存源码" class="headerlink" title="缓存源码"></a>缓存源码</h4><p>OkHttp中使用了CacheStrategy实现了上文的流程图，它根据之前的缓存结果与当前将要发送Request的header进行策略分析，并得出是否进行请求的结论。<br>Request:<br>开发者手动编写并在Interceptor中递归加工而成的对象（如果读者需要调试分析的话，可以用logging-interceptor进行log操作），我们只需要知道了目前传入的Request中并没有任何关于缓存的Header<br>cacheCandidate:<br>也就是上次与服务器交互缓存的Response，可能为null。这里的缓存全部是基于文件系统的Map，key是请求中url的md5，value是在文件中查询到的缓存，页面置换基于LRU算法，我们现在只需要知道它是一个可以读取缓存Header的Response即可。<br>当被CacheStrategy加工输出后，输出networkRequest与cacheResponse，根据是否为空执行不同的请求</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -575,6 +576,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>CacheStrategy使用Factory模式进行构造，参数如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">InternalCache responseCache = Internal.instance.internalCache(client);</span><br><span class="line"><span class="comment">//cacheCandidate从disklurcache中获取</span></span><br><span class="line"><span class="comment">//request的url被md5序列化为key,进行缓存查询</span></span><br><span class="line">Response cacheCandidate = responseCache != <span class="keyword">null</span> ? responseCache.get(request) : <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//请求与缓存</span></span><br><span class="line">factory = <span class="keyword">new</span> CacheStrategy.Factory(now, request, cacheCandidate);</span><br><span class="line">cacheStrategy = factory.get();</span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line">networkRequest = cacheStrategy.networkRequest;</span><br><span class="line">cacheResponse = cacheStrategy.cacheResponse;</span><br><span class="line"><span class="comment">//进行一大堆的if判断，内容同上表格</span></span><br></pre></td></tr></table></figure>
 <p>可以看出Factory.get()是最关键的缓存策略的判断，我们点入get()方法，可以发现是对getCandidate()的一个封装，我们接着点开getCandidate()，全是if与数学计算，详细代码如下</p>
@@ -586,13 +588,13 @@
 <p>最后迭代(Iterator)时，迭代是从旧元素迭代到新元素，这就是LRU的实现</p>
 <p><strong>OkHttp中的关键对象如下：</strong><br>FileSystem: 使用Okio对File的封装，简化了IO操作<br>DiskLruCache.Editor: 添加了同步锁，并对FileSystem进行高度封装<br>DiskLruCache.Entry: 维护着key对应的多个文件<br>Cache.Entry: Responsejava对象与Okio流的序列化/反序列化类<br>DiskLruCache: 维护着文件的创建，清理，读取。内部有清理线程池，LinkedHashMap(也就是LruCache)<br>Cache: 被上级代码调用，提供透明的put/get操作，封装了缓存检查条件与DiskLruCache，开发者只用配置大小即可，不需要手动管理<br>Response/Requset: OkHttp的请求与回应</p>
 <h5 id="文件初级封装-FileSystem"><a href="#文件初级封装-FileSystem" class="headerlink" title="文件初级封装(FileSystem)"></a>文件初级封装(FileSystem)</h5><p>众所周之，文件读写是流操作，是一大堆的令人头痛的try/cache操作，在OkHttp中设计了FileSystem.SYSTEM作为文件层的管理。通过用Okio库中的Source/Sink对File进行包装，而不用更为头痛的InputStream这类东西，使上层调用与管道操作一样简单。<br>File(低级操作，步骤繁琐) -&gt; Okio(封装) －&gt; FileSystem(友好工具类)</p>
-<h5 id="文件高级封装-DiskLruCache-Entry-Editor-Snapshot"><a href="#文件高级封装-DiskLruCache-Entry-Editor-Snapshot" class="headerlink" title="文件高级封装(DiskLruCache.Entry/Editor/Snapshot)"></a>文件高级封装(DiskLruCache.Entry/Editor/Snapshot)</h5><p>本部分进行了如下的转换，进行了实际的put/get操作<br>FileSystem &lt;– DiskLruCache.Entry/Editor –&gt; source/sink(更少参数)<br>DiskLruCache.Entry针对每个请求的url对应的文件进行引用维护（而没有进行创建/读取等操作），它内部维护了2个File数组，一般来说每个url对应2～4个文件。 文件名命名规则是{md5(url)+ {0,1}}，后面的0或1，分别表示ENTRY_METADATA与ENTRY_BODY。<br>DiskLruCache.Editor对工具类FileSystem进行进一步的封装，它以DiskLruCache.Entry作为构造参数，通过操控Entry中维护的数组，对外暴露source/sink，为上层的java对象与文件的转换提供基于okio的流操作，我们可以通过对它的两个方法进行FindUsage查询获得OkHttp关于文件读写的全部场景</p>
-<h5 id="序列化与反序列化-Cache-Entry"><a href="#序列化与反序列化-Cache-Entry" class="headerlink" title="序列化与反序列化(Cache.Entry)"></a>序列化与反序列化(Cache.Entry)</h5><p>文件存储本质上也是序列化与反序列化的过程。本部分提供了下图的转变<br>Resonse(java对象) &lt;— Cache.Entry —&gt; source/sink(文件io)<br>代码部分不复杂，与上面的findusage位置相同，可以概括下：<br>如果信息本身就是二进制，就直接写到文件中；如果是文本信息，按照预设的格式写入即可。<br>至于序列化后的东西到底是什么，可以直接在shell下运行cat命令或者打开文本编辑器进行输出查看。<br>注意这里的Cache.Entry与上面的DiskLruCache.Entry是两个完全不同的对象</p>
+<h5 id="文件高级封装-DiskLruCache-Entry-Editor-Snapshot"><a href="#文件高级封装-DiskLruCache-Entry-Editor-Snapshot" class="headerlink" title="文件高级封装(DiskLruCache.Entry/Editor/Snapshot)"></a>文件高级封装(DiskLruCache.Entry/Editor/Snapshot)</h5><p>本部分进行了如下的转换，进行了实际的put/get操作<br>FileSystem &lt;— DiskLruCache.Entry/Editor —&gt; source/sink(更少参数)<br>DiskLruCache.Entry针对每个请求的url对应的文件进行引用维护（而没有进行创建/读取等操作），它内部维护了2个File数组，一般来说每个url对应2～4个文件。 文件名命名规则是{md5(url)+ {0,1}}，后面的0或1，分别表示ENTRY_METADATA与ENTRY_BODY。<br>DiskLruCache.Editor对工具类FileSystem进行进一步的封装，它以DiskLruCache.Entry作为构造参数，通过操控Entry中维护的数组，对外暴露source/sink，为上层的java对象与文件的转换提供基于okio的流操作，我们可以通过对它的两个方法进行FindUsage查询获得OkHttp关于文件读写的全部场景</p>
+<h5 id="序列化与反序列化-Cache-Entry"><a href="#序列化与反序列化-Cache-Entry" class="headerlink" title="序列化与反序列化(Cache.Entry)"></a>序列化与反序列化(Cache.Entry)</h5><p>文件存储本质上也是序列化与反序列化的过程。本部分提供了下图的转变<br>Resonse(java对象) &lt;—- Cache.Entry —-&gt; source/sink(文件io)<br>代码部分不复杂，与上面的findusage位置相同，可以概括下：<br>如果信息本身就是二进制，就直接写到文件中；如果是文本信息，按照预设的格式写入即可。<br>至于序列化后的东西到底是什么，可以直接在shell下运行cat命令或者打开文本编辑器进行输出查看。<br>注意这里的Cache.Entry与上面的DiskLruCache.Entry是两个完全不同的对象</p>
 <h5 id="缓存的自动清理"><a href="#缓存的自动清理" class="headerlink" title="缓存的自动清理"></a>缓存的自动清理</h5><p>在DiskLruCache初始化时，将建立线程池，最少零个线程，最大一个线程，线程空闲可以活60s，线程名叫做”OkHttp DiskLruCache”，当JVM退出时，线程自动结束。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Runnable cleanupRunnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (DiskLruCache.<span class="keyword">this</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!initialized | closed) &#123;</span><br><span class="line">        <span class="keyword">return</span>; <span class="comment">// Nothing to do</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//遍历LRU缓存(从旧到新进行遍历map),并删除文件</span></span><br><span class="line">        <span class="comment">//直到小于MaxSize为止</span></span><br><span class="line">        trimToSize();</span><br><span class="line">        <span class="keyword">if</span> (journalRebuildRequired()) &#123;</span><br><span class="line">          rebuildJournal();</span><br><span class="line">          redundantOpCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>OkHttp通过对文件进行了多次封装，实现了非常简单的I/O操作<br>OkHttp通过对请求url进行md5实现了与文件的映射，实现写入，删除等操作<br>OkHttp内部维护着清理线程池，实现对缓存文件的自动清理</p>
 <h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><h5 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h5><p>代理，也就是有个中间服务器帮助你访问不存在的网站，okhttp中使用jdk自带的代理</p>
-<p>You —- Proxy —– Server<br>HTTP代理的本质是改Header信息，当你访问HTTP/HTTPS服务时，本质是明文向跳板发送如下raw，远程服务器帮你完成dns与请求操作，比如HTTPS请求源码就详细的解释了发送的内容是非加密的，下面是我实际抓包的内容</p>
+<p>You —— Proxy ——- Server<br>HTTP代理的本质是改Header信息，当你访问HTTP/HTTPS服务时，本质是明文向跳板发送如下raw，远程服务器帮你完成dns与请求操作，比如HTTPS请求源码就详细的解释了发送的内容是非加密的，下面是我实际抓包的内容</p>
 <p>//HTTP 请求<br>GET HTTP&#x3A;//www.qq.com HTTP/1.1<br>//HTTPS 请求<br>CONNECT github.com:443 HTTP/1.1<br>上面的抓包过程，廉价的民用上网行为管理交换机就可以把你记录的一清二楚，所以慎用HTTP代理或者尽量使用HTTPS代理，它是“不安全”的。</p>
 <h5 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h5><p>DNS也就是域名到ip的映射(mapping)操作，用户向DNS服务器的53端口发送udp包后，会返回域名对应的地址，当然发送udp的细节对用户是透明的，用户直接调用jdk就可以了。我们先试下Unix下的查询</p>
 <p>$ host baidu.com<br>baidu.com has address 111.13.101.208<br>baidu.com has address 123.125.114.144<br>…..<br>在OkHttp中，提供了DNS接口，默认是使用Dns.SYSTEM，它包装了java原生socket包中的InetAddress.getAllByName(hostname)方法。</p>
@@ -996,7 +998,7 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

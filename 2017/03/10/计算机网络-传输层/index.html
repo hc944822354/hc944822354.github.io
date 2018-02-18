@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -132,13 +132,13 @@
 
 
 
-  <title> 计算机网络-传输层之流量控制 | Andeper的个人博客 </title>
+  <title> 计算机网络-传输层之流量控制 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
-<script>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '',
@@ -468,7 +468,7 @@
         <h5 id="套接字地址"><a href="#套接字地址" class="headerlink" title="套接字地址"></a>套接字地址</h5><p>一个IP和一个端口号结合起来称为一个套接字地址<br>我们使用传输层需要一对套接字地址<br>这四条信息时网络层分组头部和传输层分组头部的组成部分</p>
 <h4 id="封装与解封装"><a href="#封装与解封装" class="headerlink" title="封装与解封装"></a>封装与解封装</h4><p>传输层负责封装与解封装报文<br>传输层的分组称为用户数据报</p>
 <h5 id="多路复用与多路分解"><a href="#多路复用与多路分解" class="headerlink" title="多路复用与多路分解"></a>多路复用与多路分解</h5><p>一个实体从一个以上的源接收到数据项时称为多路复用<br>一个实体将数据项传递到一个以上的源时称为多路分解</p>
-<h5 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h5><p><strong>(重点，面试考到过，典型的生产者消费者模型)</strong><br>当一个实体创建数据项并有另一个实体消耗它们时，就存在生产效率和消费效率的平衡问题。如果数据项生产比消费快，那么消费者可能被淹没并且可能要丢弃一些数据项。如果数据项生产者比消费者慢，那么消费者必须等待，系统变的低效。<br><strong>push or pull</strong><br>生产者传递数据项到消费者有两种方式：推或拉。<br>每当发送方生产数据项时，它无需事前获得消费者的请求就会发送它们–这种传递称为push<br>如果生产者在消费者请求这些数据项之后进行发送，这种传递称为pull<br><strong>传输层流量控制</strong><br>传输层通信中，我们需要处理四个实体：发送端进程、发送方传输层、接收方传输层、接收方进程<br>发送方进程仅仅是一个生产者，它生产报文块，并把它们推到传输层。<br>发送方传输层有两个作用：既是生产者也是消费者，消费生产者推送的报文，传递到接收方传输层<br>接收方传输层也有两个作用：消费从发送方那里接受来的分组，也是生产者，解封装报文传递到接收方应用层<br>接收方<br>我们至少需要两种流量控制：从发送方传输层到发送方应用层的流量控制和从接收方传输层到发送方传输层的流量控制<br><strong>缓冲区</strong><br>通常使用两个缓冲区：一个位于发送方传输层，一个位于接收方传输层。<br>缓冲区是一组内存单元<br>当发送端传输层的缓冲区已满，他就通知应用层停止传输报文块：当有空闲位置时，它通知应用层可以再次传输报文块<br>当接收方传输层的缓冲区已满，他就通知发送方停止传输分组；当有空闲位置时，它通知发送方传输层可以再次传输分组</p>
+<h5 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h5><p><strong>(重点，面试考到过，典型的生产者消费者模型)</strong><br>当一个实体创建数据项并有另一个实体消耗它们时，就存在生产效率和消费效率的平衡问题。如果数据项生产比消费快，那么消费者可能被淹没并且可能要丢弃一些数据项。如果数据项生产者比消费者慢，那么消费者必须等待，系统变的低效。<br><strong>push or pull</strong><br>生产者传递数据项到消费者有两种方式：推或拉。<br>每当发送方生产数据项时，它无需事前获得消费者的请求就会发送它们—这种传递称为push<br>如果生产者在消费者请求这些数据项之后进行发送，这种传递称为pull<br><strong>传输层流量控制</strong><br>传输层通信中，我们需要处理四个实体：发送端进程、发送方传输层、接收方传输层、接收方进程<br>发送方进程仅仅是一个生产者，它生产报文块，并把它们推到传输层。<br>发送方传输层有两个作用：既是生产者也是消费者，消费生产者推送的报文，传递到接收方传输层<br>接收方传输层也有两个作用：消费从发送方那里接受来的分组，也是生产者，解封装报文传递到接收方应用层<br>接收方<br>我们至少需要两种流量控制：从发送方传输层到发送方应用层的流量控制和从接收方传输层到发送方传输层的流量控制<br><strong>缓冲区</strong><br>通常使用两个缓冲区：一个位于发送方传输层，一个位于接收方传输层。<br>缓冲区是一组内存单元<br>当发送端传输层的缓冲区已满，他就通知应用层停止传输报文块：当有空闲位置时，它通知应用层可以再次传输报文块<br>当接收方传输层的缓冲区已满，他就通知发送方停止传输分组；当有空闲位置时，它通知发送方传输层可以再次传输分组</p>
 <h5 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h5><p>网络层不可靠，可靠性通过传输层的差错控制实现，复杂以下几个方面：<br>1.发现并对其被破坏的分组<br>2.记录丢失和丢弃的分组并重传它们<br>3.识别重复分组并丢弃它们<br>4.缓冲失序分组直到丢失的分组到达<br><strong>序号</strong><br>传输层要直到哪个分组是失序的<br>需要在传输层分组中加入一个字段来保存分组的序号<br>一般要设置一个界限。如允许m个比特位，序号范围是0到2</p>
 
       
@@ -865,7 +865,7 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
