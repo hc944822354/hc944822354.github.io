@@ -379,6 +379,308 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/18/神经网络基础之逻辑回归_/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-18T17:33:04+08:00">
+                2018-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/18/神经网络基础之逻辑回归_/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/18/神经网络基础之逻辑回归_/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title: 神经网络基础之逻辑回归<br>date: 2018-01-26T17:11:36.000Z</p>
+<h2 id="tags-null"><a href="#tags-null" class="headerlink" title="tags: null"></a>tags: null</h2><p><strong>附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，<a href="http://blog.csdn.net/zryxh1/article/details/53161011" target="_blank" rel="noopener">md语法|LaTex数学公式</a>。遇到不知道的符号可以去在线编辑器选择查看代码 <a href="http://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="noopener">Latex在线编辑器</a></strong></p>
+<h3 id="Binary-Classification"><a href="#Binary-Classification" class="headerlink" title="Binary Classification"></a>Binary Classification</h3><p>逻辑回归模型一般是用来解决二分类(Binary Classification)问题。二分类就是输出y只有{0，1}两个离散值(也有{1,-1}的情况)。<br>我们以一个图像识别问题为例，判断图片中是否有猫的存在，0代表no cat，1代表cat，如下图所示。<br><img src="/2018/02/18/神经网络基础之逻辑回归_/binaryclassification.png" alt="binaryclassification"><br>主要通过这个例子简要介绍神经网络模型中的一些标准化的、有效率的处理方法和notations。<br><img src="/2018/02/18/神经网络基础之逻辑回归_/binaryclassification2.png" alt="binaryclassification2"><br>如上图所示，这是一个典型的二分类问题。一般来说，彩色图片包含RGB三个通道。例如该cat的图片尺寸为(64,64,3)。在神经网络模型中，我们首先要将图片输入x转化为一维的特征向量(feature vector)。方法是每个通道一行一行取，再连接起来。由于<img src="https://latex.codecogs.com/gif.latex?64&#x5C;times%2064&#x5C;times%203=%2012288">，转化后的输入特征向量维度为(12288,1)。此特征向量x是列向量，维度一般记为<img src="https://latex.codecogs.com/gif.latex?n_x">。<br>如果训练样本共有m张图片，那么整个训练样本X组成了矩阵，维度是<img src="https://latex.codecogs.com/gif.latex?(n_x,1)">。注意，这里的矩阵X的行<img src="https://latex.codecogs.com/gif.latex?n_x">代表了每个样本<img src="https://latex.codecogs.com/gif.latex?x^{(i)}">特征个数，列m代表了样本个数。这里Andrew解释了X的维度之所以是<img src="https://latex.codecogs.com/gif.latex?(n_x,m)">而不是<img src="https://latex.codecogs.com/gif.latex?(m,n_x)">是为了之后矩阵运算的方便。而所有的训练样本的输出Y也组成了一维的行向量，写成矩阵的形式后，它的维度就是<img src="https://latex.codecogs.com/gif.latex?(1,m)">。</p>
+<h3 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h3><p>如何使用逻辑回归来解决二分类问题。逻辑回归中，预测值<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{h}=P(y=1|x)">表示为1的概率，取值范围在[0,1]之间。这是其与二分类模型不同的地方。使用线性模型，引入参数w和b。权重w的维度是<img src="https://latex.codecogs.com/gif.latex?(n_x,1)">,b是一个常数项。这样，逻辑回归的线性预测输出可以写成：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{h}=w^{T}x+b"></p><br>值得注意的是，很多其他机器学习资料中，可能吧常数b当作<img src="https://latex.codecogs.com/gif.latex?w_0">处理，并引入<img src="https://latex.codecogs.com/gif.latex?x_0=1">,这样从维度上来看，x和w都会增加一维，但在本课程中，为了简化计算和便于理解，Andrew建议还是用上式这种形式将w和b分开比较好。<br>上式的线性输出区间为整个实数范围，而逻辑回归要求输出范围在[0,1]之间，所以还需要对上式的线性函数输出进行处理，方法是引入Sigmoid函数，让输出限定在[0,1]之间。这样，逻辑回归的预测输出就可以完整写成：<p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}=Sigmoid(w^{T}x+b)=&#x5C;sigma(w^{T}+b)"></p><br>Sigmoid函数是一种非线性的S型函数，输出被限定在[0,1]之间，通常被用在神经网络中当作激活函数(Activation function)使用。Sigmoid函数的表达式和曲线如下：<p align="center"><img src="https://latex.codecogs.com/gif.latex?Sigmoid(z)=&#x5C;frac{1}{1+e^{-z}}"></p>  <p></p>
+<p><img src="/2018/02/18/神经网络基础之逻辑回归_/Sigmoid" alt="sigmoid"><br>从Sigmoid函数可以看出，当z值很大时，函数值趋向于1；当z值很小时，函数值趋向于0.且当z=0时，函数值为0.5。Sigmoid函数的一阶导数可以用其自身表示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;sigma(z)=&#x5C;sigma(z)(1-&#x5C;sigma(z))"></p><br>这样，通过Sigmoid函数，就能够将逻辑回归的输出限定在[0,1]之间了。<p></p>
+<h3 id="Logistic-Regression-Cost-Function"><a href="#Logistic-Regression-Cost-Function" class="headerlink" title="Logistic Regression Cost Function"></a>Logistic Regression Cost Function</h3><p>逻辑回归中，w和b都是未知参数，需要反复训练和优化得到。因此，我们需要定义一个cost function，包含了参数w和b。通过优化cost function ，当cost function取值最小时，得到对应的w和b</p>
+<p>对于m个训练样本，我们通常使用上标来表示对应的样本，例如<img src="https://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)})">来表示第i个样本。</p>
+<p>如何定义所有m个样本的cost function呢，先从单个样本出发，我们希望该样本的预测值<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实值越相似越好。我们把单个样本的cost function用Loss function来表示，根据以往经验，如果使用平方误差(squared error)来衡量，如下所示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)%20=%20&#x5C;frac{1}{2}(&#x5C;hat{y}-y)^{2}"></p><br>但是对于逻辑回归，我们一般不用平方误差来衡量，因为这种Loss function一般是non-convex(非凸性)的。non-convex函数在使用梯度下降法时，容易得到局部最小值(local minmum),即局部最优化。而我们的目标是计算得到全局最优化(Global optimization).因此，我们一般选择的Loss function应该是convex的。<p></p>
+<p>Loss function的原则和目的是衡量预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat(y)">与真实样本输出y的接近程度。平方误差其实也可以，只是它是non-convex的，不利于使用梯度下降法来进行全局优化。因此，我们可以构建另外一种Loss function，且是convex的，如下所示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-(ylog&#x5C;hat{y}+(1-y)log(1-&#x5C;hat{y}))"></p><br>这个Loss function。它是衡量误差大小的，Loss function越小越好。<p></p>
+<p>当y=1时，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-log&#x5C;hat{y}">,如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近1，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx0">,表示预测效果越好；如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近0，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx+&#x5C;infty">,表示预测效果越差。这正是我们希望Loss function所实现的功能。</p>
+<p>当y=0时，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-log(1-&#x5C;hat{y})">.如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近于0，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx0">,表示预测效果越好；如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近于1，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx+&#x5C;infty">,表示预测效果越差。这也正是我们希望Loss function所实现的功能。</p>
+<p>因此，这个Loss function能够很好地反映预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实样本输出y的接近程度，越接近的话，其Loss function的值越小。而且这个函数是convex的。上面我们只是简要分析为什么要使用这个Loss function后面的课程将详细推导这个Loss function是如何得到的</p>
+<p>Loss function是针对单个样本的，对于m个样本，我们定义Cost function。Cost function是m的样本的Loss function的平均值，反映了m个样本的预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实样本输出y的平均接近程度。Cost function可表示为：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?J(w,b)=&#x5C;frac{1}{m}&#x5C;sum&#x5C;limits_{k=1}^m[y^{(i)}log&#x5C;hat{y}^{(i)}+(1-y^{(i)})log(1-&#x5C;hat{y}^{(i)})]"></p>  <p></p>
+<p>Cost function已经推导出来了，Cost function是关于待求系数w和b的函数。我们的目标是迭代计算出最佳的w和b值，最小化Cost function，让Cost function尽可能接近于零。</p>
+<p>其实逻辑回归问题可以看成是一个简单的神经网络，只包含一个神经元。这也是我们先介绍逻辑回归的原因。</p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>我们已经掌握Cost function的表达式，接下来将使用梯度下降(Gradient Descent)算法计算出合适的w和b值，从而最小化m个训练样本的Cost function，即J(w,b)。</p>
+<p>由于J(w,b)是convex function，梯度下降算法是先随机选择一组参数w和b值，然后每次迭代的过程中分别沿着w和b的梯度(偏导数)的反方向前进一小步，不断修正w和b。每次迭代更新w和b后，都能让J(w,b)更接近全局最小值。梯度下降的过程如下图所示<br><img src="/2018/02/18/神经网络基础之逻辑回归_/GradientDescent" alt="GradientDescent"><br>梯度下降算法每次迭代更新，w和b的修正表达式为</p>
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?w:=w-&#x5C;alpha&#x5C;frac{&#x5C;partial%20J(w,b)}{&#x5C;partial%20w}"></p>  
+
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2018/01/26/神经网络基础之逻辑回归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/26/神经网络基础之逻辑回归/" itemprop="url">
+                  神经网络基础之逻辑回归
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T17:11:36+08:00">
+                2018-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/26/神经网络基础之逻辑回归/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/26/神经网络基础之逻辑回归/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，<a href="http://blog.csdn.net/zryxh1/article/details/53161011" target="_blank" rel="noopener">md语法|LaTex数学公式</a>。遇到不知道的符号可以去在线编辑器选择查看代码 <a href="http://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="noopener">Latex在线编辑器</a></strong></p>
+<h3 id="Binary-Classification"><a href="#Binary-Classification" class="headerlink" title="Binary Classification"></a>Binary Classification</h3><p>逻辑回归模型一般是用来解决二分类(Binary Classification)问题。二分类就是输出y只有{0，1}两个离散值(也有{1,-1}的情况)。<br>我们以一个图像识别问题为例，判断图片中是否有猫的存在，0代表no cat，1代表cat，如下图所示。<br><img src="/2018/01/26/神经网络基础之逻辑回归/binaryclassification.png" alt="binaryclassification"><br>主要通过这个例子简要介绍神经网络模型中的一些标准化的、有效率的处理方法和notations。<br><img src="/2018/01/26/神经网络基础之逻辑回归/binaryclassification2.png" alt="binaryclassification2"><br>如上图所示，这是一个典型的二分类问题。一般来说，彩色图片包含RGB三个通道。例如该cat的图片尺寸为(64,64,3)。在神经网络模型中，我们首先要将图片输入x转化为一维的特征向量(feature vector)。方法是每个通道一行一行取，再连接起来。由于$64\times 64\times 3= 12288$，转化后的输入特征向量维度为(12288,1)。此特征向量x是列向量，维度一般记为$n_x$。<br>如果训练样本共有m张图片，那么整个训练样本X组成了矩阵，维度是$(n_x,1)$。注意，这里的矩阵X的行$n_x$代表了每个样本$x^{(i)}$特征个数，列m代表了样本个数。这里Andrew解释了X的维度之所以是$(n_x,m)$而不是$(m,n_x)$是为了之后矩阵运算的方便。而所有的训练样本的输出Y也组成了一维的行向量，写成矩阵的形式后，它的维度就是$(1,m)$。</p>
+<h3 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h3><p>如何使用逻辑回归来解决二分类问题。逻辑回归中，预测值$\hat{h}=P(y=1|x)$表示为1的概率，取值范围在[0,1]之间。这是其与二分类模型不同的地方。使用线性模型，引入参数w和b。权重w的维度是$(n_x,1)$,b是一个常数项。这样，逻辑回归的线性预测输出可以写成：$$\hat{h}=w^{T}x+b$$值得注意的是，很多其他机器学习资料中，可能吧常数b当作$w_0$处理，并引入$x_0=1$,这样从维度上来看，x和w都会增加一维，但在本课程中，为了简化计算和便于理解，Andrew建议还是用上式这种形式将w和b分开比较好。<br>上式的线性输出区间为整个实数范围，而逻辑回归要求输出范围在[0,1]之间，所以还需要对上式的线性函数输出进行处理，方法是引入Sigmoid函数，让输出限定在[0,1]之间。这样，逻辑回归的预测输出就可以完整写成：$$\hat{y}=Sigmoid(w^{T}x+b)=\sigma(w^{T}+b)$$Sigmoid函数是一种非线性的S型函数，输出被限定在[0,1]之间，通常被用在神经网络中当作激活函数(Activation function)使用。Sigmoid函数的表达式和曲线如下：$$Sigmoid(z)=\frac{1}{1+e^{-z}}$$<br><img src="/2018/01/26/神经网络基础之逻辑回归/Sigmoid" alt="sigmoid"><br>从Sigmoid函数可以看出，当z值很大时，函数值趋向于1；当z值很小时，函数值趋向于0.且当z=0时，函数值为0.5。Sigmoid函数的一阶导数可以用其自身表示：$$\sigma(z)=\sigma(z)(1-\sigma(z))$$这样，通过Sigmoid函数，就能够将逻辑回归的输出限定在[0,1]之间了。</p>
+<h3 id="Logistic-Regression-Cost-Function"><a href="#Logistic-Regression-Cost-Function" class="headerlink" title="Logistic Regression Cost Function"></a>Logistic Regression Cost Function</h3><p>逻辑回归中，w和b都是未知参数，需要反复训练和优化得到。因此，我们需要定义一个cost function，包含了参数w和b。通过优化cost function ，当cost function取值最小时，得到对应的w和b</p>
+<p>对于m个训练样本，我们通常使用上标来表示对应的样本，例如$(x^{(i)},y^{(i)})$来表示第i个样本。</p>
+<p>如何定义所有m个样本的cost function呢，先从单个样本出发，我们希望该样本的预测值$\hat{y}$与真实值越相似越好。我们把单个样本的cost function用Loss function来表示，根据以往经验，如果使用平方误差(squared error)来衡量，如下所示：$$L(\hat{y},y) = \frac{1}{2}(\hat{y}-y)^{2}$$但是对于逻辑回归，我们一般不用平方误差来衡量，因为这种Loss function一般是non-convex(非凸性)的。non-convex函数在使用梯度下降法时，容易得到局部最小值(local minmum),即局部最优化。而我们的目标是计算得到全局最优化(Global optimization).因此，我们一般选择的Loss function应该是convex的。</p>
+<p>Loss function的原则和目的是衡量预测输出$\hat(y)$与真实样本输出y的接近程度。平方误差其实也可以，只是它是non-convex的，不利于使用梯度下降法来进行全局优化。因此，我们可以构建另外一种Loss function，且是convex的，如下所示：$$L(\hat{y},y)=-(ylog\hat{y}+(1-y)log(1-\hat{y}))$$这个Loss function。它是衡量误差大小的，Loss function越小越好。</p>
+<p>当y=1时，$L(\hat{y},y)=-log\hat{y}$,如果$\hat{y}$越接近1，$L(\hat{y},y)\approx0$,表示预测效果越好；如果$\hat{y}$越接近0，$L(\hat{y},y)\approx+\infty$,表示预测效果越差。这正是我们希望Loss function所实现的功能。</p>
+<p>当y=0时，$L(\hat{y},y)=-log(1-\hat{y})$.如果$\hat{y}$越接近于0，$L(\hat{y},y)\approx0$,表示预测效果越好；如果$\hat{y}$越接近于1，$L(\hat{y},y)\approx+\infty$,表示预测效果越差。这也正是我们希望Loss function所实现的功能。</p>
+<p>因此，这个Loss function能够很好地反映预测输出$\hat{y}$与真实样本输出y的接近程度，越接近的话，其Loss function的值越小。而且这个函数是convex的。上面我们只是简要分析为什么要使用这个Loss function后面的课程将详细推导这个Loss function是如何得到的</p>
+<p>Loss function是针对单个样本的，对于m个样本，我们定义Cost function。Cost function是m的样本的Loss function的平均值，反映了m个样本的预测输出$\hat{y}$与真实样本输出y的平均接近程度。Cost function可表示为：$$J(w,b)=\frac{1}{m}\sum\limits_{k=1}^m[y^{(i)}log\hat{y}^{(i)}+(1-y^{(i)})log(1-\hat{y}^{(i)})]$$<br>Cost function已经推导出来了，Cost function是关于待求系数w和b的函数。我们的目标是迭代计算出最佳的w和b值，最小化Cost function，让Cost function尽可能接近于零。</p>
+<p>其实逻辑回归问题可以看成是一个简单的神经网络，只包含一个神经元。这也是我们先介绍逻辑回归的原因。</p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>我们已经掌握Cost function的表达式，接下来将使用梯度下降(Gradient Descent)算法计算出合适的w和b值，从而最小化m个训练样本的Cost function，即J(w,b)。</p>
+<p>由于J(w,b)是convex function，梯度下降算法是先随机选择一组参数w和b值，然后每次迭代的过程中分别沿着w和b的梯度(偏导数)的反方向前进一小步，不断修正w和b。每次迭代更新w和b后，都能让J(w,b)更接近全局最小值。梯度下降的过程如下图所示<br><img src="/2018/01/26/神经网络基础之逻辑回归/GradientDescent" alt="GradientDescent"><br>梯度下降算法每次迭代更新，w和b的修正表达式为<br>$$w:=w-\alpha\frac{\partial J(w,b)}{\partial w}$$<br>$$b:=b-\alpha\frac{\partial J(w,b)}{\partial b}$$<br>上式中，$\alpha$是学习因子(learning rate),表示梯度下降的步进长度。$\alpha$越大，w和b每次更新的“步伐”更大一些；$\alpha$越小，w和b每次更新的“步伐”更小一些。在程序代码中，我们通常使用dw来表示$frac{\partial J(w,b)}{\partial w}$，用db来表示$\frac{\partial J(w,b)}{\partial b}$。微积分里，$\frac{df}{dx}$表示对单一变量求导数，$\frac{\partial f}{\partial x}$表示对多个变量中的某个变量求偏导数。</p>
+<p>梯度下降算法能够保证每次迭代w和b都能向着J(w,b)全局最小化的方向进行，其数学原理主要是运用泰勒一阶展开来证明的</p>
+<h3 id="Derivatives"><a href="#Derivatives" class="headerlink" title="Derivatives"></a>Derivatives</h3><p>这一部分内容主要是Andrew对微积分、求导数进行介绍。梯度或者导数一定程度上可以看成斜率，这里不再赘述。</p>
+<h3 id="More-Derivatives-Examples"><a href="#More-Derivatives-Examples" class="headerlink" title="More Derivatives Examples"></a>More Derivatives Examples</h3><p>Andrew给出更复杂求导数的例子。</p>
+<h3 id="Computation-graph"><a href="#Computation-graph" class="headerlink" title="Computation graph"></a>Computation graph</h3><p>整个神经网络的训练过程实际上包含了两个过程：正向传播(Forward Propagation)和反向传播(Back Propagation)。正向传播是从输入到输出，由神经网络计算的到预测输出的过程，反向传播是从输出到输入，对参数w和b计算梯度的过程。下面，我们用计算图(Computation graph)的形式来理解这两个过程。</p>
+<p>举个简单的例子，假如Cost function为J(a,b,c)=3(a+bc),包含啊a,b,c三个变量。我们用u表示bc，v表示a+u,则J=3v。它的计算图可以写成如下图所示：<br><img src="/2018/01/26/神经网络基础之逻辑回归/Computationgraph" alt="Computationgraph"><br>令a=5,b=3,c=2,则u=bc=6，v=a+u=11，J=3v=33。计算图中，这种从左到右，从输入到输出的过程就对应着神经网络或者逻辑回归中输入与权重经过运算计算得到Cost function的正向过程。</p>
+<h3 id="Derivatives-with-a-Computation-Graph"><a href="#Derivatives-with-a-Computation-Graph" class="headerlink" title="Derivatives with a Computation Graph"></a>Derivatives with a Computation Graph</h3><p>上一部分介绍的是计算图的正向传播(Forward Propagation),下面我们来介绍其反向传播(Back Propagation),即计算输出对输入的偏导数。</p>
+<p>还是上个计算图的例子，输入参数有3个，分别是a，b，c。</p>
+<p>首先计算J对参数a的偏导数。从计算图上来看，从右到左，J是v的函数，v是a的函数，则利用求导技巧，可以得到：$$\frac{\partial J}{\partial a}=\frac{\partial J}{\partial v}\cdot\frac{\partial v}{\partial a}=3\cdot1=3$$<br>根据这种思想，然后计算J对参数b的偏导数。从计算图上来看，从右到左，J是v的函数，v是u的函数，u是b的函数。可以推导：$$\frac{\partial J}{\partial b}=\frac{\partial J}{\partial v}\cdot\frac{\partial v}{\partial u}\cdot\frac{\partial u}{\partial b}=3\cdot 1\cdot c=3\cdot 1\cdot 2=6$$<br>最后计算J对参数c的偏导数。仍从计算图上来看，从右到左，J是v的函数，v是u的函数，u是c的函数。可以推导：$$\frac{\partial J}{\partial c}=\frac{\partial J}{\partial v}\cdot\frac{\partial v}{\partial u}\cdot\frac{\partial u}{\partial c}=3\cdot 1\cdot b=3\cdot 1\cdot 3=9$$<br>为了同一格式，在程序代码中，我们使用da，db，dc来表示J对参数a，b，c的偏导数。<br><img src="/2018/01/26/神经网络基础之逻辑回归/Computationgraph2" alt="Computationgraph2"></p>
+<h3 id="Logistic-Regression-Gradient-Descent"><a href="#Logistic-Regression-Gradient-Descent" class="headerlink" title="Logistic Regression Gradient Descent"></a>Logistic Regression Gradient Descent</h3><p>现在，我们将对逻辑回归进行梯度计算。对单个样本而言，逻辑回归Loss function表达式如下：<br>$$z=w^{T}x+b$$ $$\hat{y}=a=\sigma(z)$$ $$L(a,y)=-(ylog(a)+(1-y)log(1-a))$$<br>首先，该逻辑回归的正向传播过程非常简单。根据上述公式，例如输入样本x有两个特征(x1,x2),相应的权重w维度也是2，即(w1,w2)。则$z=w_1x_1+w_2x_2+b$,最后的Loss function如下所示：<br><img src="/2018/01/26/神经网络基础之逻辑回归/Logisticregression" alt="Logisticregression"><br>然后，计算该逻辑回归的反向传播过程，即由Loss function计算参数w和b的偏导数。推导过程如下：$$da=\frac{\partial L}{\partial a}= -\frac{y}{a}+\frac{1-y}{1-a}$$<br>$$ dz=\frac{\partial L}{\partial z}=\frac{\partial L}{\partial a}\cdot\frac{\partial a}{\partial z}= (-\frac{y}{a}+\frac{1-y}{1-a})\cdot a(1-a)= a-y $$ 知道了dz之后，就可以直接对$W_1,W_2$和b进行求导了。<br>$$dw_1=\frac{\partial L}{\partial w_1}=\frac{\partial L}{\partial z}\cdot\frac{\partial z}{\partial w_1}=x_1\cdot dz=x_1(a-y)$$<br>$$dw_2=\frac{\partial L}{\partial w_2}=\frac{\partial L}{\partial z}\cdot\frac{\partial z}{\partial w_2}=x_2\cdot dz=x_2(a-y)$$<br>$$db=\frac{\partial L}{\partial b}=\frac{\partial L}{\partial z}\cdot\frac{\partial z}{\partial b}=1\cdot dz=a-y$$<br>则梯度下降算法可以表示为：<br>$$w_1:=w_1-\alpha dw_1$$<br>$$w_2:=w_2-\alpha dw_2$$<br>$$b:=b-\alpha db$$<br><img src="/2018/01/26/神经网络基础之逻辑回归/Logisticregression2" alt="Logisticregression2"></p>
+<h3 id="Gradient-Descent-on-m-examples"><a href="#Gradient-Descent-on-m-examples" class="headerlink" title="Gradient Descent on m examples"></a>Gradient Descent on m examples</h3><p>上一部分讲的是对单个样本求偏导和梯度下降。如果有m个样本，其Cost function 表达式如下：<br>$$z^{(i)}=w^{T}x^{(i)}+b$$<br>$$\hat{y}^{(i)}=a^{(i)}=\sigma(z^{(i)})$$<br>$$J(w,b)=\frac{1}{m}\sum\limits<em>{i=1}^mL(\hat{y}^{(i)},y^{(i)})=-\frac{1}{m}\sum\limits</em>{i=1}^m[y^{(i)}log\hat{y}^{(i)}+(1-y^{(i)})log(1-\hat{y}^{(i)})]$$<br>Cost function关于w和b的偏导数可以写成和平均的形式<br>$$dw<em>1=\frac{1}{m}\sum\limits</em>(i=1)^{(m)}x_1^{(i)}(a^{(i)}-y^{(i)})$$<br>$$dw<em>2=\frac{1}{m}\sum\limits</em>(i=1)^{(m)}x<em>2^{(i)}(a^{(i)}-y^{(i)})$$<br>$$db=\frac{1}{m}\sum\limits</em>(i=1)^{(m)}(a^{(i)}-y^{(i)})$$</p>
+<p>这次，每次迭代中w和b的梯度有m个训练样本计算平均值得到。其算法流程图如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">J=0;dw1=0; dw2=0;db=0;</span><br><span class="line">for i = 1 to m</span><br><span class="line">    z(i) = wx(i)+b;</span><br><span class="line">    a(i) = sigmoid(z(i));</span><br><span class="line">    J += -[y(i)log(a(i))+(1-y(i)）log(1-a(i));</span><br><span class="line">    dz(i) = a(i)-y(i);</span><br><span class="line">    dw1 += x1(i)dz(i);</span><br><span class="line">    dw2 += x2(i)dz(i);</span><br><span class="line">    db += dz(i);</span><br><span class="line">J /= m;</span><br><span class="line">dw1 /= m;</span><br><span class="line">dw2 /= m;</span><br><span class="line">db /= m;</span><br></pre></td></tr></table></figure></p>
+<p>这样经过n次迭代后，整个梯度下降算法就完成了。</p>
+<p>在上述的梯度下降算法中，我们是利用for循环对每个样本进行dw1，dw2和db的累加计算最后再求平均数的。在深度学习中，样本数量m通常很大，使用for循环会让神经网络程序运行得很慢。所以，我们应该尽量避免使用for循环操作，而使用矩阵运算，能够大大提高程序运行速度。</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>本节课主要介绍了神经网络的基础——逻辑回归。首先，我们介绍了二分类问题，以图片为例，将多维输入x转化为feature vector，输出y只有{0，1}两个离散值。介绍了逻辑回归及其对应的Cost function 形式，然后介绍了梯度下降算法，并使用计算图的方式来讲述神经网络的正向传播和反向传播两个过程，总结出最优化参数w和b的算法流程。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2018/01/17/深度学习概论/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -467,16 +769,16 @@
         
           
             <p>由于毕业设计选择了深度学习相关的选题，我便开始学习深度学习相关的课程，使用的课程资源是吴恩达的《神经网络与深度学习》,<a href="http://mooc.study.163.com/smartSpec/detail/1001319001.htm" target="_blank" rel="noopener">课程链接</a>,最近的博客基本会以这个课程的笔记为主。</p>
-<p>###What is a neural network?<br>什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。</p>
+<h3 id="What-is-a-neural-network"><a href="#What-is-a-neural-network" class="headerlink" title="What is a neural network?"></a>What is a neural network?</h3><p>什么是神经网络，下面通过一个简单的例子引入神经网络模型的概念。</p>
 <p>加入我们要建立房价的预测模型，一共有六个房子。我们已知输入x即每个房子的面积，还知道其对应的输出y即每个房子的价格。根据这些输入输出，我们要简历一个函数模型，来预测房价。根据这些输入输出，我们要建立一个函数模型，来预测房价：y=f(x)。首先，我们将已知的六间房子的价格和面积关系绘制在二维平面上，如下图所示：<br><img src="/2018/01/17/深度学习概论/housepriceprediction.png" alt="housepriceprediction"><br>一般地，我们会用一条之间来拟合图中这些离散点，即建立房价与面积的线性模型。但是从实际考虑，我们知道价格永远不会是负数。所以，我们对该之间做一点点修正，让它编程折线的形状，当面积小于某个值时，价格始终为零，如下图蓝色折线所示，这就是我们建立的房价预测模型<br><img src="/2018/01/17/深度学习概论/housepriceprediction2.png" alt="housepriceprediction2"><br>其实这个简单的模型(蓝色折线)就可以看成是一个神经网络，而且几乎是一个最简单的神经网络，我们把房价预测用一个最简单的神经网络模型来表示，如下图所示<br><img src="/2018/01/17/深度学习概论/networkneuron.png" alt="networkneuron"><br>该神经网络的输入x是房屋面积，输入y是房屋价格，中间包含了一个神经元(neuron)，房价预测函数(蓝色折线)。该神经元的功能就是实现函数f(x)的功能。</p>
 <p>上图神经元的预测函数在神经网络应用中比较常见，我们把这个函数称为ReLU函数，即线性整流函数，如下图所示<br><img src="/2018/01/17/深度学习概论/ReLU.png" alt="ReLU"></p>
 <p>上面讲的只是由单个神经元(输入x仅仅是房屋面积一个因素)组成的神经网络，而通常一个大型的神经网络往往由许多个神经元组成。</p>
 <p>现在，我们把上面房价预测例子变得更复杂，而不仅仅使用房屋面积(size)一个判断因素。例如，除了考虑房屋面积之外，我们还考虑卧室数目(bedrooms)。这两点实际上与家庭成员的个数(family size)有关。还有房屋的邮政编码(zip code)，代表着该房屋位置的交通便利性，是否需要步行还是开车？即决定了可步行性(walkability)。另外，还有可能邮政编码和地区财富水平(wealth)共同影响了房屋所在地区的学校质量(school quality)。如下图所示，该神经网络共有三个神经元，分别代表了family size，walkability和school quality。每个神经元都包含了一个ReLU函数(或者其他非线性函数)。那么，根据这个模型，我们可以根据房屋面积和卧室个数来估计family size，根据邮政编码来估计walkability，根据邮政编码和财富水平来估计school quality。最后，由family size，walkability和school quality灯这些人们比较关心的因素来预测最终的房屋价格。<br><img src="/2018/01/17/深度学习概论/housepriceprediction3.png" alt="housepriceprediction3"><br>所以，在这个例子中，x是size，bedrooms，zip code，wealth这四个输入；y是房屋的预测价格。这个神经网络模型包含的神经元个数更多一些，相对之前的单个神经元的模型更加复杂。那么，在建立一个表现良好的神经网络模型之后，在给定输入x时，就能得到比较好的输出y，即房屋的预测价格。</p>
 <p>实际上，上面这个例子神经网络模型结构如下所示，分别是size，bedrooms，zip code和wealth。在给定这四个输入后，神经网络所做的就是输出房屋的预测价格y。图中，三个神经元所在的位置称之称之为中间层或者隐藏层(x所在的称之为输入层，y所在的称之为输出层)，每个神经元与所有的输入x都有关联。<br><img src="/2018/01/17/深度学习概论/housepriceprediction4.png" alt="housepriceprediction4"><br>这就是基本的神经网络模型结构。在训练的过程中，只要有足够的输入x和输出y，就能训练出较好的神经网络模型，该模型在此类房价预测问题中，能够得到比较准确的结果。</p>
-<p>###Supervised Learning with Neural Network<br>目前为止，由神经网络模型创造的价值基本上都是基于监督式学习(Supervised Learning)的，监督式学习与非监督式学习本质区别就是是否已知训练样本的输出y。在实际应用中，机器学习解决的大部分问题都属于监督式学习，神经网络模型也大都属于监督式学习。下面举几个监督式学习在神经网络中应用的例子。<br>第一个例子是房屋价格预测。根据训练样本的输入x和输出y，训练神经网络模型，预测房价。<br>第二个例子是线上广告，输入x是广告和用户个人信息，输入y是用户是否对广告进行点击。神经网络模型经过训练，能够根据广告类型和用户信息对用户的点击行为进行预测，从而向用户提供自己可能感兴趣的广告。<br>第三个例子是电脑视觉(computer vision)。输入x是图片像素值，输出是图片所属的不同类别。<br>第四个例子是语音识别(speech recognition).可以将一段语音信号辨识为相应的文字信息。<br>第五个例子是智能翻译，通过神经网络输入英文，然后直接输出中文。<br>第六个例子是自动驾驶。通过输入一张图片或者汽车雷达信息，神经网络通过训练来告诉你相应的路况并做出相应的决策。<br>如下图所示<br><img src="/2018/01/17/深度学习概论/监督式学习.png" alt="监督式学习"></p>
+<h3 id="Supervised-Learning-with-Neural-Network"><a href="#Supervised-Learning-with-Neural-Network" class="headerlink" title="Supervised Learning with Neural Network"></a>Supervised Learning with Neural Network</h3><p>目前为止，由神经网络模型创造的价值基本上都是基于监督式学习(Supervised Learning)的，监督式学习与非监督式学习本质区别就是是否已知训练样本的输出y。在实际应用中，机器学习解决的大部分问题都属于监督式学习，神经网络模型也大都属于监督式学习。下面举几个监督式学习在神经网络中应用的例子。<br>第一个例子是房屋价格预测。根据训练样本的输入x和输出y，训练神经网络模型，预测房价。<br>第二个例子是线上广告，输入x是广告和用户个人信息，输入y是用户是否对广告进行点击。神经网络模型经过训练，能够根据广告类型和用户信息对用户的点击行为进行预测，从而向用户提供自己可能感兴趣的广告。<br>第三个例子是电脑视觉(computer vision)。输入x是图片像素值，输出是图片所属的不同类别。<br>第四个例子是语音识别(speech recognition).可以将一段语音信号辨识为相应的文字信息。<br>第五个例子是智能翻译，通过神经网络输入英文，然后直接输出中文。<br>第六个例子是自动驾驶。通过输入一张图片或者汽车雷达信息，神经网络通过训练来告诉你相应的路况并做出相应的决策。<br>如下图所示<br><img src="/2018/01/17/深度学习概论/监督式学习.png" alt="监督式学习"></p>
 <p>对于不同的问题和应用场合，应该使用不同类型的神经网络模型。上面介绍的几个例子中，<br>对于一般的监督式学习(房价预测和线上广告问题)，我们只要使用标准的神经网络模型就可以了。图像识别处理问题，我们则要使用卷积神经网络(Convolution Neural Network)即CNN。而对于处理类似语音这样的序列信号时，则要使用循环神经网络(Recurrent Neural Network),即RNN。还有其他例如自动驾驶这样的复杂问题则需要更加复杂的混合神经网络模型。<br>下面给出Standard NN，Convolutional NN和Recurrent NN的神经网络结构图。<br><img src="/2018/01/17/深度学习概论/CNNRNN.png" alt="CNNRNN"><br>CNN一般处理图像问题，RNN一般处理语音信号。</p>
 <p>数据类型一般分为两种：结构化数据(Structured Data)和非结构化数据(Unstructured Data)。<br><img src="/2018/01/17/深度学习概论/结构化数据与非结构化数据.png" alt="结构化数据与非结构化数据"></p>
-<p>###Why is Deep Learning taking off?<br>深度学习和神经网络背后的技术思想已经出现了数十年了，那么为什么直到现在才开始发挥作用呢？<br>深度学习为什么强大？下面我们用一张图来说明。如下图所示，横坐标x表示数据量(Amount of data),纵坐标y表示机器学习模型的性能表现(Performance)。<br><img src="/2018/01/17/深度学习概论/Performance.png" alt="Performance"><br>上面共有4条曲线。最底下那条红色曲线代表了传统机器学习算法的表现，例如是SVM，logistic regression，decision tree等，当数据量比较小的时候，传统学习模型的表现是比较好的，但是当数据量很大的时候表现很一般。黄色曲线代表了规模较小的神经网络模型(Small NN)。它在数据量大的时候性能优于传统机器学习。蓝色曲线代表了规模中等的神经网络模型(Media NN),它在数据量更大的时候表现比Small NN更好。绿色曲线代表了更大规模的神经网络(Large NN),即深度学习模型。从图中可以看出，在数据量很大的时候，它的表现仍然是最好的，而且基本上保持了较快的上升趋势。<br>深度学习强大的原因归结为3个因素：<br><strong>Data</strong><br><strong>Computation</strong><br><strong>Algorithms</strong><br>数据量的几何级数增加<br>GPU出现，计算机运算能力大大提升。<br>举个算法改进的例子：之前神经网络神经元的激活函数是Sigmoid函数，后来改成了ReLU函数。更改的原因是对于Sigmoid函数，在远离Sigmoid函数，后来改成了ReLU函数。之所以这样更改的原因是对于Sigmoid函数，在远离零点的位置，函数曲线非常平缓，其梯度始终为0，所以造成神经网络模型学习速度变得很慢。然而，ReLU函数在x大于零的区域，其梯度始终为1，尽管x在小于零的区域梯度为0，但是在实际应用中采用ReLU函数确实比Sigmoid函数快很多。<br>构建一个深度学习的流程是首先开始产生Idea，然后把Idea转化为Code，最后进行Experiment。根据结果修改Idea，继续这种循环，直到最终训练得到表现不错的深度学习网络模型。</p>
+<h3 id="Why-is-Deep-Learning-taking-off"><a href="#Why-is-Deep-Learning-taking-off" class="headerlink" title="Why is Deep Learning taking off?"></a>Why is Deep Learning taking off?</h3><p>深度学习和神经网络背后的技术思想已经出现了数十年了，那么为什么直到现在才开始发挥作用呢？<br>深度学习为什么强大？下面我们用一张图来说明。如下图所示，横坐标x表示数据量(Amount of data),纵坐标y表示机器学习模型的性能表现(Performance)。<br><img src="/2018/01/17/深度学习概论/Performance.png" alt="Performance"><br>上面共有4条曲线。最底下那条红色曲线代表了传统机器学习算法的表现，例如是SVM，logistic regression，decision tree等，当数据量比较小的时候，传统学习模型的表现是比较好的，但是当数据量很大的时候表现很一般。黄色曲线代表了规模较小的神经网络模型(Small NN)。它在数据量大的时候性能优于传统机器学习。蓝色曲线代表了规模中等的神经网络模型(Media NN),它在数据量更大的时候表现比Small NN更好。绿色曲线代表了更大规模的神经网络(Large NN),即深度学习模型。从图中可以看出，在数据量很大的时候，它的表现仍然是最好的，而且基本上保持了较快的上升趋势。<br>深度学习强大的原因归结为3个因素：<br><strong>Data</strong><br><strong>Computation</strong><br><strong>Algorithms</strong><br>数据量的几何级数增加<br>GPU出现，计算机运算能力大大提升。<br>举个算法改进的例子：之前神经网络神经元的激活函数是Sigmoid函数，后来改成了ReLU函数。更改的原因是对于Sigmoid函数，在远离Sigmoid函数，后来改成了ReLU函数。之所以这样更改的原因是对于Sigmoid函数，在远离零点的位置，函数曲线非常平缓，其梯度始终为0，所以造成神经网络模型学习速度变得很慢。然而，ReLU函数在x大于零的区域，其梯度始终为1，尽管x在小于零的区域梯度为0，但是在实际应用中采用ReLU函数确实比Sigmoid函数快很多。<br>构建一个深度学习的流程是首先开始产生Idea，然后把Idea转化为Code，最后进行Experiment。根据结果修改Idea，继续这种循环，直到最终训练得到表现不错的深度学习网络模型。</p>
 
           
         
@@ -1515,294 +1817,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2017/03/14/算法面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/算法面试题/" itemprop="url">
-                  算法面试题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:24:00+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/14/算法面试题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/算法面试题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.爬n阶楼梯，每次只能爬1步或者2步，求总的走法。<br>这个我回答是斐波那契数列<br>2.汉罗塔，让我用算法实现<br>3.50亿qq号排序 这个我感觉也没有回答好<br>4.在一百个数中寻找重复数字，并对自己提出的算法进行更进一步的优化<br>5.判断在一个链表中是否有环<br>6.口述用Java代码去实现利用二叉排序树去排一个无序的一维数组<br>对动态规划的理解<br>最优子结构+重叠子问题</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2017/03/14/Android面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/Android面试题/" itemprop="url">
-                  Android面试题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:15:00+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/14/Android面试题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/Android面试题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>AIDL, Binder，AMS， 启动流程， view绘制， 消息队列，Binder open(), map(),</p>
-<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p><a href="http://blog.csdn.net/chenrushui/article/details/51724506" target="_blank" rel="noopener">http://blog.csdn.net/chenrushui/article/details/51724506</a></p>
-<h4 id="对Android系统了解多少"><a href="#对Android系统了解多少" class="headerlink" title="对Android系统了解多少"></a>对Android系统了解多少</h4><p>我说知道Binder机制和Android系统启动过程<br>答主牛皮，忘这两个方面扯</p>
-<h4 id="Binder机制"><a href="#Binder机制" class="headerlink" title="Binder机制"></a>Binder机制</h4><p>类比TCP协议，从应用层说到了Linux内核驱动<br>Binder通信的四个角色：<br>Client进程：使用服务的进程。<br>Server进程：提供服务的进程。<br>ServiceManager进程：ServiceManager的作用是将字符形式的Binder名字转化成Client中对该Binder的引用，使得Client能够通过Binder名字获得对Server中Binder实体的引用。<br>Binder驱动：驱动负责进程之间Binder通信的建立，Binder在进程之间的传递，Binder引用计数管理，数据包在进程之间的传递和交互等一系列底层支持。<br>初次接触这些概念可能会觉得难于理解，读者可以把四个角色和熟悉的互联网进行类比：Server是服务器，Client是客户终端，ServiceManager是域名服务器（DNS），驱动是路由器。这样类比，你很容易就能理解下图：<br><img src="http://omjy3y3o5.bkt.clouddn.com/3426a4d163ae99a9f31836e8c7325dd5.png" alt="binder"><br>Binder的运行机制就很好理解了，Server进程向Service Manager进程注册服务（可访问的方法接口），Client进程通过Binder驱动可以访问到Server进程提供的服务。Binder驱动管理着Binder之间的数据传递，这个数据的具体格式由Binder协议定义（可以类比为网络传输的TCP协议）。并且Binder驱动持有每个Server在内核中的Binder实体，并给Client进程提供Binder的引用。<br>Binder跨进程传输并不是真的把一个对象传输到了另外一个进程；传输过程好像是Binder跨进程穿越的时候，它在一个进程留下了一个真身，在另外一个进程幻化出一个影子（这个影子可以很多个）；Client进程的操作其实是对于影子的操作，影子利用Binder驱动最终让真身完成操作。</p>
-<ol>
-<li>Client、Server和Service Manager实现在用户空间中，Binder驱动程序实现在内核空间中</li>
-<li>Binder驱动程序和Service Manager在Android平台中已经实现，开发者只需要在用户空间实现自己的Client和Server</li>
-<li>Binder驱动程序提供设备文件/dev/binder与用户空间交互，Client、Server和Service Manager通过open和ioctl文件操作函数与Binder驱动程序进行通信</li>
-<li>Client和Server之间的进程间通信通过Binder驱动程序间接实现</li>
-<li>Service Manager是一个守护进程，用来管理Server，并向Client提供查询Server接口的能力</li>
-</ol>
-<h4 id="Linux中进程A能否直接访问进行进程B？为什么？"><a href="#Linux中进程A能否直接访问进行进程B？为什么？" class="headerlink" title="Linux中进程A能否直接访问进行进程B？为什么？"></a>Linux中进程A能否直接访问进行进程B？为什么？</h4><p>我说不能，因为内存独立。面试官问两个进程会不会内存重叠？然后我就沉默了</p>
-<h4 id="一个应用为什么要开多个进程？"><a href="#一个应用为什么要开多个进程？" class="headerlink" title="一个应用为什么要开多个进程？"></a>一个应用为什么要开多个进程？</h4><p>我说有的应用是流氓，进程间相互保活，有的是处于业务考虑，有的是解决65535方法数问题。</p>
-<h4 id="一个应用中Activity启动另一个Activity和一个应用中Activity启动另一个应用中Acvtivity的差别大吗？"><a href="#一个应用中Activity启动另一个Activity和一个应用中Activity启动另一个应用中Acvtivity的差别大吗？" class="headerlink" title="一个应用中Activity启动另一个Activity和一个应用中Activity启动另一个应用中Acvtivity的差别大吗？"></a>一个应用中Activity启动另一个Activity和一个应用中Activity启动另一个应用中Acvtivity的差别大吗？</h4><p>扯到了Binder机制，任务栈应用的创建以及Activity的创建。</p>
-<h4 id="view，SurfaceView，GLSurfaceView的关系和区别"><a href="#view，SurfaceView，GLSurfaceView的关系和区别" class="headerlink" title="view，SurfaceView，GLSurfaceView的关系和区别"></a>view，SurfaceView，GLSurfaceView的关系和区别</h4><p>SurfaceView和View最本质的区别在于，surfaceView是在一个新起的单独线程中可以重新绘制画面而View必须在UI的主线程中更新画面。<br>那么在UI的主线程中更新画面 可能会引发问题，比如你更新画面的时间过长，那么你的主UI线程会被你正在画的函数阻塞。那么将无法响应按键，触屏等消息。<br>当使用surfaceView 由于是在新的线程中更新画面所以不会阻塞你的UI主线程。但这也带来了另外一个问题，就是事件同步。比如你触屏了一下，你需要surfaceView中 thread处理，一般就需要有一个event queue的设计来保存touch event，这会稍稍复杂一点，因为涉及到线程同步。<br>所以基于以上，根据游戏特点，一般分成两类。</p>
-<ol>
-<li>被动更新画面的。比如棋类，这种用view就好了。因为画面的更新是依赖于 onTouch 来更新，可以直接使用 invalidate。 因为这种情况下，这一次Touch和下一次的Touch需要的时间比较长些，不会产生影响。</li>
-<li>主动更新。比如一个人在一直跑动。这就需要一个单独的thread不停的重绘人的状态，避免阻塞main UI thread。所以显然view不合适，需要surfaceView来控制。<br>GLSurfaceView（Android中3D游戏专用画布）中渲染图片的对比中发现GLSurfaceView的效率高于SurfaceView的30倍；GLSurfaceView的效率主要是因为机器硬件的GPU加速，现在flash技术也有了GPU加速技术；<br>下面总结一下：<br>一般2D游戏使用SurfaceView足够，所以不要认为什么都要使用GLSurfaceView（openGL），而且 GLSurfaceView的弊端在于适配能力差，因为很多机型中是没有GPU加速的。<h4 id="各种动画的区别，500张图片怎么使用帧动画实现，怎样避免OOM，平时用什么动画，属性动画和补间动画的区别"><a href="#各种动画的区别，500张图片怎么使用帧动画实现，怎样避免OOM，平时用什么动画，属性动画和补间动画的区别" class="headerlink" title="各种动画的区别，500张图片怎么使用帧动画实现，怎样避免OOM，平时用什么动画，属性动画和补间动画的区别"></a>各种动画的区别，500张图片怎么使用帧动画实现，怎样避免OOM，平时用什么动画，属性动画和补间动画的区别</h4>View动画，帧动画和属性动画<h4 id="对懒加载的理解"><a href="#对懒加载的理解" class="headerlink" title="对懒加载的理解"></a>对懒加载的理解</h4><h4 id="开发过程中整体怎么考虑，注意什么方面"><a href="#开发过程中整体怎么考虑，注意什么方面" class="headerlink" title="开发过程中整体怎么考虑，注意什么方面"></a>开发过程中整体怎么考虑，注意什么方面</h4><h4 id="横竖屏切换生命周期的调用，怎么配置"><a href="#横竖屏切换生命周期的调用，怎么配置" class="headerlink" title="横竖屏切换生命周期的调用，怎么配置"></a>横竖屏切换生命周期的调用，怎么配置</h4><h4 id="有几种广播，怎么配置，有什么区别，自己对粘性广播的理解，系统中有什么用到了粘性广播"><a href="#有几种广播，怎么配置，有什么区别，自己对粘性广播的理解，系统中有什么用到了粘性广播" class="headerlink" title="有几种广播，怎么配置，有什么区别，自己对粘性广播的理解，系统中有什么用到了粘性广播"></a>有几种广播，怎么配置，有什么区别，自己对粘性广播的理解，系统中有什么用到了粘性广播</h4><h4 id="系统异常退出怎么保存数据，调用什么方法，怎么恢复数据，在哪里恢复数据"><a href="#系统异常退出怎么保存数据，调用什么方法，怎么恢复数据，在哪里恢复数据" class="headerlink" title="系统异常退出怎么保存数据，调用什么方法，怎么恢复数据，在哪里恢复数据"></a>系统异常退出怎么保存数据，调用什么方法，怎么恢复数据，在哪里恢复数据</h4><h4 id="fragment-和-fragmentPagerAdapter使用-fragment在哪个方法中初始化的"><a href="#fragment-和-fragmentPagerAdapter使用-fragment在哪个方法中初始化的" class="headerlink" title="fragment 和 fragmentPagerAdapter使用,fragment在哪个方法中初始化的"></a>fragment 和 fragmentPagerAdapter使用,fragment在哪个方法中初始化的</h4><h4 id="什么情况会造成内存泄露，怎么避免，handler为什么会内存泄露，怎么解决，为什么要用弱引用"><a href="#什么情况会造成内存泄露，怎么避免，handler为什么会内存泄露，怎么解决，为什么要用弱引用" class="headerlink" title="什么情况会造成内存泄露，怎么避免，handler为什么会内存泄露，怎么解决，为什么要用弱引用"></a>什么情况会造成内存泄露，怎么避免，handler为什么会内存泄露，怎么解决，为什么要用弱引用</h4><h4 id="各种情况的优化，比如listview加载数据怎么优化，有几种优化的方案，LRCache原理"><a href="#各种情况的优化，比如listview加载数据怎么优化，有几种优化的方案，LRCache原理" class="headerlink" title="各种情况的优化，比如listview加载数据怎么优化，有几种优化的方案，LRCache原理"></a>各种情况的优化，比如listview加载数据怎么优化，有几种优化的方案，LRCache原理</h4><h4 id="如何防止Service被kill"><a href="#如何防止Service被kill" class="headerlink" title="如何防止Service被kill"></a>如何防止Service被kill</h4><h4 id="AIDL使用，源码"><a href="#AIDL使用，源码" class="headerlink" title="AIDL使用，源码"></a>AIDL使用，源码</h4><h4 id="对进程守护的理解"><a href="#对进程守护的理解" class="headerlink" title="对进程守护的理解"></a>对进程守护的理解</h4><h4 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h4><h4 id="滑动冲突解决，事件分发机制"><a href="#滑动冲突解决，事件分发机制" class="headerlink" title="滑动冲突解决，事件分发机制"></a>滑动冲突解决，事件分发机制</h4><h4 id="adapter-和-listview-的工作流程，转换流程，内部原理"><a href="#adapter-和-listview-的工作流程，转换流程，内部原理" class="headerlink" title="adapter 和 listview 的工作流程，转换流程，内部原理"></a>adapter 和 listview 的工作流程，转换流程，内部原理</h4><h4 id="自定义view流程，onMeasure三种模式的区别和应用，对MeasureSpec的理解"><a href="#自定义view流程，onMeasure三种模式的区别和应用，对MeasureSpec的理解" class="headerlink" title="自定义view流程，onMeasure三种模式的区别和应用，对MeasureSpec的理解"></a>自定义view流程，onMeasure三种模式的区别和应用，对MeasureSpec的理解</h4><h4 id="继承ViewGroup，在纸上写出，如何自定义-LinearLayout-和-Relativelayout"><a href="#继承ViewGroup，在纸上写出，如何自定义-LinearLayout-和-Relativelayout" class="headerlink" title="继承ViewGroup，在纸上写出，如何自定义 LinearLayout 和  Relativelayout"></a>继承ViewGroup，在纸上写出，如何自定义 LinearLayout 和  Relativelayout</h4><h4 id="打开手机随便指出一个界面，怎么自定义View实现，流程"><a href="#打开手机随便指出一个界面，怎么自定义View实现，流程" class="headerlink" title="打开手机随便指出一个界面，怎么自定义View实现，流程"></a>打开手机随便指出一个界面，怎么自定义View实现，流程</h4></li>
-</ol>
-<p>1.singleTask是否了解，举一个它的使用场景，后续问到会调用的方法。<br>各个模式的出入栈我能说出，但是singleTask的使用场景一时懵逼，举了个更适合singleTop的场景，果然问我觉得这种使用singleTask是不是最佳选择，自己觉得不是最佳，做了解释。</p>
-<p>2.listView与recycleView常用哪个？(常用listView)问一下listView复用的问题。<br>a.说一下listView是怎么复用view的。<br>描述了listView重新使用已经移出屏幕的view。<br>b.怎么复用view。<br>这个肯定熟悉的，但是自己一来没经验二来太紧张，描述起来乱七八糟。<br>c.不使用viewHolder能不能进行view的复用。<br>这一个我一时也没能想出，大家能不能提供一个思路？还是根本就不行呢？<br>d.描述了一个场景，一个listView共有200项，10项可以占满屏幕，从顶部一直滑到底部，期间不向上滑，使用了复用的情况下，getView方法调用调用多少次，convertView初始化了几次。<br>自己回答gatView是每次都要的，convertView我们使用复用应该是10次。面试官人很好，说提示一下初始化了11或者12次，思考下为什么，我表示懵逼(其实此时大脑早已短路，对这次也没再抱有多大希望)。面试官告诉我，当我们最下方未完全滑入上方为完全滑出，这时也是要初始化的。我再次在心里感叹了自己智商掉线。</p>
-<p>3.考虑这样一个布局怎么实现，就是常见的浏览器搜索框输入的时候，下方会出现搜索热词，各个热词排满一行后进入下一行。<br>我的思维已经完全僵化，也是没get他实际想问的知识，自己思考了使用各种布局利用各种wrapcontent、gravity，但是没有想到。面试官说其实这个比较难了，需要用到自定义viewGroup，我不肯放过机会机会表示自定义viewGroup我是写过的，实现这一个的话可以在layout方法操作，超过一行后布局到下一行。面试官紧接着问layout方法是什么作用，我只回答了确定各个子view的位置，此处需要大家帮助解答。</p>
-<p>4.说一下view和viewGroup的事件传递机制吧，dispatchTouchEvent、onTouch和onTouchEvent先后先后顺序，还有onInterceptTouchEvent。<br>这一个自己其实当天还是仔细看过的，但是太紧张了，说的乱七八糟，尤其是拦截的部分，表述太差，也的确是了解不够，面试官表示了解的比较浅显。</p>
-<p>5.contentprovider是否只能是数据库的数据，别的程序怎样读取。<br>自己只说出了contentResolver和uri，定义权限没说清楚。</p>
-<p>6.描述了一个场景，微博中点击一个淘宝的链接，打开了淘宝应用，这是怎么完成的。</p>
-<p>7.说一下fragment和activity的通信。<br>自己说到自定义接口，在fragment初始化时判定是否实现了接口，面试官紧接着问在哪个生命周期函数可以判断，我回答onAttach是双方绑定，onActivityCreated是activity的onCreate已经返回，我都是在onActivityCreated里判断的。面试官没有评价，此处求解。</p>
-<p>8.fragment内部怎样嵌套fragment。<br>这个地方的好多函数我忘记了，所以自然说不出……事后自己查看是getChildFragmentManger，但是记成了getChildFragmentContext。面试官紧接着问，内层frag调用getContext获取的是哪一个context，自己之前就已经记错，回答是获取外层的，面试官无奈说回去自己写一下代码试下。</p>
-<p>8.java的问题<br>a.静态内部类与非静态内部类区别。<br>b.因为前一个问题提到了内存泄漏，紧接着问你是怎么理解内存泄漏的。<br>c.什么样的对象是应该回收的呢？<br>bc两个问题自己答的乱七八糟，应该说我是懂得基本的道理的，但是叙述太差，说不准确也说不到要点。<br>d.匿名内部类有没有构造方法。<br>e.匿名内部类使用局部变量的要求。为什么要是final的。<br>为什么是final的表示不知道，其实自己查过多次，但是好像这里处理的很模糊？</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1847,7 +1866,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

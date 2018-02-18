@@ -1,0 +1,919 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="title: 神经网络基础之逻辑回归date: 2018-01-26T17:11:36.000Z tags: null附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，md语法|LaTex数学公式。遇到不知道的符号可以去在线编辑器选择查看代码 Latex在线编辑器 Binary Classification逻辑回归模型一般是用来解决二分类(Binary Classificatio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andeper的个人博客">
+<meta property="og:url" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="title: 神经网络基础之逻辑回归date: 2018-01-26T17:11:36.000Z tags: null附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，md语法|LaTex数学公式。遇到不知道的符号可以去在线编辑器选择查看代码 Latex在线编辑器 Binary Classification逻辑回归模型一般是用来解决二分类(Binary Classificatio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/binaryclassification.png">
+<meta property="og:image" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/binaryclassification2.png">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?64\times%2064\times%203=%2012288">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?n_x">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(n_x,1)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?n_x">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?x^{(i)}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(n_x,m)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(m,n_x)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(1,m)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{h}=P(y=1|x)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(n_x,1)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{h}=w^{T}x+b">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?w_0">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?x_0=1">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}=Sigmoid(w^{T}x+b)=\sigma(w^{T}+b)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?Sigmoid(z)=\frac{1}{1+e^{-z}}">
+<meta property="og:image" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/Sigmoid">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\sigma(z)=\sigma(z)(1-\sigma(z))">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)})">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)%20=%20\frac{1}{2}(\hat{y}-y)^{2}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat(y)">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)=-(ylog\hat{y}+(1-y)log(1-\hat{y}))">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)=-log\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)\approx0">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)\approx+\infty">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)=-log(1-\hat{y})">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)\approx0">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?L(\hat{y},y)\approx+\infty">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\hat{y}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?J(w,b)=\frac{1}{m}\sum\limits_{k=1}^m[y^{(i)}log\hat{y}^{(i)}+(1-y^{(i)})log(1-\hat{y}^{(i)})]">
+<meta property="og:image" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/GradientDescent">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?w:=w-\alpha\frac{\partial%20J(w,b)}{\partial%20w}">
+<meta property="og:updated_time" content="2018-02-18T09:33:04.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Andeper的个人博客">
+<meta name="twitter:description" content="title: 神经网络基础之逻辑回归date: 2018-01-26T17:11:36.000Z tags: null附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，md语法|LaTex数学公式。遇到不知道的符号可以去在线编辑器选择查看代码 Latex在线编辑器 Binary Classification逻辑回归模型一般是用来解决二分类(Binary Classificatio">
+<meta name="twitter:image" content="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/binaryclassification.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/"/>
+
+
+
+
+
+  <title>  | Andeper的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-18T17:33:04+08:00">
+                2018-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/18/神经网络基础之逻辑回归_/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/18/神经网络基础之逻辑回归_/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>title: 神经网络基础之逻辑回归<br>date: 2018-01-26T17:11:36.000Z</p>
+<h2 id="tags-null"><a href="#tags-null" class="headerlink" title="tags: null"></a>tags: null</h2><p><strong>附：从本章开始常用到数学符号和公式，这里贴出在md中写公式的方法，<a href="http://blog.csdn.net/zryxh1/article/details/53161011" target="_blank" rel="noopener">md语法|LaTex数学公式</a>。遇到不知道的符号可以去在线编辑器选择查看代码 <a href="http://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="noopener">Latex在线编辑器</a></strong></p>
+<h3 id="Binary-Classification"><a href="#Binary-Classification" class="headerlink" title="Binary Classification"></a>Binary Classification</h3><p>逻辑回归模型一般是用来解决二分类(Binary Classification)问题。二分类就是输出y只有{0，1}两个离散值(也有{1,-1}的情况)。<br>我们以一个图像识别问题为例，判断图片中是否有猫的存在，0代表no cat，1代表cat，如下图所示。<br><img src="/2018/02/18/神经网络基础之逻辑回归_/binaryclassification.png" alt="binaryclassification"><br>主要通过这个例子简要介绍神经网络模型中的一些标准化的、有效率的处理方法和notations。<br><img src="/2018/02/18/神经网络基础之逻辑回归_/binaryclassification2.png" alt="binaryclassification2"><br>如上图所示，这是一个典型的二分类问题。一般来说，彩色图片包含RGB三个通道。例如该cat的图片尺寸为(64,64,3)。在神经网络模型中，我们首先要将图片输入x转化为一维的特征向量(feature vector)。方法是每个通道一行一行取，再连接起来。由于<img src="https://latex.codecogs.com/gif.latex?64&#x5C;times%2064&#x5C;times%203=%2012288">，转化后的输入特征向量维度为(12288,1)。此特征向量x是列向量，维度一般记为<img src="https://latex.codecogs.com/gif.latex?n_x">。<br>如果训练样本共有m张图片，那么整个训练样本X组成了矩阵，维度是<img src="https://latex.codecogs.com/gif.latex?(n_x,1)">。注意，这里的矩阵X的行<img src="https://latex.codecogs.com/gif.latex?n_x">代表了每个样本<img src="https://latex.codecogs.com/gif.latex?x^{(i)}">特征个数，列m代表了样本个数。这里Andrew解释了X的维度之所以是<img src="https://latex.codecogs.com/gif.latex?(n_x,m)">而不是<img src="https://latex.codecogs.com/gif.latex?(m,n_x)">是为了之后矩阵运算的方便。而所有的训练样本的输出Y也组成了一维的行向量，写成矩阵的形式后，它的维度就是<img src="https://latex.codecogs.com/gif.latex?(1,m)">。</p>
+<h3 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h3><p>如何使用逻辑回归来解决二分类问题。逻辑回归中，预测值<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{h}=P(y=1|x)">表示为1的概率，取值范围在[0,1]之间。这是其与二分类模型不同的地方。使用线性模型，引入参数w和b。权重w的维度是<img src="https://latex.codecogs.com/gif.latex?(n_x,1)">,b是一个常数项。这样，逻辑回归的线性预测输出可以写成：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{h}=w^{T}x+b"></p><br>值得注意的是，很多其他机器学习资料中，可能吧常数b当作<img src="https://latex.codecogs.com/gif.latex?w_0">处理，并引入<img src="https://latex.codecogs.com/gif.latex?x_0=1">,这样从维度上来看，x和w都会增加一维，但在本课程中，为了简化计算和便于理解，Andrew建议还是用上式这种形式将w和b分开比较好。<br>上式的线性输出区间为整个实数范围，而逻辑回归要求输出范围在[0,1]之间，所以还需要对上式的线性函数输出进行处理，方法是引入Sigmoid函数，让输出限定在[0,1]之间。这样，逻辑回归的预测输出就可以完整写成：<p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}=Sigmoid(w^{T}x+b)=&#x5C;sigma(w^{T}+b)"></p><br>Sigmoid函数是一种非线性的S型函数，输出被限定在[0,1]之间，通常被用在神经网络中当作激活函数(Activation function)使用。Sigmoid函数的表达式和曲线如下：<p align="center"><img src="https://latex.codecogs.com/gif.latex?Sigmoid(z)=&#x5C;frac{1}{1+e^{-z}}"></p>  <p></p>
+<p><img src="/2018/02/18/神经网络基础之逻辑回归_/Sigmoid" alt="sigmoid"><br>从Sigmoid函数可以看出，当z值很大时，函数值趋向于1；当z值很小时，函数值趋向于0.且当z=0时，函数值为0.5。Sigmoid函数的一阶导数可以用其自身表示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?&#x5C;sigma(z)=&#x5C;sigma(z)(1-&#x5C;sigma(z))"></p><br>这样，通过Sigmoid函数，就能够将逻辑回归的输出限定在[0,1]之间了。<p></p>
+<h3 id="Logistic-Regression-Cost-Function"><a href="#Logistic-Regression-Cost-Function" class="headerlink" title="Logistic Regression Cost Function"></a>Logistic Regression Cost Function</h3><p>逻辑回归中，w和b都是未知参数，需要反复训练和优化得到。因此，我们需要定义一个cost function，包含了参数w和b。通过优化cost function ，当cost function取值最小时，得到对应的w和b</p>
+<p>对于m个训练样本，我们通常使用上标来表示对应的样本，例如<img src="https://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)})">来表示第i个样本。</p>
+<p>如何定义所有m个样本的cost function呢，先从单个样本出发，我们希望该样本的预测值<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实值越相似越好。我们把单个样本的cost function用Loss function来表示，根据以往经验，如果使用平方误差(squared error)来衡量，如下所示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)%20=%20&#x5C;frac{1}{2}(&#x5C;hat{y}-y)^{2}"></p><br>但是对于逻辑回归，我们一般不用平方误差来衡量，因为这种Loss function一般是non-convex(非凸性)的。non-convex函数在使用梯度下降法时，容易得到局部最小值(local minmum),即局部最优化。而我们的目标是计算得到全局最优化(Global optimization).因此，我们一般选择的Loss function应该是convex的。<p></p>
+<p>Loss function的原则和目的是衡量预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat(y)">与真实样本输出y的接近程度。平方误差其实也可以，只是它是non-convex的，不利于使用梯度下降法来进行全局优化。因此，我们可以构建另外一种Loss function，且是convex的，如下所示：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-(ylog&#x5C;hat{y}+(1-y)log(1-&#x5C;hat{y}))"></p><br>这个Loss function。它是衡量误差大小的，Loss function越小越好。<p></p>
+<p>当y=1时，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-log&#x5C;hat{y}">,如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近1，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx0">,表示预测效果越好；如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近0，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx+&#x5C;infty">,表示预测效果越差。这正是我们希望Loss function所实现的功能。</p>
+<p>当y=0时，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)=-log(1-&#x5C;hat{y})">.如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近于0，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx0">,表示预测效果越好；如果<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">越接近于1，<img src="https://latex.codecogs.com/gif.latex?L(&#x5C;hat{y},y)&#x5C;approx+&#x5C;infty">,表示预测效果越差。这也正是我们希望Loss function所实现的功能。</p>
+<p>因此，这个Loss function能够很好地反映预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实样本输出y的接近程度，越接近的话，其Loss function的值越小。而且这个函数是convex的。上面我们只是简要分析为什么要使用这个Loss function后面的课程将详细推导这个Loss function是如何得到的</p>
+<p>Loss function是针对单个样本的，对于m个样本，我们定义Cost function。Cost function是m的样本的Loss function的平均值，反映了m个样本的预测输出<img src="https://latex.codecogs.com/gif.latex?&#x5C;hat{y}">与真实样本输出y的平均接近程度。Cost function可表示为：</p><p align="center"><img src="https://latex.codecogs.com/gif.latex?J(w,b)=&#x5C;frac{1}{m}&#x5C;sum&#x5C;limits_{k=1}^m[y^{(i)}log&#x5C;hat{y}^{(i)}+(1-y^{(i)})log(1-&#x5C;hat{y}^{(i)})]"></p>  <p></p>
+<p>Cost function已经推导出来了，Cost function是关于待求系数w和b的函数。我们的目标是迭代计算出最佳的w和b值，最小化Cost function，让Cost function尽可能接近于零。</p>
+<p>其实逻辑回归问题可以看成是一个简单的神经网络，只包含一个神经元。这也是我们先介绍逻辑回归的原因。</p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>我们已经掌握Cost function的表达式，接下来将使用梯度下降(Gradient Descent)算法计算出合适的w和b值，从而最小化m个训练样本的Cost function，即J(w,b)。</p>
+<p>由于J(w,b)是convex function，梯度下降算法是先随机选择一组参数w和b值，然后每次迭代的过程中分别沿着w和b的梯度(偏导数)的反方向前进一小步，不断修正w和b。每次迭代更新w和b后，都能让J(w,b)更接近全局最小值。梯度下降的过程如下图所示<br><img src="/2018/02/18/神经网络基础之逻辑回归_/GradientDescent" alt="GradientDescent"><br>梯度下降算法每次迭代更新，w和b的修正表达式为</p>
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?w:=w-&#x5C;alpha&#x5C;frac{&#x5C;partial%20J(w,b)}{&#x5C;partial%20w}"></p>  
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/26/神经网络基础之逻辑回归/" rel="next" title="神经网络基础之逻辑回归">
+                <i class="fa fa-chevron-left"></i> 神经网络基础之逻辑回归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/02/18/神经网络基础之逻辑回归_/"
+           data-title="" data-url="http://ndeper.cn/2018/02/18/神经网络基础之逻辑回归_/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-null"><span class="nav-number">1.</span> <span class="nav-text">tags: null</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Classification"><span class="nav-number">1.1.</span> <span class="nav-text">Binary Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">1.2.</span> <span class="nav-text">Logistic regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logistic-Regression-Cost-Function"><span class="nav-number">1.3.</span> <span class="nav-text">Logistic Regression Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">1.4.</span> <span class="nav-text">Gradient Descent</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
