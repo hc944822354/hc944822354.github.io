@@ -379,6 +379,320 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/02/21/深层神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/21/深层神经网络/" itemprop="url">
+                  深层神经网络
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T18:20:38+08:00">
+                2018-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/21/深层神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/21/深层神经网络/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/02/19/浅层神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/19/浅层神经网络/" itemprop="url">
+                  浅层神经网络
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-19T20:37:59+08:00">
+                2018-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/19/浅层神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/19/浅层神经网络/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Neural-Network-Overview"><a href="#Neural-Network-Overview" class="headerlink" title="Neural Network Overview"></a>Neural Network Overview</h3><p>前面的课程中，我们已经使用计算图的方式介绍了逻辑回归梯度下降算法的正向传播和反向传播。神经网络的结构与逻辑回归类似，只是神经网络的层数比逻辑回归多一层，多出来的中间那层称为隐藏层或中间层。这样从计算上来说，神经网络的正向传播和反向传播过程只是比逻辑回归多了一次重复的计算。正向传播过程分为两层，第一层是出入层到隐藏层，用上标[1]来表示：</p>
+<script type="math/tex; mode=display">z^{[1]}=W^{[1]}x + b^{[1]}</script><script type="math/tex; mode=display">a^{[1]}=\sigma(z^{[1]})</script><p>第二层是隐藏层到输出层，用上标[2]来表示：</p>
+<script type="math/tex; mode=display">z^{[1]} = W^{[2]}a^{[1]} + b^{[2]}</script><script type="math/tex; mode=display">a^{[2]} = \sigma(z^{[2]})</script><p>在写法上值得注意的是，方括号上标[i]表示当前所处的层数；圆括号上标(i)表示第i个样本。</p>
+<p>同样，反向传播过程也分成两层。第一层是输出层到隐藏层，第二层是隐藏层到输入层。其细节部分我们之后再来讨论。<br><img src="/2018/02/19/浅层神经网络/neuralnetwork" alt="neuralnetwork"></p>
+<h3 id="Neural-Network-Representation"><a href="#Neural-Network-Representation" class="headerlink" title="Neural Network Representation"></a>Neural Network Representation</h3><p>下面我们以图示的方式来介绍单隐藏层的神经网络结构。如下图所示，单隐藏神经网络就是典型的浅层(shallow)神经网络<br><img src="/2018/02/19/浅层神经网络/shallowneuralnetwork" alt="shallowneuralnetwork"><br>结构上，从左到右，可以分为三层：输入层(Input layer),隐藏层(Hidden layer)和输出层(Output layer)。输入层和输出层，顾名思义，对应训练样本的输入和输出，隐藏层是抽象的非线性的中间层，在训练集中，这些中间节点的真正数值我们是不知道的，我们在训练集中看不到它们的数值，这也是被命名为隐藏层的原因。<br>在写法上，我们通常吧输入矩阵X记为$a^{[0]}$,把隐藏层输出记为$a^{[1]}$,上标从0开始。用下标表示第几个神经元，注意下标从1开始。例如$a_1^{[1]}$表示隐藏层第1个神经元，$a_2^{[1]}$表示隐藏层第二个神经元，等等。这样，隐藏层有4个神经元就可以将其输出$a^{[1]}$写成矩阵的形式：</p>
+<script type="math/tex; mode=display">{a^{[1]}}= \left[ \begin{matrix} a_1^{[1]} \\ a_2^{[1]} \\ a_3^{[1]} \\ a_4^{[1]} \end{matrix} \right]</script><p>最后相应的输出层记为$a^{[2]}$,即$/hat{y}$。这种单隐藏层神经网络也被称为两层神经网络(2 layer NN)。之所以叫两层神经网络是因为，通常我们只会计算隐藏层输出和输出层的输出，输入层是不用计算的。这也是我们把输入层层数上标记为0的原因(a^{[0]})</p>
+<p>关于隐藏层对应的权重$W^{[1]}$和常数项$b^{[1]}$,$W^{[1]}$的维度是(4,3)。这里的4对应着隐藏层神经元个数，3对应这输入层x特征向量包含元素个数。常数项$b^{[1]}$的维度是(4,1),这里的4同样对应着隐藏层神经元个数。关于输出层对应的权重$W^{[2]}$和常数项$b^{[2]}$，$W^{[2]}$的维度是(1,4),这里的1对应着输出层神经元个数，4对应着输出层神经元个数。常数项$b^{[2]}$的维度是(1,1),因为输出只有一个神经元。总结一下，第i层的权重$W^{[i]}$维度的行等于i层神经元的个数，列等于i-1层神经元的个数；第i层常数项$b^{[i]}$维度的行等于i层神经元的个数，列始终为1。</p>
+<h3 id="Computing-a-Neural-Network’s-Output"><a href="#Computing-a-Neural-Network’s-Output" class="headerlink" title="Computing a Neural Network’s Output"></a>Computing a Neural Network’s Output</h3><p>接下来我们详细推导神经网络的计算过程。回顾一下，我们前面讲过两层神经网络可以看成是逻辑回归再重复计算一次。如下图所示，逻辑回归的正向计算可以分解成z和a的两部分：</p>
+<script type="math/tex; mode=display">z=w^Tx+b</script><script type="math/tex; mode=display">a= \sigma(z)</script><p><img src="/2018/02/19/浅层神经网络/ComputingNNoutput" alt="ComputingNNoutput"></p>
+<p>对于两层神经网络，从输入层到隐藏层对应一次逻辑回归运算；从隐藏层到输出层对应一次逻辑回归运算。每层计算时，要主义对应的上标和下标，一般我们记上标方括号表示layer，下标表示第几个神经元。例如$a_i^{[i]}$表示第I层的第i个神经元，注意，i从1开始，I从0开始。</p>
+<p>下面，我们将从输入层到输出层的计算公式列出来</p>
+<script type="math/tex; mode=display">z_1^{[1]}=w_1^{[1]T}x+b_1^{[1]},\ a_1^{[1]}=\sigma(z_1^{[1]})</script><script type="math/tex; mode=display">z_2^{[1]}=w_2^{[1]T}x+b_2^{[1]},\ a_2^{[1]}=\sigma(z_2^{[1]})</script><script type="math/tex; mode=display">z_3^{[1]}=w_3^{[1]T}x+b_3^{[1]},\ a_3^{[1]}=\sigma(z_3^{[1]})</script><script type="math/tex; mode=display">z_4^{[1]}=w_4^{[1]T}x+b_4^{[1]},\ a_4^{[1]}=\sigma(z_4^{[1]})</script><p>然后，从隐藏层到输出层的计算公式为：</p>
+<script type="math/tex; mode=display">z_1^{[2]}=w_1^{[2]T}a^{[1]}+b_1^{[2]},\ a_1^{[2]}=\sigma(z_1^{[2]})</script><p>其中$a^{[1]}$为：</p>
+<script type="math/tex; mode=display">{a^{[1]}}= \left[ \begin{matrix} a_1^{[1]} \\ a_2^{[1]} \\ a_3^{[1]} \\ a_4^{[1]} \end{matrix} \right]</script><p>上述每个节点的计算都对应着一次逻辑运算的过程，分别由计算z和a两部分组成。</p>
+<p>为了提高程序的运算速度，我们引入向量化和矩阵运算的思想，将上述表达式转换成矩阵运算的形式：</p>
+<script type="math/tex; mode=display">z^{[1]}=W^{[1]}x+b^{[1]}</script><script type="math/tex; mode=display">a^{[1]}=\sigma(z^{[1]})</script><script type="math/tex; mode=display">z^{[2]}=W^{[2]}a^{[1]}+b^{[2]}</script><script type="math/tex; mode=display">a^{[2]}=\sigma(z^{[2]})</script><p><img src="/2018/02/19/浅层神经网络/ComputingNNoutput2" alt="ComputingNNoutput2"><br>之前也介绍过，$W^{[1]}$的维度是(4,3),$b^{[1]}$的维度是(4,1),$W^{[2]}$的维度是(1,4),$b^{[2]}$的维度是(1,1)。</p>
+<h3 id="Vectorizing-across-multiple-examples"><a href="#Vectorizing-across-multiple-examples" class="headerlink" title="Vectorizing across multiple examples"></a>Vectorizing across multiple examples</h3><p>上一部分哦我没呢介绍了单个样本的神经网络正向传播矩阵运算过程。而对于m个训练样本，我们也可以使用矩阵相乘的形式来提高计算效率。而且它的形式与上一部分单个样本的矩阵运算十分相似。</p>
+<p>用上标(i)来表示第i个样本，例如$X^{(i)},Z^{(i)},a^{<a href="i">2</a>}$。对于每个样本i，可以使用for循环来求解其正向输出。</p>
+<p>for i=1 to m:<br>    $z^{<a href="i">1</a>}=W^{[1]}x^{(i)}+b^{[1]}$<br>    $a^{<a href="i">1</a>}=\sigma(z^{<a href="i">1</a>})$<br>    $z^{<a href="i">2</a>}=W^{[2]}a^{<a href="i">1</a>}+b^{[2]}$<br>    $a^{<a href="i">2</a>}=\sigma(z^{<a href="i">2</a>})$</p>
+<p>不使用for循环，利用矩阵运算的思想，输入矩阵X的维度为(n_x,m)。这样，我们可以把上面的for循环写成矩阵运算的形式：</p>
+<script type="math/tex; mode=display">Z^{[1]}=W^{[1]}X+b^{[1]}</script><script type="math/tex; mode=display">A^{[1]}=\sigma(Z^{[1]})</script><script type="math/tex; mode=display">Z^{[2]}=W^{[2]}A^{[1]}+b^{[2]}</script><script type="math/tex; mode=display">A^{[2]}=\sigma(Z^{[2]})</script><p>其中，$Z^{[1]}$的维度是（4,m），4是隐藏层神经元的个数；$A^{[1]}$的维度与$Z^{[1]}$相同；$Z^{[2]}$和$A^{[2]}$的维度均为（1,m）。对上面这四个矩阵来说，均可以这样来理解：行表示神经元个数，列表示样本数目m。</p>
+<h3 id="Explanation-for-Vectorized-Implementation"><a href="#Explanation-for-Vectorized-Implementation" class="headerlink" title="Explanation for Vectorized Implementation"></a>Explanation for Vectorized Implementation</h3><p>只要记住上述四个矩阵的行表示神经元个数，列表示样本数目m就行了。</p>
+<h3 id="Activation-functions"><a href="#Activation-functions" class="headerlink" title="Activation functions"></a>Activation functions</h3><p>神经网络隐藏层和输出层都需要激活函数（activation function），在之前的课程中我们都默认使用Sigmoid函数$\sigma(X)$作为激活函数。其实，还有其它激活函数可供使用，不同的激活函数有各自的优点。下面我们就来介绍几个不同的激活函数g(x)。</p>
+<p><strong>sigmoid函数</strong><br><img src="/2018/02/19/浅层神经网络/sigmoid" alt="sigmoid"></p>
+<p><strong>tanh函数</strong><br><img src="/2018/02/19/浅层神经网络/tanh" alt="tanh"></p>
+<p><strong>ReLU函数</strong><br><img src="/2018/02/19/浅层神经网络/ReLU" alt="ReLU"></p>
+<p><strong>Leaky ReLU</strong><br><img src="/2018/02/19/浅层神经网络/LeakyReLU" alt="LeakyReLU"></p>
+<p>如上图所示，不同激活函数形状不同，a的取值范围也有差异。</p>
+<p>如何选择合适的激活函数呢？首先我们来比较sigmoid函数和tanh函数。对于隐藏层的激活函数，一般来说，tanh函数要比sigmoid函数表现更好一些。因为tanh函数的取值范围在[-1,+1]之间，隐藏层的输出被限定在[-1,+1]之间，可以看成是在0值附近分布，均值为0。这样从隐藏层到输出层，数据起到了归一化（均值为0）的效果。因此，隐藏层的激活函数，tanh比sigmoid更好一些。而对于输出层的激活函数，因为二分类问题的输出取值为{0,+1}，所以一般会选择sigmoid作为激活函数。</p>
+<p>观察sigmoid函数和tanh函数，我们发现有这样一个问题，就是当|z|很大的时候，激活函数的斜率（梯度）很小。因此，在这个区域内，梯度下降算法会运行得比较慢。在实际应用中，应尽量避免使z落在这个区域，使|z|尽可能限定在零值附近，从而提高梯度下降算法运算速度。</p>
+<p>为了弥补sigmoid函数和tanh函数的这个缺陷，就出现了ReLU激活函数。ReLU激活函数在z大于零时梯度始终为1；在z小于零时梯度始终为0；z等于零时的梯度可以当成1也可以当成0，实际应用中并不影响。对于隐藏层，选择ReLU作为激活函数能够保证z大于零时梯度始终为1，从而提高神经网络梯度下降算法运算速度。但当z小于零时，存在梯度为0的缺点，实际应用中，这个缺点影响不是很大。为了弥补这个缺点，出现了Leaky ReLU激活函数，能够保证z小于零是梯度不为0。</p>
+<p>最后总结一下，如果是分类问题，输出层的激活函数一般会选择sigmoid函数。但是隐藏层的激活函数通常不会选择sigmoid函数，tanh函数的表现会比sigmoid函数好一些。实际应用中，通常会会选择使用ReLU或者Leaky ReLU函数，保证梯度下降速度不会太小。其实，具体选择哪个函数作为激活函数没有一个固定的准确的答案，应该要根据具体实际问题进行验证（validation）。</p>
+<h3 id="Why-do-you-need-non-linear-activation-functions"><a href="#Why-do-you-need-non-linear-activation-functions" class="headerlink" title="Why do you need non-linear activation functions"></a>Why do you need non-linear activation functions</h3><p>为什么不能用线性激活函数</p>
+<p>假设所有激活函数都是线性的，为了简化计算，我们直接令激活函数g(z)=z,即a=z。那么，浅层神经网络的各层输出为：</p>
+<script type="math/tex; mode=display">z^{[1]}=W^{[1]}x+b^{[1]}</script><script type="math/tex; mode=display">a^{[1]}=z^{[1]}</script><script type="math/tex; mode=display">z^{[2]}=W^{[2]}a^{[1]}+b^{[2]}</script><script type="math/tex; mode=display">a^{[2]}=z^{[2]}</script><p>我们对上式中$a^{[2]}$进行化简计算：</p>
+<script type="math/tex; mode=display">a^{[2]}=z^{[2]}=W^{[2]}a^{[1]}+b^{[2]}=W^{[2]}(W^{[1]}x+b^{[1]})+b^{[2]}=(W^{[2]}W^{[1]})x+(W^{[2]}b^{[1]}+b^{[2]})=W'x+b'</script><p>经过推导我们发现$a^{[2]}$仍是输入变量x的线性组合。这表明，使用神经网络与直接使用线性模型的效果并没有什么两样。即便是包含多层隐藏层的神经网络，如果使用线性函数作为激活函数，最终的输出仍然是输入x的线性模型。这样的话神经网络就没有任何作用了。因此，隐藏层的激活函数必须要是非线性的。</p>
+<p>另外，如果所有的隐藏层全部使用线性激活函数，只有输出层使用非线性激活函数，那么整个神经网络的结构就类似于一个简单的逻辑回归模型，而失去了神经网络模型本身的优势和价值。</p>
+<p>值得一提的是，如果是预测问题而不是分类问题，输出y是连续的情况下，输出层的激活函数可以使用线性函数。如果输出y恒为正值，则也可以使用ReLU激活函数，具体情况，具体分析。</p>
+<h3 id="Derivatives-of-activation-functions"><a href="#Derivatives-of-activation-functions" class="headerlink" title="Derivatives of activation functions"></a>Derivatives of activation functions</h3><p>在梯度下降反向计算过程中少不了计算激活函数的导数即梯度。</p>
+<p>我们先来看一下sigmoid函数的导数：</p>
+<script type="math/tex; mode=display">g(z)=\frac{1}{1+e^{(-z)}}</script><script type="math/tex; mode=display">g'(z)=\frac{d}{dz}g(z)=g(z)(1-g(z))=a(1-a)</script><p>tanh函数的导数：</p>
+<script type="math/tex; mode=display">g(z)=\frac{e^{(z)}-e^{(-z)}}{e^{(z)}+e^{(-z)}}</script><script type="math/tex; mode=display">g'(z)=\frac{d}{dz}g(z)=1-(g(z))^2=1-a^2</script><p>ReLU函数的导数</p>
+<script type="math/tex; mode=display">g(z)=max(0,z)</script><script type="math/tex; mode=display">g'(z)=\begin{cases} 0, & z<0\\ 1, & z\geq0 \end{cases}</script><p>LeakyReLU函数的导数</p>
+<script type="math/tex; mode=display">g(z)=max(0.01z,z)</script><script type="math/tex; mode=display">g'(z)=\begin{cases} 0.01, & z<0\\ 1, & z\geq0 \end{cases}</script><h3 id="Gradient-descent-for-neural-networks"><a href="#Gradient-descent-for-neural-networks" class="headerlink" title="Gradient descent for neural networks"></a>Gradient descent for neural networks</h3><p>在神经网络中进行梯度计算</p>
+<p>仍然是浅层神经网络，包含的参数为$W^{[1]}$，$b^{[1]}$，$W^{[2]}$，$b^{[2]}$。令输入层的特征向量个数$n_x=n^{[0]}$，隐藏层神经元个数为$n^{[1]}$，输出层神经元个数为$n^{[2]}=1$。则$W^{[1]}$的维度为$(n^{[1]},n^{[0]})$，$b^{[1]}$的维度为$(n^{[1]},1)$，$W^{[2]}$的维度为$(n^{[2]},n^{[1]})$，b[2]的维度为$(n^{[2]},1)$。</p>
+<p>该神经网络正向传播过程为：</p>
+<script type="math/tex; mode=display">Z^{[1]}=W^{[1]}X+b^{[1]}</script><script type="math/tex; mode=display">A^{[1]}=g(Z^{[1]})</script><script type="math/tex; mode=display">Z^{[2]}=W^{[2]}A^{[1]}+b^{[2]}</script><script type="math/tex; mode=display">A^{[2]}=g(Z^{[2]})</script><p>其中，g(⋅)表示激活函数。</p>
+<p>反向传播是计算导数（梯度）的过程，这里先列出来Cost function对各个参数的梯度：</p>
+<script type="math/tex; mode=display">dZ^{[2]}=A^{[2]}-Y</script><script type="math/tex; mode=display">dW^{[2]}=\frac1mdZ^{[2]}A^{[1]T}</script><script type="math/tex; mode=display">db^{[2]}=\frac1mnp.sum(dZ^{[2]},axis=1,keepdim=True)</script><script type="math/tex; mode=display">dZ^{[1]}=W^{[2]T}dZ^{[2]}\ast g'(Z^{[1]})</script><script type="math/tex; mode=display">dW^{[1]}=\frac1mdZ^{[1]}X^T</script><p>$db^{[1]}=\frac1mnp.sum(dZ^{[1]},axis=1,keepdim=True)$$</p>
+<p>反向传播的具体推导过程下一部分进行详细说明</p>
+<h3 id="Backpropagation-intuition-optional"><a href="#Backpropagation-intuition-optional" class="headerlink" title="Backpropagation intuition(optional)"></a>Backpropagation intuition(optional)</h3><p>我们仍然使用计算图的方式来推导神经网络反向传播过程。记得之前介绍逻辑回归时，我们就引入了计算图来推导正向传播和反向传播，其过程如下图所示：<br><img src="/2018/02/19/浅层神经网络/logisticregressiongradients" alt="logisticregressiongradients"></p>
+<p>由于多了一个隐藏层，神经网络的计算图要比逻辑回归的复杂一些，如下图所示。对于单个训练样本，正向过程很容易，反向过程可以根据梯度计算方法逐一推导。</p>
+<script type="math/tex; mode=display">dz^{[2]}=a^{[2]}-y</script><script type="math/tex; mode=display">dW^{[2]}=dz^{[2]}\cdot \frac{\partial z^{[2]}}{\partial W^{[2]}}=dz^{[2]}a^{[1]T}</script><script type="math/tex; mode=display">db^{[2]}=dz^{[2]}\cdot \frac{\partial z^{[2]}}{\partial b^{[2]}}=dz^{[2]}\cdot 1=dz^{[2]}</script><script type="math/tex; mode=display">dz^{[1]}=dz^{[2]}\cdot \frac{\partial z^{[2]}}{\partial a^{[1]}}\cdot \frac{\partial a^{[1]}}{\partial z^{[1]}}=W^{[2]T}dz^{[2]}\ast g^{[1]'}(z^{[1]})</script><script type="math/tex; mode=display">dW^{[1]}=dz^{[1]}\cdot \frac{\partial z^{[1]}}{\partial W^{[1]}}=dz^{[1]}x^T</script><script type="math/tex; mode=display">db^{[1]}=dz^{[1]}\cdot \frac{\partial z^{[1]}}{\partial b^{[1]}}=dz^{[1]}\cdot 1=dz^{[1]}</script><p><img src="/2018/02/19/浅层神经网络/neuralnetworkgradients" alt="neuralnetworkgradients"><br>浅层神经网络（包含一个隐藏层），m个训练样本的正向传播过程和反向传播过程分别包含了6个表达式，其向量化矩阵形式如下图所示：<br><img src="/2018/02/19/浅层神经网络/summary" alt="summary"></p>
+<h3 id="Random-Initialization"><a href="#Random-Initialization" class="headerlink" title="Random Initialization"></a>Random Initialization</h3><p>神经网络模型中的参数权重W是不能全部初始化为零的，接下来我们分析一下原因。</p>
+<p>举个简单的例子，一个浅层神经网络包含两个输入，隐藏层包含两个神经元。如果权重$W^{[1]}$和$W^{[2]}$都初始化为零，即：</p>
+<script type="math/tex; mode=display">W^{[1]}= \left[ \begin{matrix} 0 & 0 \\ 0 & 0 \end{matrix} \right]</script><script type="math/tex; mode=display">W^{[2]}= \left[ \begin{matrix} 0 & 0 \end{matrix} \right]</script><p>这样使得隐藏层第一个神经元的输出等于第二个神经元的输出，即$a_1^{[1]}=a_2^{[1]}$。经过推导得到$dz_1^{[1]}=dz_2^{[1]}$，以及$W_1^{[1]}=dW_2^{[1]}$。因此，这样的结果是隐藏层两个神经元对应的权重行向量$W_1^{[1]}$和$W_2^{[1]}$每次迭代更新都会得到完全相同的结果，$W_1^{[1]}$始终等于$W_2^{[1]}$，完全对称。这样隐藏层设置多个神经元就没有任何意义了。值得一提的是，参数b可以全部初始化为零，并不会影响神经网络训练效果。<br><img src="/2018/02/19/浅层神经网络/initialization" alt="initialization"></p>
+<p>我们把这种权重W全部初始化为零带来的问题称为symmetry breaking problem。解决方法也很简单，就是将W进行随机初始化（b可初始化为零）。python里可以使用如下语句进行W和b的初始化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">W_1 = np.random.randn((2,2))*0.01</span><br><span class="line">b_1 = np.zero((2,1))</span><br><span class="line">W_2 = np.random.randn((1,2))*0.01</span><br><span class="line">b_2 = 0</span><br></pre></td></tr></table></figure></p>
+<p>这里我们将$W_1^{[1]}$和$W_2^{[1]}$乘以0.01的目的是尽量使得权重W初始化比较小的值。之所以让W比较小，是因为如果使用sigmoid函数或者tanh函数作为激活函数的话，W比较小，得到的|z|也比较小（靠近零点），而零点区域的梯度比较大，这样能大大提高梯度下降算法的更新速度，尽快找到全局最优解。如果W较大，得到的|z|也比较大，附近曲线平缓，梯度较小，训练过程会慢很多。</p>
+<p>当然，如果激活函数是ReLU或者Leaky ReLU函数，则不需要考虑这个问题。但是，如果输出层是sigmoid函数，则对应的权重W最好初始化到比较小的值。</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>本节课主要介绍了浅层神经网络。首先，我们简单概述了神经网络的结构：包括输入层，隐藏层和输出层。然后，我们以计算图的方式推导了神经网络的正向输出，并以向量化的形式归纳出来。接着，介绍了不同的激活函数并做了比较，实际应用中根据不同需要选择合适的激活函数。激活函数必须是非线性的，不然神经网络模型起不了任何作用。然后，我们重点介绍了神经网络的反向传播过程以及各个参数的导数推导，并以矩阵形式表示出来。最后，介绍了权重随机初始化的重要性，必须对权重W进行随机初始化操作。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/02/19/神经网络基础之Python与向量化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -496,8 +810,9 @@
 <script type="math/tex; mode=display">\hat{y}=\sigma(w^Tx+b)</script><p>其中，$\sigma(z)=\frac{1}{1+exp(-z)}$。$\hat{y}$可以看成是预测输出为正类(+1)的概率：</p>
 <script type="math/tex; mode=display">\hat{y}=P(y=1|X)</script><p>那么，当y=1时：</p>
 <script type="math/tex; mode=display">p(y|x)= \hat{y}</script><p>当y= 0时：</p>
-<script type="math/tex; mode=display">p(y|x)=\hat{y}^y(1-\hat{y})^(1-y)</script><p>由于log函数的单调性，可以对上式P(y|x)进行log处理</p>
-<script type="math/tex; mode=display">logP(y|x)=log\hat{y}^y(1-\hat{y})^(1-y)=ylog\hat{y}+(1-y)log(1-\hat{y})</script><p>我们希望上述概率P(y|x)越大越好，对上式加上负号，则转化成额单个样本的Loss function，越小越好，也iu得到了我们之前介绍的逻辑回归的Loss function形式</p>
+<script type="math/tex; mode=display">p(y|x)=\hat{y}^y(1-\hat{y})^{(1-y)}</script><p>我们把上面两个式子整合到一个式子中，得到：</p>
+<script type="math/tex; mode=display">P(y|x)=\hat{y}^y(1-\hat{y})^{(1-y)}</script><p>由于log函数的单调性，可以对上式P(y|x)进行log处理</p>
+<script type="math/tex; mode=display">logP(y|x)=log\hat{y}^y(1-\hat{y})^{(1-y)}=ylog\hat{y}+(1-y)log(1-\hat{y})</script><p>我们希望上述概率P(y|x)越大越好，对上式加上负号，则转化成额单个样本的Loss function，越小越好，也iu得到了我们之前介绍的逻辑回归的Loss function形式</p>
 <script type="math/tex; mode=display">L=-(ylog\hat{y}+(1-y)log(1-\hat{y}))</script><p>如果对于所有m个训练样本，假设样本之间是独立同分布的(iid),我们希望总的概率越大越好：</p>
 <script type="math/tex; mode=display">max\ \prod_{i=1}^m\ P(y^{(i)}|x^{(i)})</script><p>同样引入log函数，加上负号，将上式转化为Cost function：</p>
 <script type="math/tex; mode=display">J(w,b)=-\frac1m\sum_{i=1}^mL(\hat y^{(i)},y^{(i)})=-\frac 1m\sum_{i=1}^my^{(i)}\ log\ \hat y^{(i)}+(1-y^{(i)})log(1-\hat y^{(i)})</script><p>上式中，$\frac{1}{m}$表示对所有m个样本的Cost function求平均，是缩放因子。</p>
@@ -1540,314 +1855,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/14/基础面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/基础面试题/" itemprop="url">
-                  基础面试题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:30:00+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/14/基础面试题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/基础面试题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.TCP三次握手、四次挥手<br>2.为什么建立连接是三次，而断开连接要四次？<br>3.HTTP POST 和 GET的区别和联系。<br>4.进程和线程的区别。<br>5.操作系统内存管理。<br>6.进程间如何通信<br>7.操作系统中有几种状态</p>
-<h5 id="8-从下往上说一下OSI七个分层？"><a href="#8-从下往上说一下OSI七个分层？" class="headerlink" title="8.从下往上说一下OSI七个分层？"></a>8.从下往上说一下OSI七个分层？</h5><p>物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
-<h5 id="TCP、UDP属于哪个层？"><a href="#TCP、UDP属于哪个层？" class="headerlink" title="TCP、UDP属于哪个层？"></a>TCP、UDP属于哪个层？</h5><p>传输   </p>
-<h5 id="FTP在哪个层？"><a href="#FTP在哪个层？" class="headerlink" title="FTP在哪个层？"></a>FTP在哪个层？</h5><p>应用<br>OSI分层 （7层）：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。<br>TCP/IP分层（4层）：网络接口层、 网际层、运输层、 应用层。<br>五层协议（5层）：物理层、数据链路层、网络层、运输层、 应用层。<br>每一层的协议如下：<br>物理层：RJ45、CLOCK、IEEE802.3    （中继器，集线器，网关）<br>数据链路：PPP、FR、HDLC、VLAN、MAC  （网桥，交换机）<br>网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP、 （路由器）<br>传输层：TCP、UDP、SPX<br>会话层：NFS、SQL、NETBIOS、RPC<br>表示层：JPEG、MPEG、ASII<br>应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS</p>
-<h5 id="每一层的作用："><a href="#每一层的作用：" class="headerlink" title="每一层的作用："></a>每一层的作用：</h5><p>物理层：通过媒介传输比特,确定机械及电气规范（比特Bit）<br>数据链路层：将比特组装成帧和点到点的传递（帧Frame）<br>网络层：负责数据包从源到宿的传递和网际互连（包PackeT）<br>传输层：提供端到端的可靠报文传递和错误恢复（段Segment）<br>会话层：建立、管理和终止会话（会话协议数据单元SPDU）<br>表示层：对数据进行翻译、加密和压缩（表示协议数据单元PPDU）<br>应用层：允许访问OSI环境的手段（应用协议数据单元APDU）</p>
-<h5 id="TCP和UDP的区别？"><a href="#TCP和UDP的区别？" class="headerlink" title="TCP和UDP的区别？"></a>TCP和UDP的区别？</h5><p>TCP提供面向连接的、可靠的数据流传输，而UDP提供的是非面向连接的、不可靠的数据流传输。（TCP发出去还会问候核实一下以确保安全;UDP发出去就不管了 ）<br>TCP传输单位称为TCP报文段，UDP传输单位称为用户数据报。<br>TCP注重数据安全性，UDP数据传输快，因为不需要连接等待，少了许多操作，但是其安全性却一般。</p>
-<h5 id="TCP对应的协议"><a href="#TCP对应的协议" class="headerlink" title="TCP对应的协议:"></a>TCP对应的协议:</h5><p>（1）FTP：定义了文件传输协议，使用21端口。<br>（2）Telnet：一种用于远程登陆的端口，使用23端口，用户可以以自己的身份远程连接到计算机上，可提供基于DOS模式下的通信服务。<br>（3）SMTP：邮件传送协议，用于发送邮件。服务器开放的是25号端口。<br>（4）POP3：它是和SMTP对应，POP3用于接收邮件。POP3协议所用的是110端口。<br>（5）HTTP：是从Web服务器传输超文本到本地浏览器的传送协议。</p>
-<h5 id="TDP对应的协议："><a href="#TDP对应的协议：" class="headerlink" title="TDP对应的协议："></a>TDP对应的协议：</h5><p>（1） DNS：用于域名解析服务，将域名地址转换为IP地址。DNS用的是53号端口。<br>（2） SNMP：简单网络管理协议，使用161号端口，是用来管理网络设备的。由于网络设备很多，无连接的服务就体现出其优势。<br>（3） TFTP(Trival File Transfer Protocal)，简单文件传输协议，该协议在端口69上使用UDP服务。</p>
-<p>作者：微尘2017<br>链接：<a href="https://www.nowcoder.com/discuss/21845?type=2&amp;order=0&amp;pos=26&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/21845?type=2&amp;order=0&amp;pos=26&amp;page=1</a><br>来源：牛客网</p>
-<p>1.线程通信方式，以及它们的区别</p>
-<pre><code>2.I/O多路复用
-
-
-3.内存管理，我回答的是jvm内存分配、垃圾回收
-
-
-4.TCP连接、断开状态转换，具体细节
-
-
-5.海量数据下，如何做随机抽样？蓄水池抽样（这里感觉面试官题目定义的不清楚）
-
-
-6.海量文本下，字符串匹配，如何利用索引加快查找？（这题真不会，后来查了一下，可能跟lucene有关）
-
-
-7.50亿URL，统计频率在前100位的URL
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/14/Java面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/Java面试题/" itemprop="url">
-                  Java面试题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:28:00+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/14/Java面试题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/Java面试题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。<br>偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。</p>
-<p>1.hashtable和hashmap的区别， hashmap底层的实现机制：负载因子、冲突解决方式。Java 8的优化。<br>2.string 和stringbuffer的区别。<br>3.JVM内存模型，每个区域存放的内容。<br>4.JVM垃圾回收算法。<br>5.JVM类加载机制、双亲委托模型。<br>6.问我notify<br>7.synchronized关键字、Lock，并解释它们之间的区别。</p>
-<h5 id="HashMap原理"><a href="#HashMap原理" class="headerlink" title="HashMap原理"></a>HashMap原理</h5><p>底层是数组加链表实现的哈希表。允许null作为键，null作为值。线程不安全。</p>
-<h5 id="为什么用数组-链表实现？"><a href="#为什么用数组-链表实现？" class="headerlink" title="为什么用数组+链表实现？"></a>为什么用数组+链表实现？</h5><p>利用拉链法解决冲突：把所有的同义词用单链表链接起来。该方法下，哈希表每个单元中存放的不再是元素本身，而是相应同义词单链表的头指针。<br>HashMap维护了一个Entry数组，Entry内部类有key,value，hash和next四个字段，其中next也是一个Entry类型。<br>可以将Entry数组理解为一个个的散列桶。每一个桶实际上是一个单链表。当执行put操作时，会根据key的hashcode定位到相应的桶。<br>遍历单链表检查该key是否已经存在，如果存在，覆盖该value，反之，新建一个新的Entry，并放在单链表的头部。<br>当通过传递key调用get方法时，它再次使用key.hashCode()来找到相应的散列桶，然后使用key.equals()方法找出单链表中正确的Entry，然后返回它的值。 </p>
-<h5 id="Java运行时数据区域？"><a href="#Java运行时数据区域？" class="headerlink" title="Java运行时数据区域？"></a>Java运行时数据区域？</h5><h5 id="方法区里存放什么？"><a href="#方法区里存放什么？" class="headerlink" title="方法区里存放什么？"></a>方法区里存放什么？</h5><p>当时只想到常量和静态变量…然后觉得不妥，赶紧补充：由于程序计数器、JVM栈、本地方法栈3个区域随线程而生随线程而灭，对这几个区域内存的回收和分配具有确定性。<br>而方法区和堆则不一样，程序需要在运行时才知道创建哪些对象，对这部分内存的分配是动态的，GC关注的也就是这部分内存。<br>本地方法栈：和jvm栈所发挥的作用类似，区别是jvm栈为jvm执行java方法（字节码）服务，而本地方法栈为jvm使用的native方法服务。<br>JVM栈：局部变量表、操作数栈、动态链接、方法出口。<br>方法区：用于存储已被虚拟机加载的类信息，常量、静态变量、即时编译器编译后的代码等。<br>堆：存放对象实例。</p>
-<h5 id="怎样判断是否需要收集？"><a href="#怎样判断是否需要收集？" class="headerlink" title="怎样判断是否需要收集？"></a>怎样判断是否需要收集？</h5><p>引用计数法：对象没有任何引用与之关联(无法解决循环引用)<br>可达性分析法：通过一组称为GC<br>Root的对象为起点,从这些节点向下搜索，如果某对象不能从这些根对象的一个(至少一个)所到达,则判定该对象应当回收。</p>
-<h5 id="什么可作为GCRoot的对象？"><a href="#什么可作为GCRoot的对象？" class="headerlink" title="什么可作为GCRoot的对象？"></a>什么可作为GCRoot的对象？</h5><p>虚拟机栈中引用的对象。方法区中类静态属性引用的对象，方法区中类常量引用的对象，本地方法栈中JNI引用的对象。<br>总结：JVM这块是由自己读过的书本引出，总的来说，也算是整个面试环节里答得最好的模块了，因为这一周也的确用心准备了这块的知识点。所以大家一定要着重复习JVM这块的知识。</p>
-<h5 id="红黑树数据结构？"><a href="#红黑树数据结构？" class="headerlink" title="红黑树数据结构？"></a>红黑树数据结构？</h5><p>  看见别人的面经里都是问B+树，所以看了一下午B+树，反而红黑树没怎么着重准备。只回答了红黑树的五个性质。本质是二叉搜索树，左节点小于根节点，右节点大于根节点。</p>
-<p>  看看具体具体答案，又是没回答完整…..</p>
-<p>  红黑树本质上是一颗二叉搜索树，它满足二叉搜索树的基本性质——即树中的任何节点的值大于它的左子节点，且小于它的右子节点。<br>  一颗红黑树必须满足以下几点条件：<br>  规则1、根节点必须是黑色。<br>  规则2、任意从根到叶子的路径不包含连续的红色节点。<br>  规则3、任意从根到叶子的路径的黑色节点总数相同。<br>  作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>  这些约束确保了红黑树的关键特性：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。<br>  因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限<br>  允许红黑树在最坏情况下都是高效的，而不同于普通的二叉查找树。</p>
-<p>  在很多树数据结构的表示中，一个节点有可能只有一个子节点，而叶子节点包含数据。用这种范例表示红黑树是可能的，但是这会改变一些性质并使算法复杂。</p>
-<p>  为此，本文中我们使用”nil叶子”或”空（null）叶子”，如上图所示，它不包含数据而只充当树在此结束的指示。这些节点在绘图中经常被省略，导致了这些树好像同上述原则相矛盾，而实际上不是这样。<br>  与此有关的结论是所有节点都有两个子节点，尽管其中的一个或两个可能是空叶子。<br>  因为每一个红黑树也是一个特化的二叉查找树，因此红黑树上的只读操作与普通二叉查找树上的只读操作相同。<br>  然而，在红黑树上进行插入操作和删除操作会导致不再符合红黑树的性质。恢复红黑树的性质需要少量（O(log<br>  n)）的颜色变更（实际是非常快速的）和不超过三次树旋转（对于插入操作是两次）。<br>  虽然插入和删除很复杂，但操作时间仍可以保持为O(log n)次</p>
-<h5 id="JDK1-8的改进"><a href="#JDK1-8的改进" class="headerlink" title="JDK1.8的改进"></a>JDK1.8的改进</h5><p>（lambda表达式、HashMap升级、ConcurrentHashMap升级、synchronized升级），此处没有答出<br>枚举器的升级（可能是我搞错了），增加了Iteable.forEach方法，Iterator.remove() 现在有一个默认的,会抛出异常的实现,lambda表达式的意义</p>
-<h5 id="快排的思想，Partition"><a href="#快排的思想，Partition" class="headerlink" title="快排的思想，Partition"></a>快排的思想，Partition</h5><h5 id="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"><a href="#垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器" class="headerlink" title="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"></a>垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器</h5><p>你Java学的怎么样？<br>    我：</p>
-<p>   还可以，有研究过部分JDK源码，比如常用的集合类如HashMap/Hashtable、ArrayList/LinkedList、Vector等，还有Java5之后的并发包JUC如concurrentHashMap、Executor框架、CopyOnWrite容器等。自己很欣赏Java巧妙的垃圾回收机制，看过周志明的《深入理解Java虚拟机》，因此对JVM相关的知识有所掌握……</p>
-<pre><code>面：
-</code></pre><p>   嗯，学的挺深的，那你把JVM的结构和类加载原理说下。</p>
-<pre><code>我：
-</code></pre><p>   马上拿起桌上的笔和纸，把虚拟机运行时包含的几个数据区和执行引擎画了下，包括方法区、虚拟机栈、本地方法栈、堆和程序计数器，然后介绍每个区域有什么作用，最后讲ClassLoader的类加载机制，还顺便说了下双亲委派机制。</p>
-<pre><code>面：
-</code></pre><p>   （面试官点头表示满意）你刚刚说Java的GC机制很巧妙，那么它的巧妙之处在哪里？</p>
-<pre><code>我：
-</code></pre><p>   我从两个方面说下自己的理解：一是Java的内存分配原理与C/C++不同，C/C++每次采用malloc或new申请内存时都要进行brk和mmap等系统调用，而系统调用发生在内核空间，每次都要中断进行切换，这需要一定的开销，而Java虚拟机是先一次性分配一块较大的空间，然后每次new时都在该空间上进行分配和释放，减少了系统调用的次数，节省了一定的开销，这有点类似于内存池的概念；二是有了这块空间过后，如何进行分配和回收就跟GC机制有关了，然后我详细介绍了GC原理、画图表示年轻代（Eden区和Survival区）、年老代、比例分配及为啥要这样分代回收（我认为巧妙就在于这里），有了GC基本结构后，我又详述了下GC是具体如何进行内存分配和垃圾回收的。</p>
-<h5 id="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"><a href="#简单描述一下多态（接口）在Java里是如何实现的（运行时多态）" class="headerlink" title="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"></a>简单描述一下多态（接口）在Java里是如何实现的（运行时多态）</h5><p>1、对多态理解<br>2、写两个线程，交替打印1到100的奇数和偶数，在纸上写出<br>     3、有没有使用过Lock，怎么使用，和synchronized有什么区别，从jvm角度解释<br>     4、StringBuilder 和 StringBuffer区别，为什么，里面实现<br>     5、ArrayList 和 LinkedList 区别，原理  </p>
-<pre><code> jvm  
- 1、gc垃圾回收  
- 2、静态分派和动态分派  
- 3、四种引用的区别
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1897,7 +1904,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
