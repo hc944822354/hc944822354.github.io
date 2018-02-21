@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://andeper.cn/2018/02/21/深层神经网络/Ilayer">
 <meta property="og:image" content="http://andeper.cn/2018/02/21/深层神经网络/Ilayer2">
 <meta property="og:image" content="http://andeper.cn/2018/02/21/深层神经网络/propagation">
-<meta property="og:updated_time" content="2018-02-21T11:55:04.897Z">
+<meta property="og:updated_time" content="2018-02-21T12:31:49.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深层神经网络">
 <meta name="twitter:description" content="上节课我们主要介绍了浅层神经网络。首先介绍神经网络的基本结构，包括输入层，隐藏层和输出层。然后以简单的2 layer NN为例，详细推导了其正向传播过程和反向传播过程，使用梯度下降的方法优化神经网络参数。同时，我们还介绍了不同的激活函数，比较各自优缺点，讨论了激活函数必须是非线性的原因。最后介绍了神经网络参数随机初始化的必要性，特别是权重W，不同神经元的W不能初始化为同一零值。本节课是对上节课的延">
@@ -881,6 +881,26 @@ $$1+2+\cdots+2^{log_2(n)-1}=1\cdot\frac{1-2^{log_2(n)}}{1-2}=2^{log_2(n)}-1=n-1<
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

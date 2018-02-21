@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://andeper.cn/2018/02/19/浅层神经网络/neuralnetworkgradients">
 <meta property="og:image" content="http://andeper.cn/2018/02/19/浅层神经网络/summary">
 <meta property="og:image" content="http://andeper.cn/2018/02/19/浅层神经网络/initialization">
-<meta property="og:updated_time" content="2018-02-21T10:19:56.856Z">
+<meta property="og:updated_time" content="2018-02-21T12:30:39.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅层神经网络">
 <meta name="twitter:description" content="Neural Network Overview前面的课程中，我们已经使用计算图的方式介绍了逻辑回归梯度下降算法的正向传播和反向传播。神经网络的结构与逻辑回归类似，只是神经网络的层数比逻辑回归多一层，多出来的中间那层称为隐藏层或中间层。这样从计算上来说，神经网络的正向传播和反向传播过程只是比逻辑回归多了一次重复的计算。正向传播过程分为两层，第一层是出入层到隐藏层，用上标[1]来表示： z^{[1]}">
@@ -894,6 +894,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
