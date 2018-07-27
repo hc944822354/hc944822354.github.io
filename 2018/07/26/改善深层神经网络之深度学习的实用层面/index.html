@@ -89,17 +89,22 @@
 
 
 
-<meta name="description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta name="description" content="Settiing up your ML applicationTrain/dev/test sets应用型机器学习是一个高度的迭代过程 训练神经网络时通常要做出很多决策：神经网络分多少层每层有多少个隐藏单元学习速率是多少各层采用哪种激活函数 为了找到更好的神经网络需要不断迭代更新自己的方案 数据集通常被分为数据集 验证集 测试集 数据集规模较小时，适用传统的划分比例数据集规模较大时，验证集和测试集">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自顶向下之TCP">
-<meta property="og:url" content="http://andeper.cn/2017/04/02/自顶向下之TCP/index.html">
+<meta property="og:title" content="改善深层神经网络之深度学习的实用层面">
+<meta property="og:url" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/index.html">
 <meta property="og:site_name" content="Andeper的个人博客">
-<meta property="og:description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta property="og:description" content="Settiing up your ML applicationTrain/dev/test sets应用型机器学习是一个高度的迭代过程 训练神经网络时通常要做出很多决策：神经网络分多少层每层有多少个隐藏单元学习速率是多少各层采用哪种激活函数 为了找到更好的神经网络需要不断迭代更新自己的方案 数据集通常被分为数据集 验证集 测试集 数据集规模较小时，适用传统的划分比例数据集规模较大时，验证集和测试集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T07:33:52.000Z">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/拟合.png">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型.jpg">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型2.jpg">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/fitting.jpg">
+<meta property="og:updated_time" content="2018-07-26T09:26:54.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自顶向下之TCP">
-<meta name="twitter:description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta name="twitter:title" content="改善深层神经网络之深度学习的实用层面">
+<meta name="twitter:description" content="Settiing up your ML applicationTrain/dev/test sets应用型机器学习是一个高度的迭代过程 训练神经网络时通常要做出很多决策：神经网络分多少层每层有多少个隐藏单元学习速率是多少各层采用哪种激活函数 为了找到更好的神经网络需要不断迭代更新自己的方案 数据集通常被分为数据集 验证集 测试集 数据集规模较小时，适用传统的划分比例数据集规模较大时，验证集和测试集">
+<meta name="twitter:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/拟合.png">
 
 
 
@@ -127,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://andeper.cn/2017/04/02/自顶向下之TCP/"/>
+  <link rel="canonical" href="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/"/>
 
 
 
 
 
-  <title> 自顶向下之TCP | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 改善深层神经网络之深度学习的实用层面 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -384,7 +389,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/04/02/自顶向下之TCP/">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andeper">
@@ -405,7 +410,7 @@
             
             
               
-                自顶向下之TCP
+                改善深层神经网络之深度学习的实用层面
               
             
           </h1>
@@ -420,8 +425,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-02T21:22:00+08:00">
-                2017-04-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T09:40:53+08:00">
+                2018-07-26
               </time>
             
 
@@ -439,8 +444,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/04/02/自顶向下之TCP/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/02/自顶向下之TCP/" itemprop="commentCount"></span>
+                <a href="/2018/07/26/改善深层神经网络之深度学习的实用层面/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/26/改善深层神经网络之深度学习的实用层面/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -466,11 +471,25 @@
       
 
       
-        <h3 id="TCP服务"><a href="#TCP服务" class="headerlink" title="TCP服务"></a>TCP服务</h3><h4 id="进程到进程的通信"><a href="#进程到进程的通信" class="headerlink" title="进程到进程的通信"></a>进程到进程的通信</h4><p>TCP通过使用端口号来提供进程到进程间通信</p>
-<h4 id="流传递服务"><a href="#流传递服务" class="headerlink" title="流传递服务"></a>流传递服务</h4><p>TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据</p>
-<h4 id="全双工通信"><a href="#全双工通信" class="headerlink" title="全双工通信"></a>全双工通信</h4><p>数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段</p>
-<h4 id="多路复用和多路分解"><a href="#多路复用和多路分解" class="headerlink" title="多路复用和多路分解"></a>多路复用和多路分解</h4><p>TCP在发送端执行多路复用，在接收端执行多路分解</p>
-
+        <h3 id="Settiing-up-your-ML-application"><a href="#Settiing-up-your-ML-application" class="headerlink" title="Settiing up your ML application"></a>Settiing up your ML application</h3><p>Train/dev/test sets<br>应用型机器学习是一个高度的迭代过程</p>
+<p>训练神经网络时通常要做出很多决策：<br>神经网络分多少层<br>每层有多少个隐藏单元<br>学习速率是多少<br>各层采用哪种激活函数</p>
+<p>为了找到更好的神经网络需要不断迭代更新自己的方案</p>
+<p>数据集通常被分为数据集 验证集 测试集</p>
+<p>数据集规模较小时，适用传统的划分比例<br>数据集规模较大时，验证集和测试集可以占到数据总量的10%以下</p>
+<p>要确保训练和测试集来自同一分布</p>
+<h3 id="Bias-and-Variance"><a href="#Bias-and-Variance" class="headerlink" title="Bias and Variance"></a>Bias and Variance</h3><p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/拟合.png" alt="拟合"><br>欠拟合，适度拟合和过拟合</p>
+<p>可以通过几个指标来研究偏差和方差<br>理解偏差和方差两个关键指标数据是训练集误差和验证集误差<br>训练集误差小，验证集误差大：过拟合，高方差<br>训练集误差大，验证集误差大：欠拟合，高偏差<br>训练集误差大，验证集误差更大：高方差高偏差<br>最优误差/贝叶斯误差：如果最优误差很高，训练集误差验证集误差大也很正常</p>
+<h3 id="Basic-recipe-for-machine-learning"><a href="#Basic-recipe-for-machine-learning" class="headerlink" title="Basic recipe for machine learning"></a>Basic recipe for machine learning</h3><p>高偏差：规模更大的网络结构，延长训练时间<br>高方差：采集更多数据，正则化减少过拟合</p>
+<h3 id="Regularizing-your-neural-network"><a href="#Regularizing-your-neural-network" class="headerlink" title="Regularizing your neural network"></a>Regularizing your neural network</h3><h4 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h4><script type="math/tex; mode=display">\min_{w,b} J(w,b)</script><script type="math/tex; mode=display">J(w,b) = \frac {1}{m} \sum_{i=1}^{m} L({\hat{y}^{(i)},y^{(i)}}) + \frac{\lambda}{2m}{\left\|w\right\|}^2_2</script><script type="math/tex; mode=display">{\left\|w\right\|}^2_2 = \sum_{j=1}^{n_x}w^2_j = w^Tw</script><p>L2正则化</p>
+<h3 id="Neural-network"><a href="#Neural-network" class="headerlink" title="Neural network"></a>Neural network</h3><p>在神经网络中实现正则化</p>
+<script type="math/tex; mode=display">J(w^{[1]},b^{[1]},...,w^{[L]},b^{[L]},) = \frac{1}{m}\sum_{i=1}^{m}L({\hat{y}^{(i)},y^{(i)}})+\frac{\lambda}{2m}\sum_{l=1}^{L}{\left\|w^{[l]}\right\|}^2_F</script><script type="math/tex; mode=display">{\left\|w^{[l]}\right\|}^2_F = \sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}(w^{[l]}_{ij})^2</script><script type="math/tex; mode=display">w:(n^{[l-1]},n^{[l]})</script><p>L是网络层数。下面的矩阵范数被定义为矩阵中所有元素的平方求和。这个范数被称为Frobenius norm</p>
+<p>如何使用该范数进行梯度下降？用backprop计算出$\frac{\partial J}{\partial w^{[L]}}$</p>
+<p>然后加上正则项：</p>
+<script type="math/tex; mode=display">dw^{[l]} = (form backup) +\frac{\lambda}{m}w^{[l]}</script><p>然后更新权重</p>
+<script type="math/tex; mode=display">w^{[l]} := w^{[l]} - \alpha dw^{[l]}</script><p>这就是L2正则化有时被称为权重衰减的原因</p>
+<h3 id="Why-regularization-reduces-overfitting"><a href="#Why-regularization-reduces-overfitting" class="headerlink" title="Why regularization reduces overfitting"></a>Why regularization reduces overfitting</h3><p>假设我们面对的是这样一个网络模型<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型.jpg" alt="网络模型"><br>如果正则话$\lambda$设置足够大，那么会导致权重矩阵W被设置为接近0的值，即$W[l] \approx 0$。本质上就是把许多隐藏层的权值设为0，尝试消除隐藏层对整个网络的影响。可以看作<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型2.jpg" alt="网络模型2"><br>这个被大大简化的网络会变成一个很小的网络，能小到如同线性单元，但深度还是很大，网络会从过拟合状态变得更接近高偏差的状态</p>
+<p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/fitting.jpg" alt="fitting"><br>过拟合和欠拟合都有些极端，需要找到一个这种的$\lambda$，使得拟合成拟合适中的情况</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
       
     </div>
 
@@ -510,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/19/图解TCPIP-TCP与UDP/" rel="next" title="图解TCP/IP之TCP与UDP">
-                <i class="fa fa-chevron-left"></i> 图解TCP/IP之TCP与UDP
+              <a href="/2018/07/12/python爬虫之模拟登陆新浪微博/" rel="next" title="python爬虫之模拟登陆新浪微博">
+                <i class="fa fa-chevron-left"></i> python爬虫之模拟登陆新浪微博
               </a>
             
           </div>
@@ -519,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/17/深度学习概论/" rel="prev" title="深度学习概论">
-                深度学习概论 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -548,8 +563,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/04/02/自顶向下之TCP/"
-           data-title="自顶向下之TCP" data-url="http://andeper.cn/2017/04/02/自顶向下之TCP/">
+      <div class="ds-thread" data-thread-key="2018/07/26/改善深层神经网络之深度学习的实用层面/"
+           data-title="改善深层神经网络之深度学习的实用层面" data-url="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/">
       </div>
     
   </div>
@@ -662,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务"><span class="nav-number">1.</span> <span class="nav-text">TCP服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程到进程的通信"><span class="nav-number">1.1.</span> <span class="nav-text">进程到进程的通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流传递服务"><span class="nav-number">1.2.</span> <span class="nav-text">流传递服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全双工通信"><span class="nav-number">1.3.</span> <span class="nav-text">全双工通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路复用和多路分解"><span class="nav-number">1.4.</span> <span class="nav-text">多路复用和多路分解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Settiing-up-your-ML-application"><span class="nav-number">1.</span> <span class="nav-text">Settiing up your ML application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bias-and-Variance"><span class="nav-number">2.</span> <span class="nav-text">Bias and Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-recipe-for-machine-learning"><span class="nav-number">3.</span> <span class="nav-text">Basic recipe for machine learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularizing-your-neural-network"><span class="nav-number">4.</span> <span class="nav-text">Regularizing your neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">4.1.</span> <span class="nav-text">Logistic regression</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neural-network"><span class="nav-number">5.</span> <span class="nav-text">Neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-regularization-reduces-overfitting"><span class="nav-number">6.</span> <span class="nav-text">Why regularization reduces overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text"> </span></a></li></ol></div>
             
 
           </div>
@@ -834,6 +849,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

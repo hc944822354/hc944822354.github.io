@@ -381,6 +381,151 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/07/26/改善深层神经网络之深度学习的实用层面/" itemprop="url">
+                  改善深层神经网络之深度学习的实用层面
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T09:40:53+08:00">
+                2018-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/26/改善深层神经网络之深度学习的实用层面/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/26/改善深层神经网络之深度学习的实用层面/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Settiing-up-your-ML-application"><a href="#Settiing-up-your-ML-application" class="headerlink" title="Settiing up your ML application"></a>Settiing up your ML application</h3><p>Train/dev/test sets<br>应用型机器学习是一个高度的迭代过程</p>
+<p>训练神经网络时通常要做出很多决策：<br>神经网络分多少层<br>每层有多少个隐藏单元<br>学习速率是多少<br>各层采用哪种激活函数</p>
+<p>为了找到更好的神经网络需要不断迭代更新自己的方案</p>
+<p>数据集通常被分为数据集 验证集 测试集</p>
+<p>数据集规模较小时，适用传统的划分比例<br>数据集规模较大时，验证集和测试集可以占到数据总量的10%以下</p>
+<p>要确保训练和测试集来自同一分布</p>
+<h3 id="Bias-and-Variance"><a href="#Bias-and-Variance" class="headerlink" title="Bias and Variance"></a>Bias and Variance</h3><p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/拟合.png" alt="拟合"><br>欠拟合，适度拟合和过拟合</p>
+<p>可以通过几个指标来研究偏差和方差<br>理解偏差和方差两个关键指标数据是训练集误差和验证集误差<br>训练集误差小，验证集误差大：过拟合，高方差<br>训练集误差大，验证集误差大：欠拟合，高偏差<br>训练集误差大，验证集误差更大：高方差高偏差<br>最优误差/贝叶斯误差：如果最优误差很高，训练集误差验证集误差大也很正常</p>
+<h3 id="Basic-recipe-for-machine-learning"><a href="#Basic-recipe-for-machine-learning" class="headerlink" title="Basic recipe for machine learning"></a>Basic recipe for machine learning</h3><p>高偏差：规模更大的网络结构，延长训练时间<br>高方差：采集更多数据，正则化减少过拟合</p>
+<h3 id="Regularizing-your-neural-network"><a href="#Regularizing-your-neural-network" class="headerlink" title="Regularizing your neural network"></a>Regularizing your neural network</h3><h4 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h4><script type="math/tex; mode=display">\min_{w,b} J(w,b)</script><script type="math/tex; mode=display">J(w,b) = \frac {1}{m} \sum_{i=1}^{m} L({\hat{y}^{(i)},y^{(i)}}) + \frac{\lambda}{2m}{\left\|w\right\|}^2_2</script><script type="math/tex; mode=display">{\left\|w\right\|}^2_2 = \sum_{j=1}^{n_x}w^2_j = w^Tw</script><p>L2正则化</p>
+<h3 id="Neural-network"><a href="#Neural-network" class="headerlink" title="Neural network"></a>Neural network</h3><p>在神经网络中实现正则化</p>
+<script type="math/tex; mode=display">J(w^{[1]},b^{[1]},...,w^{[L]},b^{[L]},) = \frac{1}{m}\sum_{i=1}^{m}L({\hat{y}^{(i)},y^{(i)}})+\frac{\lambda}{2m}\sum_{l=1}^{L}{\left\|w^{[l]}\right\|}^2_F</script><script type="math/tex; mode=display">{\left\|w^{[l]}\right\|}^2_F = \sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}(w^{[l]}_{ij})^2</script><script type="math/tex; mode=display">w:(n^{[l-1]},n^{[l]})</script><p>L是网络层数。下面的矩阵范数被定义为矩阵中所有元素的平方求和。这个范数被称为Frobenius norm</p>
+<p>如何使用该范数进行梯度下降？用backprop计算出$\frac{\partial J}{\partial w^{[L]}}$</p>
+<p>然后加上正则项：</p>
+<script type="math/tex; mode=display">dw^{[l]} = (form backup) +\frac{\lambda}{m}w^{[l]}</script><p>然后更新权重</p>
+<script type="math/tex; mode=display">w^{[l]} := w^{[l]} - \alpha dw^{[l]}</script><p>这就是L2正则化有时被称为权重衰减的原因</p>
+<h3 id="Why-regularization-reduces-overfitting"><a href="#Why-regularization-reduces-overfitting" class="headerlink" title="Why regularization reduces overfitting"></a>Why regularization reduces overfitting</h3><p>假设我们面对的是这样一个网络模型<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型.jpg" alt="网络模型"><br>如果正则话$\lambda$设置足够大，那么会导致权重矩阵W被设置为接近0的值，即$W[l] \approx 0$。本质上就是把许多隐藏层的权值设为0，尝试消除隐藏层对整个网络的影响。可以看作<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型2.jpg" alt="网络模型2"><br>这个被大大简化的网络会变成一个很小的网络，能小到如同线性单元，但深度还是很大，网络会从过拟合状态变得更接近高偏差的状态</p>
+<p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/fitting.jpg" alt="fitting"><br>过拟合和欠拟合都有些极端，需要找到一个这种的$\lambda$，使得拟合成拟合适中的情况</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://andeper.cn/2018/07/12/python爬虫之模拟登陆新浪微博/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1759,157 +1904,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/18/Android开发艺术探索-理解Window和WindowManager/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/18/Android开发艺术探索-理解Window和WindowManager/" itemprop="url">
-                  Android开发艺术探索-理解Window和WindowManager
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T16:53:00+08:00">
-                2017-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/18/Android开发艺术探索-理解Window和WindowManager/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/18/Android开发艺术探索-理解Window和WindowManager/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="第八章：理解Window和WindowManager"><a href="#第八章：理解Window和WindowManager" class="headerlink" title="第八章：理解Window和WindowManager"></a>第八章：理解Window和WindowManager</h3><p>Window表示一个窗口的概念。Window是一个抽象类，它的具体实现是PhoneWindow，创建一个Window在WindowManager中完成，但Window的具体实现是在WindowManagerService中，WindowManager和WindowManagerService的交互是一个IPC过程。Andorid的所有视图都是通过Window来呈现的</p>
-<h4 id="Window和WindowManager"><a href="#Window和WindowManager" class="headerlink" title="Window和WindowManager"></a>Window和WindowManager</h4><p>下面代码通过WindowManager添加一个Window<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Button mFloatingButton = <span class="keyword">new</span> Button(<span class="keyword">this</span>);</span><br><span class="line">mFloatingButton.setText(<span class="string">"button"</span>);</span><br><span class="line">WindowManager.LayoutParams mLayoutParams = <span class="keyword">new</span> WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,<span class="number">0</span>,<span class="number">0</span>, PixelFormat.TRANSPARENT);</span><br><span class="line">mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL| WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;</span><br><span class="line">mLayoutParams.gravity = Gravity.LEFT|Gravity.TOP;</span><br><span class="line">mLayoutParams.x = <span class="number">100</span>;</span><br><span class="line">mLayoutParams.y = <span class="number">300</span>;</span><br><span class="line">WindowManager windowManager = getWindowManager();</span><br><span class="line">windowManager.addView(mFloatingButton,mLayoutParams);</span><br></pre></td></tr></table></figure></p>
-<p>上述代码将Button添加到屏幕坐标为（100，300）的位置上，WindowManager.LayoutParams中的flag和type参数比较重要<br>Flags参数代表Window的属性<br>FLAG_NOT_FOCUSABLE<br>表示Window不需要获取焦点，也不需要接收各种输入事件，此标记会同时启用FLAG_NOT_TOUCH_MODAL。最终事件会直接传递给下层的具有焦点的Window<br>FLAG_NOT_TOUCH_MODAL<br>再次模式下，系统会将当前Window区域以外的单击事件传递给底层的Window，当前Window区域以内的单击事件则自己处理，一般需要开启，否则其他Window将无法收到单击事件<br>FLAG_SHOW_WHEN_LOCKED<br>开启此模式可以让Window显示在锁屏的界面上</p>
-<p>Type参数表示Window的类型，Window有三种类型，分别是应用Window、子Window和系统Window<br>Window是分层的，每个WIndow都有对应的z-ordered，在三类Window中，应用Window的层级范围是1-99，子Window的范围哦是1000-1999，系统Window的层级范围是2000-2999<br>WindowManager只有三个功能。定义在ViewManager中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ViewManager</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateViewLayout</span><span class="params">(View view, ViewGroup.LayoutParams params)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeView</span><span class="params">(View view)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>WindowManager操作Window更像是在操作Window中的View</p>
-<h4 id="Window的内部机制"><a href="#Window的内部机制" class="headerlink" title="Window的内部机制"></a>Window的内部机制</h4><p>每个Window都对应着一个View和一个ViewRootImpl，Window和View通过ViewRootImpl来建立联系，Window是一个抽象的概念，View才是Window存在的实体。</p>
-<h5 id="Window的添加过程"><a href="#Window的添加过程" class="headerlink" title="Window的添加过程"></a>Window的添加过程</h5><p>WindowManager的实现类WindowManagerImpl没有实现Window的三大操作，而是交给WindowManagerGlobal来处理，addView方法主要分为以下几步</p>
-<h6 id="检查参数是否合法，如果是子Window还需要调整布局参数"><a href="#检查参数是否合法，如果是子Window还需要调整布局参数" class="headerlink" title="检查参数是否合法，如果是子Window还需要调整布局参数"></a>检查参数是否合法，如果是子Window还需要调整布局参数</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (view == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"view must not be null"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (display == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"display must not be null"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(params <span class="keyword">instanceof</span> WindowManager.LayoutParams)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Params must be WindowManager.LayoutParams"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">        <span class="keyword">if</span> (parentWindow != <span class="keyword">null</span>) &#123;</span><br><span class="line">            parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h6 id="创建ViewRootImpl并将View添加到列表中"><a href="#创建ViewRootImpl并将View添加到列表中" class="headerlink" title="创建ViewRootImpl并将View添加到列表中"></a>创建ViewRootImpl并将View添加到列表中</h6><p>WindowManagerGlobal内部下面几个列表比较重要<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;View&gt; mViews = <span class="keyword">new</span> ArrayList&lt;View&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;ViewRootImpl&gt; mRoots = <span class="keyword">new</span> ArrayList&lt;ViewRootImpl&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;WindowManager.LayoutParams&gt; mParams =</span><br><span class="line">            <span class="keyword">new</span> ArrayList&lt;WindowManager.LayoutParams&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArraySet&lt;View&gt; mDyingViews = <span class="keyword">new</span> ArraySet&lt;View&gt;();</span><br></pre></td></tr></table></figure></p>
-<p>mViews存储所有Window对应的View<br>mRoots存储的是所有Window对应的ViewRootImpl<br>mParams存储所有对应的布局参数<br>mDyingViews则存储那些正在被删除的View对象。<br>addView通过如下方式将Window的一系列对象添加到列表中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">view.setLayoutParams(wparams);</span><br><span class="line">mViews.add(view);</span><br><span class="line">mRoots.add(root);</span><br><span class="line">mParams.add(wparams);</span><br></pre></td></tr></table></figure></p>
-<h6 id="通过ViewRootImpl来更新界面并完成Window的添加过程"><a href="#通过ViewRootImpl来更新界面并完成Window的添加过程" class="headerlink" title="通过ViewRootImpl来更新界面并完成Window的添加过程"></a>通过ViewRootImpl来更新界面并完成Window的添加过程</h6><p>由ViewRootImpl的setView方法来完成.<br>View的绘制过程由ViewRootImpl的setView完成的<br>在setView内部会通过requestLayout来完成异步刷新请求的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">            checkThread();</span><br><span class="line">            mLayoutRequested = <span class="keyword">true</span>;</span><br><span class="line">            scheduleTraversals();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>scheduleTraversals是View绘制的入口，接着会通过WindowSession最终来完成Window的添加过程<br>mWindowSession的类型是IWindowSession，它是一个Binder对象，真正的实现类是Session，也就是Window的添加过程是一次IPC调用<br>在Session内部会通过WindowManagerService来实现Window的添加</p>
-<h5 id="Window的删除过程"><a href="#Window的删除过程" class="headerlink" title="Window的删除过程"></a>Window的删除过程</h5><p>真正删除View 的逻辑在dispatchDetachedFromWindow，重要做四件事情</p>
-<ol>
-<li>垃圾回收相关工作，比如清除数据和消息，移除回调</li>
-<li>通过Session的remove方法删除View，这是一个IPC过程，最终会调用WindowManagerService的removeWindow方法</li>
-<li>调用View的dispatchDetachedFromWindow调用回调，让用户在回调方法里做资源回收工作</li>
-<li>调用WindowManagerGlobal的doRemoveView方法刷新数据，包括mRoots、mParams、以及mDyingViews</li>
-</ol>
-<h5 id="Window的更新过程"><a href="#Window的更新过程" class="headerlink" title="Window的更新过程"></a>Window的更新过程</h5><p>调用WindowManagerGlobal的updateViewLayout方法，首先更新View的LayoutParams并替换老的LayoutParams，接着再更新ViewRootImpl中的LayoutParams</p>
-<h4 id="Window的创建过程"><a href="#Window的创建过程" class="headerlink" title="Window的创建过程"></a>Window的创建过程</h4><p>View是Android中的师徒的呈现方式，View必须附着在Window这个抽象的概念上面</p>
-<h5 id="Activity的Window创建过程"><a href="#Activity的Window创建过程" class="headerlink" title="Activity的Window创建过程"></a>Activity的Window创建过程</h5><p>PhoneWindow的setContentView方法大致遵循如下几个步骤<br>1.如果没有DecorView，那么创建它<br>DecorView算是一个FrameLayout，它包含标题栏和内容栏，DecorView的创建过程由installDecor方法来完成，再方法内部会通过generateDecor方法来直接创建DecorView，这个时候DecorView还是一个空白的FrameLayout。<br>2.将View添加到DecorView的mContentParent中<br>3.回调Activity的onContentChanged方法通过Activity视图已经发生改变</p>
-<h5 id="Dialog的Window创建过程"><a href="#Dialog的Window创建过程" class="headerlink" title="Dialog的Window创建过程"></a>Dialog的Window创建过程</h5><p>1.创建Window<br>2.初始化DecorView并将Dialog的视图添加到DecorView中<br>3.将DecorView添加到Window中并显示</p>
-<h5 id="Toast的Window创建过程"><a href="#Toast的Window创建过程" class="headerlink" title="Toast的Window创建过程"></a>Toast的Window创建过程</h5><p>再Toast内部有两类IPC过程，第一类是Toast访问NotificationManagerService，第二类是NotificationManagerService回调Toast 的TN接口</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1959,7 +1953,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
