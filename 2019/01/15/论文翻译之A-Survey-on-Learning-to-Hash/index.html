@@ -1,0 +1,921 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Andeper的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！ A Survey on Learning to HashAbstractNearest neighbor search is a problem of ﬁnding the data points from a database such that the distances from them to the query point">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文翻译之A Survey on Learning to Hash">
+<meta property="og:url" content="http://andeper.cn/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！ A Survey on Learning to HashAbstractNearest neighbor search is a problem of ﬁnding the data points from a database such that the distances from them to the query point">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://andeper.cn/assets/图1.png">
+<meta property="og:updated_time" content="2019-01-15T09:43:03.199Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文翻译之A Survey on Learning to Hash">
+<meta name="twitter:description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！ A Survey on Learning to HashAbstractNearest neighbor search is a problem of ﬁnding the data points from a database such that the distances from them to the query point">
+<meta name="twitter:image" content="http://andeper.cn/assets/图1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://andeper.cn/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/"/>
+
+
+
+
+
+  <title> 论文翻译之A Survey on Learning to Hash | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                论文翻译之A Survey on Learning to Hash
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T09:06:36+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！</strong></p>
+<h3 id="A-Survey-on-Learning-to-Hash"><a href="#A-Survey-on-Learning-to-Hash" class="headerlink" title="A Survey on Learning to Hash"></a>A Survey on Learning to Hash</h3><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>Nearest neighbor search is a problem of ﬁnding the data points from a database such that the distances from them to the query point are the smallest. Learning to hash is one of the major solutions to this problem and has been widely studied recently. In this paper, we present a comprehensive survey of the learning to hash algorithms, categorize them according to the manners of preserving the similarities into: pairwise similarity preserving, multiwise similarity preserving, implicit similarity preserving, as well as quantization, and discuss their relations. We separate quantization from pairwise similarity preserving as the objective function is very different though quantization, as we show, can be derived from preserving the pairwise similarities. In addition, we present the evaluation protocols, and the general performance analysis and point out that the quantization algorithms perform superiorly in terms of search accuracy, search time cost, and space cost. Finally, we introduce a few future directions.</p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>最邻近搜索是从数据库里面查找数据点的问题，使他们到查询点的距离最小。学习哈希是这个问题的主要解决方案之一，并且最近被广泛研究，在本文中，我们对哈希算法的学习进行了全面的调查，并根据保持相似性的方式对它们进行分类:成对相似性保持、多向相似性保持，隐式相似性保持以及量化，并讨论它们之间的关系。我们将量化和成对相似性保持分开，因为目标函数是完全不同的，正如我们所示，量化可以从保成对相似性得出，此外，我们提出了评估协议和一般性能分析，并指出量化算法在搜索精度，搜索时间和空间成本方面表现优异，最后我们介绍一些未来的方向。</p>
+<p>Index Terms—Similarity search, approximate nearest neighbor search, hashing, learning to hash, quantization, pairwise similarity preserving, multiwise similarity preserving, implicit similarity preserving.<br>索引词：相似性搜索，近似最近邻搜索，散列，学习哈希，量化，保成对相似性，保多向相似性，保隐含相似性</p>
+<h3 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h3><p>the problem of nearest neighbor search, also known as similarity search, proximity search, or close item search, is aimed at ﬁnding an item, called nearest neighbor, which is the nearest to a query item under a certain distance measure from a search (reference) database. The cost of ﬁnding the exact nearest neighbor is prohibitively high in the case that the reference database is very large or that computing the distance between the query item and the database item is costly. The alternative approach, approximate nearest neighbor search, is more efﬁcient and is shown to be enough and useful for many practical problems, thus attracting an enormous number of research efforts.<br>最近邻搜索问题，也称为相似性搜索，邻近搜索或者关闭项搜索，旨在找到一个称为最近邻的项，该项在特定距离度量方法上与数据库的查询项最近。在参考数据库非常大或者计算查询量和数据库项之间的距离的代价很高的情况下，找到确切的最邻近的代价非常高。替代方法就是最近邻搜索，它更有效，并且被证明足以用于许多实际问题，因此有大量的研究工作。</p>
+<p>Hashing, a widely-studied solution to approximate nearest neighbor search, aims to transforming the data item to a low-dimensional representation, or equivalently a short code consisting of a sequence of bits, called hash code. There are two main categories of hashing algorithms: locality sensitive hashing [29] and learning to hash. Locality sensitive hashing (LSH) is data-independent. The research efforts mainly come from the theory community, such as proposing random hash functions satisfying the local sensitive property for various distance measures [5], [6], [7], [10], [11], [69], [78], proving better search efﬁciency and accuracy [10], [80], and developing better search schemes [15], [67], and the machine learning community, such as developing hash functions providing a similarity estimator with smaller variance [47], [37], [51], [36], or smaller storage [49], [50], or faster computation of hash functions [48], [51], [36], [88].<br>哈希是一种广泛研究的最近邻搜索的解决方案，旨在将数据项转换成低维表示，或者等效成一个短的比特序列，称为哈希码。哈希算法主要有两类：局部敏感哈希和学习哈希算法，局部敏感哈希与数据无关。研究工作主要来自理论界，比如提出满足各种距离测量的局部铭感哈希性的随机哈希函数[5], [6], [7], [10], [11], [69], [78]，证明了更好的搜索效率和准确性[10], [80],并开发了更好的搜索方案[15], [67]和机器学习社区，例如开发哈希函数，提供具有较小方差的相似性估计更快地哈希函数计算[48], [51], [36], [88].</p>
+<p>Learning to hash, the interest in this survey, is a datadependent hashing approach, which aims to learn hash functions from a speciﬁc dataset so that the nearest neighbor search result in the hash coding space is as close to the search result in the original space as possible, and the search cost and the space cost are also small. Since the pioneering algorithm, spectral hashing [107], learning to hash has been attracting a large amount of research interests in computer visionand machine learningand has beenappliedto a widerange of applications such as large scale object retrieval [33], image classiﬁcation and detection [85] [94], and so on.<br>学习哈希，是一种数据相关的哈希方法，旨在从特定的数据集中学习哈希函数，使哈希编码空间中最近邻搜索结果和原始空间中搜索结果尽可能接近，并且搜索成本和空间成本很小。自从开创算法，谱哈希以来没学习哈希已经吸引了大量计算机视觉和机器学习的研究，并且已经被广泛应用，如大规模检索，图像分类和检测等。</p>
+<p>The main methodology of learning to hash is similarity preserving, i.e., minimizing the gap between the similarities or similarity orders computed/given in the original space and in the hash coding space in various forms. The similarity in the original space might be from the semantic (class) information, or from the distance (e.g., Euclidean distance) computed in the original space, which is more widely interested and studied in most real applications, e.g., large scale search by image and image classiﬁcation, and thus the main focus in this paper.<br>学习哈希的主要方法是保相似性，即以各种形式最小化在初始空间和哈希编码空间中计算得相似性或相似性次序之间的距离。原始空间中的相似性可以来自语义信息，或者来自原始空间中的计算的距离，其在大多数实际应用中被广泛的研究，例如大规模搜索图像和图像分类，因而是本文的主要焦点</p>
+<p>This survey categorizes the algorithms according to the similarity preserving manners into: pairwise similarity preserving, multiwise similarity preserving, implicit similarity preserving, and quantization that, we show, is a form of pairwise similarity preserving, and discusses other problems, including evaluation datasets and schemes, online search given the hash codes, and so on. In addition, we present the empirical observation that the quantization approach outperforms other approaches and give some analysis about this observation. Finally, we point out the future directions, such as an end-to-end learning strategy for real applications, directly learning the hash codes from the object, e.g., image, instead of ﬁrst learning the representations and then learning the hash codes from the representations.<br>该调查根据相似性保持方法吧算法分类为：成对相似性保持、多向相似性保持，隐式相似性保持以及量化，我们表明，这是一种成对相似性保持的形式，并讨论了其他问题，包括评估数据集和方案，在线搜索出哈希码，等等。此外，我们提出了经验观察，即量化方法优于其他方法，并对此观察进行了一些分析。最后，我们指出未来的方向，例如实际应用端到端学习策略，直接从对象学习哈希码，例如图像，而不是先学习表示，然后从表示中学习哈希码。</p>
+<h4 id="1-1-Organization-of-This-Paper"><a href="#1-1-Organization-of-This-Paper" class="headerlink" title="1.1 Organization of This Paper"></a>1.1 Organization of This Paper</h4><p>The organization of the remaining part is given as the following. Section 2 introduces the exact and approximate nearest neighbor searchproblems,and the searchalgorithms with hashing. Section 3 provides the basic concepts in the learning-to-hashing approach and categorizes the existing algorithms from the perspective of loss function into four main classes: pairwise alignment, multiple-wise alignment,implicit alignment and quantization, which are discussed in Sections 4, 5, 6, and 7, respectively. Section 8 presents other works in learning to hash. Sections 9 and 10 gives some evaluation protocols and performance analysis. Finally, Sections 11 and 12 point out the future research trends and conclude this survey, respectively.</p>
+<h4 id="1-1-本文的组织"><a href="#1-1-本文的组织" class="headerlink" title="1.1 本文的组织"></a>1.1 本文的组织</h4><p>其余部分的组织如下，第2节介绍精确和近似的最近邻搜索问题，以及使用哈希的搜索算法，第3节提供了学习哈希的基本概念，并将现有算法从损失函数的角度分为四类，成对对齐,多向对齐，隐式对齐和量化，分别在第4,5,6，7节中讨论。第8节介绍了学习哈希的其他工作。第9节和第10节中给出了评估协议和性能分析。最后在11和12节分别指出了未来的研究趋势并总结了这项研究。</p>
+<h3 id="2-BACKGROUND"><a href="#2-BACKGROUND" class="headerlink" title="2 BACKGROUND"></a>2 BACKGROUND</h3><h4 id="2-1-Nearest-Neighbor-Search"><a href="#2-1-Nearest-Neighbor-Search" class="headerlink" title="2.1 Nearest Neighbor Search"></a>2.1 Nearest Neighbor Search</h4><p>Exact nearest neighbor search is deﬁned as searching an item NN(q) (called nearest neighbor) for a query N item q from a set of items X = {x1,x2,··· ,xN} so that NN(q) = argminx∈X dist(q,x), where dist(q,x) is a distance computed between q and x. A straightforward generalization is K-NN search, where K nearest neighbors (KNN(q)) are needed to be found.</p>
+<h3 id="2-背景"><a href="#2-背景" class="headerlink" title="2 背景"></a>2 背景</h3><h4 id="2-1-最近邻搜索"><a href="#2-1-最近邻搜索" class="headerlink" title="2.1 最近邻搜索"></a>2.1 最近邻搜索</h4><p>精确最近邻搜索被定义为搜索一个项NN(q)(称为最近邻居),从一组项$\chi=\{x_1,x_2,……,x_n\}$查询N项得到$NN(q) = argmin_{x\in \chi}dist(q,x)$,其中$dist(q,x)$是q和x之间计算的距离，简单的推广是KNN搜索，其中需要找到K个最近邻居$(KNN(q))$。</p>
+<p>The distance between an arbitrary pair of items x and q depends on the speciﬁc nearest search problem. A typical example is that the search (reference) database X lies in a d-dimensional space Rd and the distance is induced by an ls norm, kx − qks = (Pd i=1 |xi − qi|s)1/s. The search problem under the Euclidean distance, i.e., the l2 norm, is widely studied. Other notions of the search database, for example, the data item is formed by a set, and distance measures,such as ℓ1 distance, cosine similarity and so on, are also possible.<br>任意一对项x和q之间的距离取决于特定的最近搜索问题。一个典型的例子就是搜索数据库$\chi$位于d维空间$\mathbb{R}^d$,距离是由$l_s$范数引起，$\left|x-q\right|_s = (\sum_{i=1}^{d}{\left|x_i-q_i\right|}^s)^{1/s}$。欧几里得距离下的搜索问题，即$l_2$范数，是广泛的研究。搜索数据库的其他概念，如数据项是由一组形成的，距离测量例如$l_1$距离，余弦相似性等等也是可能的。</p>
+<p>There exist efﬁcient algorithms (e.g., k-d trees and its variants) for exact nearest neighbor search in lowdimensional cases. In large scale high-dimensional cases, it turns out that the problems become hard and most algorithms even take higher computational cost than the naive solution, linear scan. Therefore, a lot of recent efforts are moved to search approximate nearest neighbors: (1 + ǫ)approximate nearest neighbor search [29], which is studied mainly in the theory community, and time-ﬁxed approximate nearest neighbor search. Other nearest neighbor search problems include (approximate) ﬁxed-radius near neighbor (R-near neighbor) problem, and randomized nearest neighbor search which the locality sensitive hashing research community is typical interested in.<br>在低维情况下存在用于精确最近邻搜索的有效算法，例如k-d树及其变体。在大规模的高维情况下，事实证明问题变得困难，并且大多数算法甚至比简单的解决方案线性扫描花费更高的计算成本。因此，最近很多工作转移到搜索近似最近邻：$(1+\epsilon)$-近似最近邻搜索，其主要在理论界研究，并且时间固定近似最近邻走索。其他最近邻搜索问题包括(近似)固定半径近邻(R近邻)问题，以及局部敏感哈希研究社区通常感兴趣的随机最近邻搜索</p>
+<p>Time-ﬁxed approximate nearest neighbor search is studied mainly in machine learning and computer vision for real applications, such as the learning to hash approach, though there is usually lack of elegant theory. The goal is to make the average search as accurate as possible by comparing the returned K approximate nearest neighbors and the K exact nearest neighbors, and the query cost as small as possible.<br>时间固定近似最近邻搜索主要在及其学习和计算机视觉中用于实际应用，例如学习哈希方法，尽管通常缺乏理论基础，目标是通过比较返回的K近似最近邻和K精确最近邻来使得平均搜索尽可能准确，并且查询成本尽可能小。</p>
+<h4 id="2-2-Search-with-Hashing"><a href="#2-2-Search-with-Hashing" class="headerlink" title="2.2 Search with Hashing"></a>2.2 Search with Hashing</h4><p>The hashing approach aims to map the reference (and query) items to the target items so that approximate nearest neighbor search is efﬁciently and accurately performed by resorting to the target items and possibly a small subset of the raw reference items. The target items are called hash codes (also known as hash values, simply hashes). In this paper, we may also call it short/compact codes interchangeably.</p>
+<h4 id="2-2-使用哈希搜索"><a href="#2-2-使用哈希搜索" class="headerlink" title="2.2 使用哈希搜索"></a>2.2 使用哈希搜索</h4><p>哈希方法旨在将参考（和查询）项映射到目标项，以便通过目标项和可能的原始参考项的一小部分来有效且准确地执行近似最近邻搜索。目标项被称为哈希码。在本文中，我们也可以将他称为短/紧凑码。</p>
+<p>The hash function is formally deﬁned as: y = h(x), where y is the hash code, and may be a binary value, 1 and 0 (or −1) or an integer, and h(·) is the hash function. In the application to approximate nearest neighbor search, usually several hash functions are used together to compute the compound hash code: y = h(x), where y = [y1 y2 ··· yM]T and h(x) = [h1(x) h2(x) ··· hM(x)]T . Here we use a vector y to represent the compound hash code for convenience.<br>哈希函数形式上定义为：$y = h(x)$,其中y是哈希码，也可能是二进制值，1和0或证书，h(*)是哈希函数。在近似最近邻搜索的应用中，通常使用几个哈希函数来计算复合哈希码：$y = h(x)$,其中$y = {[y_1,y_2,\cdots,y_m]}^t$,并且$h(x) = [h_1(x)h_2(x)\cdots h_M(x)]^t$，为了方便起见这里我们使用一个向量来表示复合哈希码。</p>
+<p>There are two basic strategies for using hash codes to perform nearest (near) neighbor search: hash table lookup and hash code ranking. The search strategies are illustrated in Figure 1.<br>使用哈希码有两种最基本的策略执行最近邻搜索：哈希表查找和哈希码排名。搜索策略如图1所示。<br><img src="/assets/图1.png" alt="图1"><br>Fig. 1. Illustrating the search strategies. (a) Multi table lookup: the list corresponding to the hash code of the query in each table is retrieved. (b) Single table lookup: the lists corresponding to and near to the hash code of the query are retrieved. (c) Hash code ranking: compare the query with each reference item in the coding space. (d) Non exhaustive search: hash table lookup (or other inverted index struture) retrieves the candidates, followed by hash code ranking over the candidates. The hash codes are different in two stages.<br>图1。说明搜索策略。（a）多表查找：检索与每个表中的查询的哈希码对应的列表。（b）单表查找：检索与查询的哈希码对应和接近的列表。（c）哈希码排名：将查询与编码空间中的每个参考项进行比较。（d）非穷举搜索：哈希表查找（或其他反向索引结构）检索候选者，然后对候选者进行哈希码排名。 哈希码在两个阶段中是不同的。</p>
+<p>The main idea of hash table lookup for accelerating the search is to reduce the number of the distance computations from N to N′ (N ≫ N′), and thus the time complexity is reduced from O(Nd) to O(N′d). The data structure, called hash table (a form of inverted index), is composed of buckets with each indexed by a hash code. Each reference item x is placed into a bucket h(x). Different from the conventional hashing algorithm in computer science that avoids collisions (i.e., avoids mapping two items into some same bucket), the hashing approach using a hash table aims to maximize the probability of collision of near items. Given the query q, the items lying in the bucket h(q) are retrieved as the candidates of the nearest items of q, usually followed by a reranking step: rerank the retrieved nearest neighbor candidates according to the true distances computed using the original features and attain the K nearest neighbors or R-near neighbors<br>用于加速搜索的哈希表查找的主要思想是将距离计算的数量从$N$减少到$N’(N\to N’)$,从而减少时间复杂度，从$O(Nd)$减少到$O(N’d)$。数据结构称为哈希表（一种倒排索引的形式），由组成每个桶由哈希码索引。每个参考项目x被放入桶$h(x)$中。与避免冲突的计算机科学中的传统哈希算法不同（即避免两个项映射到同一个桶中），使用哈希表的哈希方法旨在最大化近项目的冲突概率。给定查询q，检索位于h(q)中的项作为q的最近项的候选，通常接着的是重新排名的步骤：重新排名被检索到的最近邻候选，根据使用原始特征计算的真实距离并获得K个最近邻或R近邻。</p>
+<p>To improve the recall, two ways are often adopted. The ﬁrst way is to visit a few more buckets (but with a single hash table), whose corresponding hash codes are the nearest to (the hash code of) the query h(q) in terms of the distances in the coding space. The second way is to construct more hash tables. The items lying in the L hash buckets h1(q),··· ,hL(q) are retrieved as the candidates of near items of q. To guarantee the high precision, each of the L hash codes, yi, needs to be a long code. This means that the total number of the buckets is too large to index directly, and thus, the buckets that are nonempty are retained by using conventional hashing of the hash codes hl(x).<br>为了改善召回率，通常采用两种方式。第一种方法是访问几个桶（使用单个哈希表），其对应的哈希码就编码空间的距离而言最接近查询h(q)的哈希码。第二种方法是构造更多的哈希表。位于L哈希桶$h_1(q),h_2(q) \cdots,h_L(q)$中的项被检索为最靠近q的项目。为了保证高精度，每个L哈希码$y_i$需要是长码。这意味着桶的总数太大而不能直接索引，因此，通过使用散列码$h_1(x)$的常规哈希来保留非空的桶。</p>
+<p>The second way essentially stores multiple copies of the id for each reference item. Consequently, the space cost is larger. In contrast, the space cost for the ﬁrst way is smaller as it only uses a single table and stores one copy of the id for each reference item, but it needs to access more buckets to guarantee the same recall with the second way. The multiple assignment scheme is also studied: construct a single table, but assign a reference item to multiple hash buckets. In essence, it is shown that the second way, multiple hash tables, can be regarded as a form of multiple assignment.<br>第二种方法基本上存储了多个副本和每个参考项的id，因此，空间成本更大。相比之下，第一种方式的空间成本较小，因为它只使用一个表并为每个参考项存储一个id的副本，但它需要访问更多的桶来保证与第二种方式相同的召回率。还研究了多重分配方案：构造单个表，但将参考项分配给多个哈希桶。本质上，它表明多个哈希表的方式可以被视为多重赋值的一种形式。</p>
+<p>Hash code ranking performs an exhaustive search: compare the query with each reference item by fast evaluating their distance (e.g., using distance table lookup or using the function popcnt for Hamming distance) according to (the hash code of) the query and the hash code of the reference item, and retrieve the reference items with the smallest distances as the candidates of nearest neighbors. Usually this is followed by a reranking step: rerank the retrieved nearest neighbor candidates according to the true distances computed using the original features and attain the K nearest neighbors or R-near neighbors.<br>哈希码排名执行穷举搜索：通过快速评估距离，将查询与每个参考项进行比较，（例如，根据查询的哈希码和参考项的哈希码，使用距离表查找或使用popcnt函数计算汉明距离），并检索具有最小距离的参考项作为最近邻居的候选者。通常，这之后是重新排名步骤：根据使用原始特征计算的真实距离重新获得检索的最近邻居候选者，并获得K个最近邻居或R邻近邻居。</p>
+<p>This strategy exploits one main advantage of hash codes: the distance using hash codes is efﬁciently computed and the cost is much smaller than that of the computation in the original input space, reduced from d to d′ where d ≫ d′ and the whole cost is reduced from Nd to Nd′.<br>该策略利用哈希码的一个主要优点：使用哈希码的距离得到有效计算，成本远小于原始输入空间中的计算成本，从$d$减少到$d’$，其中$d\to d’$和整个成本从$Nd$减少到$Nd’$。</p>
+<p>Comments: Hash table lookup is mainly used in locality sensitive hashing, and has been used for evaluating learning to hash in a few publications. It is observed that hash table lookup with binary hash codes shows inferior performance and hence rarely adopted in reality, while hash table lookup with quantization-based hash codes, is widely used in the non-exhaustive strategy to retrieve coarse candidates. In comparison to hash table lookup, hash code ranking is superior in search accuracy while inferior in search efﬁciency, and overall performs better, and thus more widely used in real applications and in experimental evaluations.<br>注释：哈希表查找主要用于局部敏感哈希，并在一些出版物中已用于评估学习哈希。 据观察，使用二进制哈希码的哈希表查找显示出较差的性能，因此在现实中很少采用，而基于量化的哈希码的哈希表查找被广泛用于非穷举策略以检索粗略候选。与哈希表查找相比，哈希码排名在搜索精度方面优越，而在搜索效率方面较差，并且整体表现更好，因此在实际应用和实验评估中更广泛地使用。<br>A practical way is to do a non-exhaustive search: ﬁrst retrieve a small set of candidates using inverted index, and then compute the distances of the query with the candidates using the hash codes, providing the top candidates subsequently reranked using the original features. Other research efforts include organizing the hash codes to avoid exhaustive search with a data structure, such as a tree or a graph structure [73].<br>一种实用的方法是进行非详尽搜索：首先使用倒排索引检索一小组候选，然后使用哈希码计算查询与候选的距离，提供随后使用原始特征重新排序的顶级候选。其他研究工作包括组织哈希码以避免使用数据结构进行穷举搜索，例如树或图结构[73]。</p>
+<h3 id="3-LEARNING-TO-HASH"><a href="#3-LEARNING-TO-HASH" class="headerlink" title="3 LEARNING TO HASH"></a>3 LEARNING TO HASH</h3><p>Learning to hash is a task of learning a (compound) hash function, y = h(x), mapping an input item x to a compact<br>code y, with the goals: the nearest neighbor search result for a query q is as close to the true nearest search result as possible and the search in the coding space is also efﬁcient. A learning-to-hash approach needs to consider three problems for computing the hash codes: what hash function h(x) is adopted, what similarity in the coding space is used and what similarity is provided in the input space, what loss function is chosen for the optimization objective.</p>
+<h3 id="学习哈希"><a href="#学习哈希" class="headerlink" title="学习哈希"></a>学习哈希</h3><p>学习哈希是学习（复合）哈希函数的任务，y = h（x），将输入项x映射到紧凑码y，具有目标：查询q的最近邻搜索结果尽可能接近真实的最近搜索结果，并且在编码空间中的搜索也是有效的。学习哈希方法需要考虑计算哈希码的三个问题：采用什么哈希函数h（x），在编码空间中使用什么相似性以及在输入空间中提供什么相似性，什么是损失函数 被选择用于优化目标。</p>
+<h4 id="3-1-Hash-Function"><a href="#3-1-Hash-Function" class="headerlink" title="3.1 Hash Function"></a>3.1 Hash Function</h4><p>The hash function can be a form based on linear projection, kernels, spherical function, neural network, a nonparametric function, and so on. One popular hash function is the linear hash function: <script type="math/tex">y = h(x) = sgn(w^Tx + b). (1)</script>where sgn(z) = 1 if z &gt; 0 and sgn(z) = 0 (or equivalently −1) otherwise, w is the projection vector, and b is the bias variable. The kernel function,<script type="math/tex">y = h(x) = sgn(\sum_{t=1}^{T}w_tK(s_t,x)+b.(2)</script>is also adopted in some approaches, where {st} is a set of representative samples that are randomly drawn from the dataset or cluster centers of the dataset. and {wt} are the weights. The non-parametric function based on nearest vector assignment is widely used for quantization-based solutions:<script type="math/tex">y = arg\min_{k\in\{1,···,K\}}\|x-c_k\|_2.(3)</script>where {c1,··· ,cK} is a set of centers computed by some algorithm, e.g., K-means and $y\in Z$ is an integer. In contrast to other hashing algorithms in which the distance, e.g., Hamming distance, is often directly computed from hash codes, the hash codes generated from the nearest vector assignment-based hash function are the indices of the nearest vectors, and the distance is computed using the centers corresponding to the hash codes.<br>Hash functions are an important factor inﬂuencing the search accuracy using the hash codes, as well as the time cost of computing hash codes. A linear function is efﬁciently evaluated, while the kernel function and the nearest vector assignment based function leads to better search accuracy as they are more ﬂexible. Almost all the methods using a linear hash function can be extended to kernelized hash functions. Thus we do not use hash functions to categorize the hash algorithms.<br>There are various algorithms developed and exploited to optimize the hash function parameters. We summarize the common ways to handle the sgn function which is a main factor leading to the difﬁculty of estimating the parameters (e.g., the projection vector w in the linear hash function). There are roughly three approximation estimation schemes. The ﬁrst one is a continuous relaxation, e.g., sigmoid relaxation sgn(z) ≈ φα(z) = 1 1+e−αz . The second one is directly dropping the sign function sgn(z) ≈ z. The third one is a two-step scheme [53], [54] with its extension to iterative two step optimization [17]: optimizing the binary codes without considering the hash function, followed by estimating the function parameters from the optimized hash codes.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/文本向量化/" rel="next" title="文本向量化">
+                <i class="fa fa-chevron-left"></i> 文本向量化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/"
+           data-title="论文翻译之A Survey on Learning to Hash" data-url="http://andeper.cn/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Survey-on-Learning-to-Hash"><span class="nav-number">1.</span> <span class="nav-text">A Survey on Learning to Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">3.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">4.</span> <span class="nav-text">INTRODUCTION</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Organization-of-This-Paper"><span class="nav-number">4.1.</span> <span class="nav-text">1.1 Organization of This Paper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-本文的组织"><span class="nav-number">4.2.</span> <span class="nav-text">1.1 本文的组织</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BACKGROUND"><span class="nav-number">5.</span> <span class="nav-text">2 BACKGROUND</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Nearest-Neighbor-Search"><span class="nav-number">5.1.</span> <span class="nav-text">2.1 Nearest Neighbor Search</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-背景"><span class="nav-number">6.</span> <span class="nav-text">2 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-最近邻搜索"><span class="nav-number">6.1.</span> <span class="nav-text">2.1 最近邻搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Search-with-Hashing"><span class="nav-number">6.2.</span> <span class="nav-text">2.2 Search with Hashing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-使用哈希搜索"><span class="nav-number">6.3.</span> <span class="nav-text">2.2 使用哈希搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LEARNING-TO-HASH"><span class="nav-number">7.</span> <span class="nav-text">3 LEARNING TO HASH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习哈希"><span class="nav-number">8.</span> <span class="nav-text">学习哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Hash-Function"><span class="nav-number">8.1.</span> <span class="nav-text">3.1 Hash Function</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+</body>
+</html>

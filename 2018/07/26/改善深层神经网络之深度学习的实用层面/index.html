@@ -100,7 +100,9 @@
 <meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型.jpg">
 <meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型2.jpg">
 <meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/fitting.jpg">
-<meta property="og:updated_time" content="2018-07-26T09:26:54.028Z">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/dataaugmentation.png">
+<meta property="og:image" content="http://andeper.cn/2018/07/26/改善深层神经网络之深度学习的实用层面/normlize.png">
+<meta property="og:updated_time" content="2018-07-27T09:26:12.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="改善深层神经网络之深度学习的实用层面">
 <meta name="twitter:description" content="Settiing up your ML applicationTrain/dev/test sets应用型机器学习是一个高度的迭代过程 训练神经网络时通常要做出很多决策：神经网络分多少层每层有多少个隐藏单元学习速率是多少各层采用哪种激活函数 为了找到更好的神经网络需要不断迭代更新自己的方案 数据集通常被分为数据集 验证集 测试集 数据集规模较小时，适用传统的划分比例数据集规模较大时，验证集和测试集">
@@ -478,7 +480,7 @@
 <p>数据集规模较小时，适用传统的划分比例<br>数据集规模较大时，验证集和测试集可以占到数据总量的10%以下</p>
 <p>要确保训练和测试集来自同一分布</p>
 <h3 id="Bias-and-Variance"><a href="#Bias-and-Variance" class="headerlink" title="Bias and Variance"></a>Bias and Variance</h3><p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/拟合.png" alt="拟合"><br>欠拟合，适度拟合和过拟合</p>
-<p>可以通过几个指标来研究偏差和方差<br>理解偏差和方差两个关键指标数据是训练集误差和验证集误差<br>训练集误差小，验证集误差大：过拟合，高方差<br>训练集误差大，验证集误差大：欠拟合，高偏差<br>训练集误差大，验证集误差更大：高方差高偏差<br>最优误差/贝叶斯误差：如果最优误差很高，训练集误差验证集误差大也很正常</p>
+<p>可以通过几个指标来研究偏差和方差<br>理解偏差和方差两个关键指标数据是训练集误差和验证集误差<br>训练集误差小，验证集误差大：过拟合，高方差<br>训练集误差大，验证集误差大：欠拟合，高偏差<br>训练集误差大，验证集误差更大：可能部分过拟合部分欠拟合，高方差高偏差<br>最优误差/贝叶斯误差：如果最优误差很高，训练集误差验证集误差大也很正常</p>
 <h3 id="Basic-recipe-for-machine-learning"><a href="#Basic-recipe-for-machine-learning" class="headerlink" title="Basic recipe for machine learning"></a>Basic recipe for machine learning</h3><p>高偏差：规模更大的网络结构，延长训练时间<br>高方差：采集更多数据，正则化减少过拟合</p>
 <h3 id="Regularizing-your-neural-network"><a href="#Regularizing-your-neural-network" class="headerlink" title="Regularizing your neural network"></a>Regularizing your neural network</h3><h4 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h4><script type="math/tex; mode=display">\min_{w,b} J(w,b)</script><script type="math/tex; mode=display">J(w,b) = \frac {1}{m} \sum_{i=1}^{m} L({\hat{y}^{(i)},y^{(i)}}) + \frac{\lambda}{2m}{\left\|w\right\|}^2_2</script><script type="math/tex; mode=display">{\left\|w\right\|}^2_2 = \sum_{j=1}^{n_x}w^2_j = w^Tw</script><p>L2正则化</p>
 <h3 id="Neural-network"><a href="#Neural-network" class="headerlink" title="Neural network"></a>Neural network</h3><p>在神经网络中实现正则化</p>
@@ -489,7 +491,50 @@
 <script type="math/tex; mode=display">w^{[l]} := w^{[l]} - \alpha dw^{[l]}</script><p>这就是L2正则化有时被称为权重衰减的原因</p>
 <h3 id="Why-regularization-reduces-overfitting"><a href="#Why-regularization-reduces-overfitting" class="headerlink" title="Why regularization reduces overfitting"></a>Why regularization reduces overfitting</h3><p>假设我们面对的是这样一个网络模型<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型.jpg" alt="网络模型"><br>如果正则话$\lambda$设置足够大，那么会导致权重矩阵W被设置为接近0的值，即$W[l] \approx 0$。本质上就是把许多隐藏层的权值设为0，尝试消除隐藏层对整个网络的影响。可以看作<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/网络模型2.jpg" alt="网络模型2"><br>这个被大大简化的网络会变成一个很小的网络，能小到如同线性单元，但深度还是很大，网络会从过拟合状态变得更接近高偏差的状态</p>
 <p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/fitting.jpg" alt="fitting"><br>过拟合和欠拟合都有些极端，需要找到一个这种的$\lambda$，使得拟合成拟合适中的情况</p>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+<h3 id="Dropout-Regularization"><a href="#Dropout-Regularization" class="headerlink" title="Dropout Regularization"></a>Dropout Regularization</h3><p>随机失活<br>原理：随机删除神经网络单元，具体做法是对神经网络的各个单元，以抛硬币的方式来决定其去留，这样会大大简化神经网络，对简化后的神经网络进行训练</p>
+<p>如何实施Dropout正则化？<br>Inverted dropout(反向随机失活)</p>
+<p>举例在一层中如何实现的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># keep_prob表示保留某个隐藏单元的概率</span></span><br><span class="line">l = <span class="number">3</span>,keep_prob = <span class="number">0.8</span></span><br><span class="line"><span class="comment"># 向量d3表示第三层的dropout向量：是一个随机矩阵，决定哪些单元归零</span></span><br><span class="line">d3 = np.random.rand(a3.shape[<span class="number">0</span>],a3.shape[<span class="number">1</span>])</span><br><span class="line">a3 = np.multiply(a3,d3)</span><br><span class="line"><span class="comment"># 通过除以keep_prob来确保a3的期望值不变</span></span><br><span class="line">a3 /= keep_prob</span><br></pre></td></tr></table></figure></p>
+<h3 id="Understanding-Dropout"><a href="#Understanding-Dropout" class="headerlink" title="Understanding Dropout"></a>Understanding Dropout</h3><p>为什么随机失活会起作用</p>
+<p><strong>第一种理解：</strong> Drop通过每次迭代时，神经网络都会变得比以前小，使用一个更小的神经网络看起来和正则化是一样的</p>
+<p><strong>第二种理解：</strong> 从单个神经元的角度，神经元的作用是接收输入并生成一些有意义的输出，而通过dropout，神经元会随机删除，也就是当前神经元不能依赖任一输入神经元，所以不会给任何一个输入加上太多权重，因此单元将通过这种方式积极传播开，并为其每个输入单元各加适量权重，通过传播所有权重，dropout将产生压缩权重的平方范数的效果，这就和L2正则化类似，通过压缩权重，防止过拟合，但对不同权重的衰减是不同的，取决于倍增激活函数的大小</p>
+<p>dropout正则化是预防过拟合，一般不会应用dropout正则化，而dropout主要应用于计算机视觉，因为这个领域数据量不足够打，且输入层的维度很高，容易存在过拟合的问题。</p>
+<p>dropout的一个缺点是成本函数J不再被明确定义，因为每次迭代都会随机删除一些节点，成本函数的计算变得非常困难，所以绘制成本函数和迭代次数的曲线就非常困难，通常的做法是先关掉dropout函数，运行单吗，确保成本函数是单调递减的，然后再打开dropout函数</p>
+<h3 id="Other-regularization-methods"><a href="#Other-regularization-methods" class="headerlink" title="Other regularization methods"></a>Other regularization methods</h3><ol>
+<li><p>扩增数据<br>如果扩增数据的代价很大，可以增加假数据，比如对于图片数据，可以对其水平翻转或其他角度旋转，剪裁，扭曲，这样既节省花费又能有效预防过拟合。<br><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/dataaugmentation.png" alt="dataaugmentation"></p>
+</li>
+<li><p>提早停止训练神经网络<br>在梯度下降中，一般会绘制成本函数和迭代次数的曲线，在early-stopping中需要加上验证集误差Jdev，成本函数应该是单调递减，二验证集误差一般是先下降后上升，一旦验证集误差开始上升，就可以停止梯度下降，选择验证集误差最小的点，即可以认为是最优解。</p>
+</li>
+</ol>
+<p>优点：只运行一次梯度下降，就能找到最合适的参数</p>
+<p>缺点：机器学习的步骤中，其中之一是选择一个算法来优化代价函数J，如梯度下降、momentum、RMSprop、Adam等;优化代价函数之后又不想过拟合，在机器学习中已经有很多超参数要选择，要在那么多算法中选出最合适的算法也变得越来越复杂，为了能让问题变得更简单点，当我们用工具优化代价函数J的时候，只关心w和b，使得J越小越好，只要想办法减小J；而防止过拟合，用另外一套工具实现。一个时间只做一件事，这种思路称为正交化，而提前停止训练却将两件事都做了，使得需要考虑的问题变得更复杂，可能使代价函数不够小。</p>
+<h3 id="Normalizing-Inputs"><a href="#Normalizing-Inputs" class="headerlink" title="Normalizing Inputs"></a>Normalizing Inputs</h3><p>归一化输入需要两步:</p>
+<ol>
+<li>均值归零： $x = x - \mu$  $\mu$是均值</li>
+<li>归一化方差： $x = \frac{x}{\sigma ^2}$</li>
+</ol>
+<p><img src="/2018/07/26/改善深层神经网络之深度学习的实用层面/normlize.png" alt="normlize"></p>
+<p><strong>为什么要归一化输入数据</strong><br>输入数据取值范围相差大，会导致对应参数w也相差较大，就必须使用一个比较小的学习率，来避免J发生震荡，这样可能需要很多次迭代才能找到最小值，均值归一化之后的在梯度下降算法中可以使用较大的步长。</p>
+<h3 id="vanishing-exploding-gradients"><a href="#vanishing-exploding-gradients" class="headerlink" title="vanishing/exploding gradients"></a>vanishing/exploding gradients</h3><p>神经网络中，由于权重的叠加效应，激活函数以及梯度都会随着层数的增加而呈指数增长或降低，当层数较大时，激活函数或梯度就容易出现爆炸或消失的情况</p>
+<p>可以通过对权重初始化的优化来改善，输入层神经元越多，得到的z就越大，为了防止梯度消失或爆炸，可以使其权重除以输入层神经元$n^{[l-1]}$的个数</p>
+<p>对于ReLU：$W = W <em> \sqrt {\frac {1}{n^{[l-1]}}}$<br>对于tanh：$W = W </em> \sqrt {\frac {2}{n^{[l-1]}}}$<br>还有一种是：$W = W * \sqrt {\frac {2}{n^{[l-1]}+n^{[l]}}}$</p>
+<h3 id="Gradient-Checking"><a href="#Gradient-Checking" class="headerlink" title="Gradient Checking"></a>Gradient Checking</h3><ol>
+<li><p>梯度的数值逼近<br>双边误差的值近似导数值，所以可以利用这一特征检查梯度正确性</p>
+</li>
+<li><p>梯度检验<br>可以通过梯度检验来检查backprop的实施是否正确</p>
+</li>
+</ol>
+<p>梯度检查首先要做的是分别将这些矩阵构造成一维向量，然后将这些一维向量组合起来构成一个更大的一维向量。这样cost function 就可以表示成。</p>
+<p>然后将反向传播过程通过梯度下降算法得到的按照一样的顺序构造成一个一维向量。的维度与一致。</p>
+<p>接着利用对每个计算近似梯度，其值与反向传播算法得到的相比较，检查是否一致。例如，对于第i个元素，近似梯度为：</p>
+<p>计算完所有的近似梯度后，可以计算与的欧氏（Euclidean）距离来比较二者的相似度。公式如下：</p>
+<p>一般来说，如果欧氏距离越小，例如，甚至更小，则表明与越接近，即反向梯度计算是正确的，没有bugs。如果欧氏距离较大，例如，则表明梯度计算可能出现问题，需要再次检查是否有bugs存在。如果欧氏距离很大，例如，甚至更大，则表明与差别很大，梯度下降计算过程有bugs，需要仔细检查。</p>
+<p>3.梯度检查的使用技巧及注意事项</p>
+<p>不要在训练过程使用梯度检查！！！因为梯度检查计算量大耗时长，所以一般只在debug的时候使用。</p>
+<p>如果梯度检查失败，那么需要检查所有项，并试着找出bug！！ 通过比较与，找到差异较大的dθ[i]，检查其计算导数的过程是否有bug</p>
+<p>如果梯度检查中有正则化项，一定要记得正则化项！！  即如果对成本函数进行了正则化，梯度千万不要忘记正则化项。</p>
+<p>梯度检查不能与dropout同时使用！！</p>
+<p>随机初始化之后进行梯度检查，反复训练网络之后，再重新进行梯度检查（不常用）</p>
+
       
     </div>
 
@@ -538,6 +583,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/11/文本向量化/" rel="prev" title="文本向量化">
+                文本向量化 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -613,7 +662,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -677,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Settiing-up-your-ML-application"><span class="nav-number">1.</span> <span class="nav-text">Settiing up your ML application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bias-and-Variance"><span class="nav-number">2.</span> <span class="nav-text">Bias and Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-recipe-for-machine-learning"><span class="nav-number">3.</span> <span class="nav-text">Basic recipe for machine learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularizing-your-neural-network"><span class="nav-number">4.</span> <span class="nav-text">Regularizing your neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">4.1.</span> <span class="nav-text">Logistic regression</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neural-network"><span class="nav-number">5.</span> <span class="nav-text">Neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-regularization-reduces-overfitting"><span class="nav-number">6.</span> <span class="nav-text">Why regularization reduces overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text"> </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Settiing-up-your-ML-application"><span class="nav-number">1.</span> <span class="nav-text">Settiing up your ML application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bias-and-Variance"><span class="nav-number">2.</span> <span class="nav-text">Bias and Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-recipe-for-machine-learning"><span class="nav-number">3.</span> <span class="nav-text">Basic recipe for machine learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularizing-your-neural-network"><span class="nav-number">4.</span> <span class="nav-text">Regularizing your neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">4.1.</span> <span class="nav-text">Logistic regression</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neural-network"><span class="nav-number">5.</span> <span class="nav-text">Neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-regularization-reduces-overfitting"><span class="nav-number">6.</span> <span class="nav-text">Why regularization reduces overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dropout-Regularization"><span class="nav-number">7.</span> <span class="nav-text">Dropout Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Understanding-Dropout"><span class="nav-number">8.</span> <span class="nav-text">Understanding Dropout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other-regularization-methods"><span class="nav-number">9.</span> <span class="nav-text">Other regularization methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normalizing-Inputs"><span class="nav-number">10.</span> <span class="nav-text">Normalizing Inputs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vanishing-exploding-gradients"><span class="nav-number">11.</span> <span class="nav-text">vanishing/exploding gradients</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Checking"><span class="nav-number">12.</span> <span class="nav-text">Gradient Checking</span></a></li></ol></div>
             
 
           </div>
@@ -700,7 +749,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

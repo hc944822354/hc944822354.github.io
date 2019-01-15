@@ -89,17 +89,17 @@
 
 
 
-<meta name="description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta name="description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自顶向下之TCP">
-<meta property="og:url" content="http://andeper.cn/2017/04/02/自顶向下之TCP/index.html">
+<meta property="og:title" content="文本向量化">
+<meta property="og:url" content="http://andeper.cn/2019/01/11/文本向量化/index.html">
 <meta property="og:site_name" content="Andeper的个人博客">
-<meta property="og:description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta property="og:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T07:33:52.000Z">
+<meta property="og:updated_time" content="2019-01-15T03:13:01.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自顶向下之TCP">
-<meta name="twitter:description" content="TCP服务进程到进程的通信TCP通过使用端口号来提供进程到进程间通信 流传递服务TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据 全双工通信数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段 多路复用和多路分解TCP在发送端执行多路复用，在接收端执行多路分解">
+<meta name="twitter:title" content="文本向量化">
+<meta name="twitter:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://andeper.cn/2017/04/02/自顶向下之TCP/"/>
+  <link rel="canonical" href="http://andeper.cn/2019/01/11/文本向量化/"/>
 
 
 
 
 
-  <title> 自顶向下之TCP | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 文本向量化 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -384,7 +384,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/04/02/自顶向下之TCP/">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/01/11/文本向量化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andeper">
@@ -405,7 +405,7 @@
             
             
               
-                自顶向下之TCP
+                文本向量化
               
             
           </h1>
@@ -420,8 +420,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-02T21:22:00+08:00">
-                2017-04-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T10:18:42+08:00">
+                2019-01-11
               </time>
             
 
@@ -439,8 +439,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/04/02/自顶向下之TCP/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/02/自顶向下之TCP/" itemprop="commentCount"></span>
+                <a href="/2019/01/11/文本向量化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/11/文本向量化/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -466,10 +466,12 @@
       
 
       
-        <h3 id="TCP服务"><a href="#TCP服务" class="headerlink" title="TCP服务"></a>TCP服务</h3><h4 id="进程到进程的通信"><a href="#进程到进程的通信" class="headerlink" title="进程到进程的通信"></a>进程到进程的通信</h4><p>TCP通过使用端口号来提供进程到进程间通信</p>
-<h4 id="流传递服务"><a href="#流传递服务" class="headerlink" title="流传递服务"></a>流传递服务</h4><p>TCP是一个面向流的协议,TCP允许发送进程以字节流的形式传递数据，并且接受进程也以字节流的形式接受数据</p>
-<h4 id="全双工通信"><a href="#全双工通信" class="headerlink" title="全双工通信"></a>全双工通信</h4><p>数据可以在同一事件双向流动，每一个方向TCP都有发送和接受缓冲区，他们能双向发送和接受段</p>
-<h4 id="多路复用和多路分解"><a href="#多路复用和多路分解" class="headerlink" title="多路复用和多路分解"></a>多路复用和多路分解</h4><p>TCP在发送端执行多路复用，在接收端执行多路分解</p>
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>文本向量化是将文本表示成一系列能够表达文本语义的向量</p>
+<h3 id="向量化算法word2vec"><a href="#向量化算法word2vec" class="headerlink" title="向量化算法word2vec"></a>向量化算法word2vec</h3><p>词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下<br>John likes to watch movies, Mary likes too.<br>John also likes to watch football games.</p>
+<p>基于上述文档中出现的单词构建如下词典(dictionary)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"John"</span>:<span class="number">1</span>,<span class="string">"likes"</span>:<span class="number">2</span>,<span class="string">"to"</span>:<span class="number">3</span>,<span class="string">"watch"</span>:<span class="number">4</span>,<span class="string">"movies"</span>:<span class="number">5</span>,<span class="string">"also"</span>:<span class="number">6</span>,<span class="string">"football"</span>:<span class="number">7</span>,<span class="string">"games"</span>:<span class="number">8</span>,<span class="string">"Mary"</span>:<span class="number">9</span>,<span class="string">"too"</span>:<span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面词典中包含10个单词，每个单词有唯一的索引，那么每个文本我们可以使用一个10维的向量来表示。如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<p>上面是每个单词在文本中出现的频率，和原本文本中单词出现的顺序没有关系</p>
+<p><strong>缺点：</strong><br>1.唯独灾难，如果有10000个单词，需要10000维的向量表示<br>2.无法保留词序信息<br>3.存在语义鸿沟的问题</p>
 
       
     </div>
@@ -510,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/19/图解TCPIP-TCP与UDP/" rel="next" title="图解TCP/IP之TCP与UDP">
-                <i class="fa fa-chevron-left"></i> 图解TCP/IP之TCP与UDP
+              <a href="/2018/07/26/改善深层神经网络之深度学习的实用层面/" rel="next" title="改善深层神经网络之深度学习的实用层面">
+                <i class="fa fa-chevron-left"></i> 改善深层神经网络之深度学习的实用层面
               </a>
             
           </div>
@@ -520,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/17/深度学习概论/" rel="prev" title="深度学习概论">
-                深度学习概论 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/" rel="prev" title="论文翻译之A Survey on Learning to Hash">
+                论文翻译之A Survey on Learning to Hash <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -548,8 +550,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/04/02/自顶向下之TCP/"
-           data-title="自顶向下之TCP" data-url="http://andeper.cn/2017/04/02/自顶向下之TCP/">
+      <div class="ds-thread" data-thread-key="2019/01/11/文本向量化/"
+           data-title="文本向量化" data-url="http://andeper.cn/2019/01/11/文本向量化/">
       </div>
     
   </div>
@@ -662,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务"><span class="nav-number">1.</span> <span class="nav-text">TCP服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程到进程的通信"><span class="nav-number">1.1.</span> <span class="nav-text">进程到进程的通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流传递服务"><span class="nav-number">1.2.</span> <span class="nav-text">流传递服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全双工通信"><span class="nav-number">1.3.</span> <span class="nav-text">全双工通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路复用和多路分解"><span class="nav-number">1.4.</span> <span class="nav-text">多路复用和多路分解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量化算法word2vec"><span class="nav-number">2.</span> <span class="nav-text">向量化算法word2vec</span></a></li></ol></div>
             
 
           </div>
