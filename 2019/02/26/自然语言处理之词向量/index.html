@@ -89,17 +89,19 @@
 
 
 
-<meta name="description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta name="description" content="NLP-词向量背景知识什么是词向量/词嵌入词向量(word embedding)是一个固定长度的实值向量词向量是神经语言模型的副产品词向量是针对词提出的，事实上，也可以针对更细或更粗的粒度进行推广——比如字向量、句向量、文档向量等 词向量的理解在NLP任务中，我们将自然语言交给机器学习算法来处理，但机器无法直接理解人类的语言，因此首先要做的事情就是将语言数字化,如何将自然语言进行数字化呢？词向量提">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文本向量化">
-<meta property="og:url" content="http://andeper.cn/2019/01/11/文本向量化/index.html">
+<meta property="og:title" content="自然语言处理之词向量">
+<meta property="og:url" content="http://andeper.cn/2019/02/26/自然语言处理之词向量/index.html">
 <meta property="og:site_name" content="Andeper的个人博客">
-<meta property="og:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta property="og:description" content="NLP-词向量背景知识什么是词向量/词嵌入词向量(word embedding)是一个固定长度的实值向量词向量是神经语言模型的副产品词向量是针对词提出的，事实上，也可以针对更细或更粗的粒度进行推广——比如字向量、句向量、文档向量等 词向量的理解在NLP任务中，我们将自然语言交给机器学习算法来处理，但机器无法直接理解人类的语言，因此首先要做的事情就是将语言数字化,如何将自然语言进行数字化呢？词向量提">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-15T03:13:01.168Z">
+<meta property="og:image" content="http://andeper.cn/2019/02/26/自然语言处理之词向量/word_example.png">
+<meta property="og:updated_time" content="2019-03-15T02:10:03.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文本向量化">
-<meta name="twitter:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta name="twitter:title" content="自然语言处理之词向量">
+<meta name="twitter:description" content="NLP-词向量背景知识什么是词向量/词嵌入词向量(word embedding)是一个固定长度的实值向量词向量是神经语言模型的副产品词向量是针对词提出的，事实上，也可以针对更细或更粗的粒度进行推广——比如字向量、句向量、文档向量等 词向量的理解在NLP任务中，我们将自然语言交给机器学习算法来处理，但机器无法直接理解人类的语言，因此首先要做的事情就是将语言数字化,如何将自然语言进行数字化呢？词向量提">
+<meta name="twitter:image" content="http://andeper.cn/2019/02/26/自然语言处理之词向量/word_example.png">
 
 
 
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://andeper.cn/2019/01/11/文本向量化/"/>
+  <link rel="canonical" href="http://andeper.cn/2019/02/26/自然语言处理之词向量/"/>
 
 
 
 
 
-  <title> 文本向量化 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 自然语言处理之词向量 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -384,7 +386,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/01/11/文本向量化/">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/02/26/自然语言处理之词向量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andeper">
@@ -405,7 +407,7 @@
             
             
               
-                文本向量化
+                自然语言处理之词向量
               
             
           </h1>
@@ -420,8 +422,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T10:18:42+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T21:53:18+08:00">
+                2019-02-26
               </time>
             
 
@@ -439,8 +441,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/11/文本向量化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/11/文本向量化/" itemprop="commentCount"></span>
+                <a href="/2019/02/26/自然语言处理之词向量/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/02/26/自然语言处理之词向量/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -466,12 +468,17 @@
       
 
       
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>文本向量化是将文本表示成一系列能够表达文本语义的向量</p>
-<h3 id="向量化算法word2vec"><a href="#向量化算法word2vec" class="headerlink" title="向量化算法word2vec"></a>向量化算法word2vec</h3><p>词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下<br>John likes to watch movies, Mary likes too.<br>John also likes to watch football games.</p>
-<p>基于上述文档中出现的单词构建如下词典(dictionary)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"John"</span>:<span class="number">1</span>,<span class="string">"likes"</span>:<span class="number">2</span>,<span class="string">"to"</span>:<span class="number">3</span>,<span class="string">"watch"</span>:<span class="number">4</span>,<span class="string">"movies"</span>:<span class="number">5</span>,<span class="string">"also"</span>:<span class="number">6</span>,<span class="string">"football"</span>:<span class="number">7</span>,<span class="string">"games"</span>:<span class="number">8</span>,<span class="string">"Mary"</span>:<span class="number">9</span>,<span class="string">"too"</span>:<span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面词典中包含10个单词，每个单词有唯一的索引，那么每个文本我们可以使用一个10维的向量来表示。如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
-<p>上面是每个单词在文本中出现的频率，和原本文本中单词出现的顺序没有关系</p>
-<p><strong>缺点：</strong><br>1.唯独灾难，如果有10000个单词，需要10000维的向量表示<br>2.无法保留词序信息<br>3.存在语义鸿沟的问题</p>
+        <h2 id="NLP-词向量"><a href="#NLP-词向量" class="headerlink" title="NLP-词向量"></a>NLP-词向量</h2><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h3><h4 id="什么是词向量-词嵌入"><a href="#什么是词向量-词嵌入" class="headerlink" title="什么是词向量/词嵌入"></a>什么是词向量/词嵌入</h4><p>词向量(word embedding)是一个固定长度的实值向量<br>词向量是神经语言模型的副产品<br>词向量是针对词提出的，事实上，也可以针对更细或更粗的粒度进行推广——比如字向量、句向量、文档向量等</p>
+<h4 id="词向量的理解"><a href="#词向量的理解" class="headerlink" title="词向量的理解"></a>词向量的理解</h4><p>在NLP任务中，我们将自然语言交给机器学习算法来处理，但机器无法直接理解人类的语言，因此首先要做的事情就是将语言数字化,如何将自然语言进行数字化呢？词向量提供了一种很好的方式。</p>
+<p>一种最简单的词向量是one-hot representation,就是用一个很长的向量来表示一个词，向量的长度为词典D的大小N，向量的分量只有一个1，其他全为0,1的位置对应该词在词典中的索引。但这种词向量表示有一个缺点，就是受维度灾难的困扰，尤其是将其用于Deep Learning场景时，又如，它不能很好刻画词与词之间的相似性；</p>
+<p>另一种词向量是Distributed Representation，它最早是Hinton在1986年提出的，可以克服one-hot representation 的上述缺点，其基本想法是：通过训练将某种语言中的每一个词映射成一个固定长度的短向量，所有这些向量构成一个词向量空间，而每一向量可视为该空间中的一个点，在这个空间上引入“距离”，就可以根据词之间的距离来判断它们之间的相似性了，word2vec中采用的就是这种Distributed Representation的词向量</p>
+<p>为了更好理解上述思想，我们来举一个通俗的例子：<br>假设在二维平面上有a个不同的点，给定其中的某个点，想在想在平面上找到与这个点最近的一个点。<br>我们是怎么做的呢？首先建立一个直角坐标系，基于该坐标系，其上每一个点就唯一的对应一个坐标(x,y);接着引入欧氏距离；最后分别计算这个点与其他a-1个点的距离，对应最小距离值得那个点便是我们要找的点了。</p>
+<p>上面的例子中，坐标(X，y)的地位就相当于词向量，它来将平面上的一个点的位置在数学上作量化。坐标系建立好之后，要得到某个点的坐标是很容易的。然而，在NLP任务中,要得到词向量就复杂多了，而且词向量不唯一，其质量依赖于训练语料，训练算法等因素。</p>
+<p>如何得到词向量呢？有很多不同的模型来估计词向量，包括右面的LSA和LDA，神经网络算法</p>
+<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>在word2vec出现之前，已经有用神经网络DNN来用训练词向量进而处理词与词之间的关系了。采用的方法一般是一个三层的神经网络结构（当然也可以多层），分为输入层，隐藏层和输出层(softmax层)。</p>
+<p>这个模型是如何定义数据的输入和输出呢？一般分为CBOW(Continuous Bag-of-Words)与Skip-Gram两种模型。</p>
+<p>CBOW模型的训练输入是某一个特征词的上下文相关的词对应的词向量，而输出就是这特定的一个词的词向量。比如下面这段话，我们的上下文大小取值为4，特定的这个词是”Learning”，也就是我们需要的输出词向量,上下文对应的词有8个，前后各4个，这8个词是我们模型的输入。由于CBOW使用的是词袋模型，因此这8个词都是平等的，也就是不考虑他们和我们关注的词之间的距离大小，只要在我们上下文之内即可。<br><img src="/2019/02/26/自然语言处理之词向量/word_example.png" alt="word"><br>这样在我们例子中，我们的输入是8个词向量，输出是所有词的softmax概率(训练的目标是期望训练样本特定词的softmax概率最大)，对应的CBOW神经网络模型输入层有8个神经元，输出层有词汇表大小个神经元。隐藏层的神经元个数我们可以自己指定。通过DNN的反向传播算法，我们可以求出DNN模型的参数，同时得到所有的词对应的词向量。这样当我们有新的需求，要求出某8个词对应的最可能的输出中心词时，我们可以通过一个DNN前向传播算法并通过softmax函数找到概率最大的词对应的神经元即可。<br>Skip-Gram模型和CBOW的思路是反着来的，即输入是特定的一个词的词向量，而输出是特定词对应的上下文词向量，我们上下文大小取值4，特定的这个词“learning”就是我们的输入，而这8个上下文词是我们的输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -512,8 +519,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/26/改善深层神经网络之深度学习的实用层面/" rel="next" title="改善深层神经网络之深度学习的实用层面">
-                <i class="fa fa-chevron-left"></i> 改善深层神经网络之深度学习的实用层面
+              <a href="/2019/02/16/使用Python操作Mangodb/" rel="next" title="使用Python操作Mangodb">
+                <i class="fa fa-chevron-left"></i> 使用Python操作Mangodb
               </a>
             
           </div>
@@ -522,8 +529,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/" rel="prev" title="论文翻译之A Survey on Learning to Hash">
-                论文翻译之A Survey on Learning to Hash <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/" rel="prev" title="文献摘要">
+                文献摘要 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -550,8 +557,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2019/01/11/文本向量化/"
-           data-title="文本向量化" data-url="http://andeper.cn/2019/01/11/文本向量化/">
+      <div class="ds-thread" data-thread-key="2019/02/26/自然语言处理之词向量/"
+           data-title="自然语言处理之词向量" data-url="http://andeper.cn/2019/02/26/自然语言处理之词向量/">
       </div>
     
   </div>
@@ -664,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量化算法word2vec"><span class="nav-number">2.</span> <span class="nav-text">向量化算法word2vec</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NLP-词向量"><span class="nav-number">1.</span> <span class="nav-text">NLP-词向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景知识"><span class="nav-number">1.1.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是词向量-词嵌入"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是词向量/词嵌入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#词向量的理解"><span class="nav-number">1.1.2.</span> <span class="nav-text">词向量的理解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec"><span class="nav-number">1.2.</span> <span class="nav-text">Word2Vec</span></a></li></ol></li></ol></div>
             
 
           </div>

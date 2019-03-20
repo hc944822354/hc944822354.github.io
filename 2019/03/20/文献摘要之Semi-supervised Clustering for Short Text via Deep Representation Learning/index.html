@@ -89,17 +89,17 @@
 
 
 
-<meta name="description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta name="description" content="欢迎来到我的技术博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文本向量化">
-<meta property="og:url" content="http://andeper.cn/2019/01/11/文本向量化/index.html">
+<meta property="og:title" content="文献摘要">
+<meta property="og:url" content="http://andeper.cn/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/index.html">
 <meta property="og:site_name" content="Andeper的个人博客">
-<meta property="og:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta property="og:description" content="欢迎来到我的技术博客">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-15T03:13:01.168Z">
+<meta property="og:updated_time" content="2019-03-20T02:12:18.571Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文本向量化">
-<meta name="twitter:description" content="概述文本向量化是将文本表示成一系列能够表达文本语义的向量 向量化算法word2vec词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下John likes to watch movies, Mary likes too.John also likes to watch football games. 基于上述文档中出现的单词构建如下词典(dict">
+<meta name="twitter:title" content="文献摘要">
+<meta name="twitter:description" content="欢迎来到我的技术博客">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://andeper.cn/2019/01/11/文本向量化/"/>
+  <link rel="canonical" href="http://andeper.cn/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/"/>
 
 
 
 
 
-  <title> 文本向量化 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 文献摘要 | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -384,7 +384,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/01/11/文本向量化/">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andeper">
@@ -405,7 +405,7 @@
             
             
               
-                文本向量化
+                文献摘要
               
             
           </h1>
@@ -420,8 +420,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T10:18:42+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T10:12:18+08:00">
+                2019-03-20
               </time>
             
 
@@ -439,8 +439,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/11/文本向量化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/01/11/文本向量化/" itemprop="commentCount"></span>
+                <a href="/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -466,13 +466,7 @@
       
 
       
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>文本向量化是将文本表示成一系列能够表达文本语义的向量</p>
-<h3 id="向量化算法word2vec"><a href="#向量化算法word2vec" class="headerlink" title="向量化算法word2vec"></a>向量化算法word2vec</h3><p>词袋模型是最早的以词语为基本单位的文本向量化方法，下面举例说明改方法的原理。首先给出两个简单的文本如下<br>John likes to watch movies, Mary likes too.<br>John also likes to watch football games.</p>
-<p>基于上述文档中出现的单词构建如下词典(dictionary)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"John"</span>:<span class="number">1</span>,<span class="string">"likes"</span>:<span class="number">2</span>,<span class="string">"to"</span>:<span class="number">3</span>,<span class="string">"watch"</span>:<span class="number">4</span>,<span class="string">"movies"</span>:<span class="number">5</span>,<span class="string">"also"</span>:<span class="number">6</span>,<span class="string">"football"</span>:<span class="number">7</span>,<span class="string">"games"</span>:<span class="number">8</span>,<span class="string">"Mary"</span>:<span class="number">9</span>,<span class="string">"too"</span>:<span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面词典中包含10个单词，每个单词有唯一的索引，那么每个文本我们可以使用一个10维的向量来表示。如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
-<p>上面是每个单词在文本中出现的频率，和原本文本中单词出现的顺序没有关系</p>
-<p><strong>缺点：</strong><br>1.唯独灾难，如果有10000个单词，需要10000维的向量表示<br>2.无法保留词序信息<br>3.存在语义鸿沟的问题</p>
-
+        
       
     </div>
 
@@ -512,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/26/改善深层神经网络之深度学习的实用层面/" rel="next" title="改善深层神经网络之深度学习的实用层面">
-                <i class="fa fa-chevron-left"></i> 改善深层神经网络之深度学习的实用层面
+              <a href="/2019/02/26/自然语言处理之词向量/" rel="next" title="自然语言处理之词向量">
+                <i class="fa fa-chevron-left"></i> 自然语言处理之词向量
               </a>
             
           </div>
@@ -522,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/15/论文翻译之A-Survey-on-Learning-to-Hash/" rel="prev" title="论文翻译之A Survey on Learning to Hash">
-                论文翻译之A Survey on Learning to Hash <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/" rel="prev" title="文献摘要之Convolutional Neural Networks for Sentence Classification">
+                文献摘要之Convolutional Neural Networks for Sentence Classification <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -550,8 +544,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2019/01/11/文本向量化/"
-           data-title="文本向量化" data-url="http://andeper.cn/2019/01/11/文本向量化/">
+      <div class="ds-thread" data-thread-key="2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/"
+           data-title="文献摘要" data-url="http://andeper.cn/2019/03/20/文献摘要之Semi-supervised Clustering for Short Text via Deep Representation Learning/">
       </div>
     
   </div>
@@ -575,17 +569,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/update/avatar.jpg"
@@ -654,22 +639,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量化算法word2vec"><span class="nav-number">2.</span> <span class="nav-text">向量化算法word2vec</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
