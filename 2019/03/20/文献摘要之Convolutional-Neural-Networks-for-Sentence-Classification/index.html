@@ -89,17 +89,19 @@
 
 
 
-<meta name="description" content="欢迎来到我的技术博客">
+<meta name="description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！Convolutional Neural Networks for Sentence Classification用于句子分类的卷积神经网络 1 IntroductionWe report on a series of experiments with convolutional neural networks (CNN) traine">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文献摘要之Convolutional Neural Networks for Sentence Classification">
 <meta property="og:url" content="http://andeper.cn/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/index.html">
 <meta property="og:site_name" content="Andeper的个人博客">
-<meta property="og:description" content="欢迎来到我的技术博客">
+<meta property="og:description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！Convolutional Neural Networks for Sentence Classification用于句子分类的卷积神经网络 1 IntroductionWe report on a series of experiments with convolutional neural networks (CNN) traine">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T06:51:10.786Z">
+<meta property="og:image" content="http://andeper.cn/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/TIM图片20190320203134.png">
+<meta property="og:updated_time" content="2019-03-20T12:48:57.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文献摘要之Convolutional Neural Networks for Sentence Classification">
-<meta name="twitter:description" content="欢迎来到我的技术博客">
+<meta name="twitter:description" content="声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！Convolutional Neural Networks for Sentence Classification用于句子分类的卷积神经网络 1 IntroductionWe report on a series of experiments with convolutional neural networks (CNN) traine">
+<meta name="twitter:image" content="http://andeper.cn/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/TIM图片20190320203134.png">
 
 
 
@@ -466,7 +468,20 @@
       
 
       
-        
+        <p><strong>声明：作者翻译论文仅为学习，如有侵权请联系作者删除博文，谢谢！</strong><br>Convolutional Neural Networks for Sentence Classification<br>用于句子分类的卷积神经网络</p>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h3><p>We report on a series of experiments with convolutional neural networks (CNN) trained on top of pre-trained word vectors for sentence-level classification tasks. We show that a simple CNN with little hyperparameter tuning and static vectors achieves excellent results on multiple benchmarks. Learning task-specific vectors through fine-tuning offers further gains in performance. We additionally propose a simple modification to the architecture to allow for the use of both task-specific and static vectors. The CNN models discussed herein improve upon the state of the art on 4 out of 7 tasks, which include sentiment analysis and question classification.<br>我们报告了一系列卷积神经网络（CNN）的实验，这些实验是在预训练的单词向量之上训练的，用于句子级分类任务。 我们展示了一个简单的CNN，它具有很少的超参数调整和静态向量，可以在多个基准测试中获得出色的结果。 通过微调学习任务特定的向量可以进一步提高性能。 我们还建议对架构进行简单修改，以允许使用任务特定和静态向量。 这里讨论的CNN模型在7个任务中的4个中改进了现有技术，包括情感分析和问题分类。</p>
+<p>Deep learning models have achieved remarkable results in computer vision (Krizhevsky et al.,2012) and speech recognition (Graves et al., 2013) in recent years. Within natural language processing, much of the work with deep learning methods has involved learning word vector representations through neural language models (Bengio et al., 2003; Yih et al., 2011; Mikolov et al., 2013) and performing composition over the learned word vectors for classification (Collobert et al., 2011). Word vectors, wherein words are projected from a sparse, 1-of-V encoding (here V is the vocabulary size) onto a lower dimensional vector space via a hidden layer, are essentially feature extractors that encode semantic features of words in their dimensions. In such dense representations, semantically close words are likewise close—in euclidean or cosine distance—in the lower dimensional vector space.<br>深度学习模型近年来在计算机视觉（Krizhevsky等，2012）和语音识别（Graves等，2013）中取得了显着成果。在自然语言处理中，深度学习方法的大部分工作都涉及通过神经语言模型学习单词矢量表示（Bengio et al。，2003; Yih et al。，2011; Mikolov et al。，2013），并在学习了用于分类的单词向量（Collobert et al。，2011）。单词向量，其中单词通过隐藏层从稀疏的1-V编码（这里V是词汇量大小）投影到较低维度的向量空间上，本质上是特征提取器，其在其维度中编码单词的语义特征。在这种密集表示中，语义上接近的单词同样在较低维向量空间中接近欧几里德或余弦距离。</p>
+<p>Convolutional neural networks (CNN) utilize layers with convolving filters that are applied to  local features (LeCun et al., 1998). Originally invented for computer vision, CNN models have subsequently been shown to be effective for NLP and have achieved excellent results in semantic parsing (Yih et al., 2014), search query retrieval (Shen et al., 2014), sentence modeling (Kalchbrenner et al., 2014), and other traditional NLP tasks (Collobert et al., 2011).<br>卷积神经网络（CNN）利用具有应用于局部特征的卷积滤波器的层（LeCun等，1998）。最初发明用于计算机视觉的CNN模型随后被证明对NLP有效，并且在语义分析（Yih等人，2014），搜索查询检索（Shen et al。，2014），句子建模（Kalchbrenner）方面取得了优异的成果。 et al。，2014）和其他传统的NLP任务（Collobert等，2011）。</p>
+<p>In the present work, we train a simple CNN with one layer of convolution on top of word vectors obtained from an unsupervised neural language model. These vectors were trained by Mikolov et al. (2013) on 100 billion words of Google News, and are publicly available.1 We initially keep the word vectors static and learn only the other parameters of the model. Despite little tuning of hyperparameters, this simple model achieves excellent results on multiple benchmarks, suggesting that the pre-trained vectors are ‘universal’ feature extractors that can be utilized for various classification tasks. Learning task-specific vectors through fine-tuning results in further improvements. We finally describe a simple modification to the architecture to allow for the use of both pre-trained and task-specific vectors by having multiple channels.<br>Our work is philosophically similar to Razavian et al. (2014) which showed that for image classification, feature extractors obtained from a pretrained deep learning model perform well on a variety of tasks—including tasks that are very different from the original task for which the feature extractors were trained.<br>在目前的工作中，我们训练一个简单的CNN，在无人监督的神经语言模型中获得的单词向量之上有一层卷积。这些载体由Mikolov等人训练。 （2013）关于1000亿字的谷歌新闻，并且是公开可用的.1我们最初保持单词向量静态并仅学习模型的其他参数。尽管对超参数进行了很少的调整，但这个简单的模型在多个基准测试中取得了优异的成果，这表明预训练的矢量是可以用于各种分类任务的“通用”特征提取器。通过微调学习任务特定的向量可以进一步改进。我们最终描述了对体系结构的简单修改，以允许通过具有多个通道来使用预先训练的和任务特定的向量。<br>我们的工作在哲学上类似于Razavian等人。 （2014）表明，对于图像分类，从预训练深度学习模型获得的特征提取器在各种任务上表现良好 - 包括与训练特征提取器的原始任务非常不同的任务。</p>
+<h3 id="2-Model"><a href="#2-Model" class="headerlink" title="2 Model"></a>2 Model</h3><p><img src="/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/TIM图片20190320203134.png" alt="figure1"></p>
+<p>The model architecture, shown in figure 1, is a slight variant of the CNN architecture of Collobert et al. (2011). Let $x_i \in \mathbb{R}^k$ be the k-dimensional word vector corresponding to the i-th word in the sentence. A sentence of length n (padded where necessary) is represented as <script type="math/tex">x_{1:n} = x_1 \oplus x_2 \oplus \dots \oplus x_n, (1)</script>where $\oplus$ is the concatenation operator. In general, let $x_{i:i+j}$ refer to the concatenation of words $x_i, x_{i+1}, \dots , x_{i+j}$ . A convolution operation involves a filter $w \in \mathbb{R}^{hk}$, which is applied to a window of h words to produce a new feature. For example, a feature $c_i$ is generated from a window of words $x_{i:i+h-1}$ by <script type="math/tex">c_i = f(w · x_{i:i+h-1} + b). (2)</script></p>
+<p>Here $b \in \mathbb{R}$ is a bias term and f is a non-linear function such as the hyperbolic tangent. This filter is applied to each possible window of words in the sentence $\{x_{1:h}, x_{2:h+1}, \dots , x_{n-h+1:n}\}$ to produce a feature map <script type="math/tex">c = [c_1, c_2, \dots , c_{n-h+1}], (3)</script> with $c \in R_{n-h+1}$. We then apply a max-overtime pooling operation (Collobert et al., 2011)over the feature map and take the maximum value $\hat{c} = max\{c\}$ as the feature corresponding to this particular filter. The idea is to capture the most important feature—one with the highest value—for each feature map. This pooling scheme naturally deals with variable sentence lengths.</p>
+<p>We have described the process by which one feature is extracted from one filter. The model uses multiple filters (with varying window sizes) to obtain multiple features. These features form the penultimate layer and are passed to a fully connected softmax layer whose output is the probability distribution over labels.</p>
+<p>In one of the model variants, we experiment with having two ‘channels’ of word vectors—one that is kept static throughout training and one that is fine-tuned via backpropagation (section 3.2).2 In the multichannel architecture, illustrated in figure 1, each filter is applied to both channels and the results are added to calculate $c_i$ in equation(2). The model is otherwise equivalent to the single channel architecture.</p>
+<p>如图1所示，模型架构是Collobert等人的CNN架构的略微变体。（2011年）。 令$x_i \in \mathbb{R}^k$是对应于句子中的第i个单词的k维单词向量。长度为n的句子（必要时填充）表示为<script type="math/tex">x_{1:n} = x_1 \oplus x_2 \oplus \dots \oplus x_n, (1)</script>其中⊕是连接运算符。 通常，让 $x_{i:i+j}$指的是单词$x_i, x_{i+1}, \dots , x_{i+j}$的串联。卷积运算涉及滤波器$w \in \mathbb{R}^{hk}$，其应用于h字的窗口以产生新特征。 例如，通过<script type="math/tex">c_i = f(w · x_{i:i+h-1} + b). (2)</script>从单词$x_{i:i+h-1}$的窗口生成特征$c_i$。<br>这里$b \in \mathbb{R}$是偏置项，f是非线性函数，例如双曲正切。 此过滤器应用于句子$\{x_{1:h}, x_{2:h+1}, \dots , x_{n-h+1:n}\}$中的每个可能的单词窗口。生成特征映射<script type="math/tex">c = [c_1, c_2, \dots , c_{n-h+1}], (3)</script> $c \in R_{n-h+1}$。 然后，我们在特征图上应用最大超时池化操作（Collobert等，2011），并将最大值$\hat{c} = max\{c\}$作为与该特定过滤器对应的特征。 我们的想法是为每个要素图捕获最重要的特征——一个具有最高值的特征。 这种汇集方案自然地处理可变句子长度。<br>我们已经描述了从一个过滤器中提取一个特征的过程。 该模型使用多个过滤器（具有不同的窗口大小）来获得多个特征。 这些特征形成倒数第二层，并传递给完全连接的softmax层，其输出是标签上的概率分布。<br>在其中一个模型变体中，我们尝试使用两个“通道”的单词向量 - 一个在整个训练过程中保持静态，一个通过反向传播进行微调（第3.2节）.2在多通道架构中，如图1所示 ，将每个滤波器应用于两个通道，并将结果相加以计算等式（2）中的$c_i$。 该模型在其他方面等同于单通道架构。</p>
+<h3 id="2-1-Regularization"><a href="#2-1-Regularization" class="headerlink" title="2.1 Regularization"></a>2.1 Regularization</h3><p>For regularization we employ dropout on the penultimate layer with a constraint on $l_2-$norms of the weight vectors (Hinton et al., 2012). Dropout prevents co-adaptation of hidden units by randomly dropping out—i.e., setting to zero—a proportion p of the hidden units during fowardbackpropagation. That is, given the penultimate layer $z = [\hat{c}_1, \dots , \hat{c}_m]$ (note that here we have m filters), instead of using <script type="math/tex">y = w · z + b (4)</script> for output unit y in forward propagation, dropout uses <script type="math/tex">y = w \cdot(z \circ r) + b, (5)</script> where $\circ$ is the element-wise multiplication operator and $r \in \mathbb{R}^m$ is a ‘masking’ vector of Bernoulli random variables with probability p of being 1. Gradients are backpropagated only through the unmasked units. At test time, the learned weight vectors are scaled by p such that $\hat{w} = pw$, and $\hat w$ is used (without dropout) to score unseen sentences. We additionally constrain $l_2$-norms of the weight vectors by rescaling w to have ${\lVert w \rVert}_2 = s$ whenever ${\lVert w \rVert}_2 &gt; s$ after a gradient descent step.</p>
+<h3 id="2-1正规化"><a href="#2-1正规化" class="headerlink" title="2.1正规化"></a>2.1正规化</h3><p>对于正则化，我们在倒数第二层上使用丢失，并对权重向量的$l_2-$范数进行约束（Hinton等，2012）。Dropout通过随机丢弃来防止隐藏单元的共同适应，即在前向反向传播期间设置为零 - 隐藏单元的比例p。也就是说，给定倒数第二层$z = [\hat{c}_1, \dots , \hat{c}_m]$（请注意，这里我们有m个滤波器），而不是在前向传播中使用<script type="math/tex">y = w · z + b (4)</script>作为输出单位y，使用dropout <script type="math/tex">y = w \cdot(z \circ r) + b, (5)</script><br>其中$\circ$是逐元素乘法运算符，$r \in \mathbb{R}^m$是伯努利随机变量的’掩蔽’向量，概率p为1.梯度仅通过未掩蔽单元反向传播。在测试时，学习的权重向量通过p缩放，使得$\hat{w} = pw$，并且使用$\hat w$（没有丢失）来对看不见的句子进行评分。我们还通过在梯度下降步骤之后每当${\lVert w \rVert}_2 &gt; s$重新调整w以具有${\lVert w \rVert}_2 = s$来约束权重向量的$l_2$范数。</p>
+
       
     </div>
 
@@ -565,8 +580,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/update/avatar.jpg"
@@ -635,6 +659,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Model"><span class="nav-number">2.</span> <span class="nav-text">2 Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Regularization"><span class="nav-number">3.</span> <span class="nav-text">2.1 Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1正规化"><span class="nav-number">4.</span> <span class="nav-text">2.1正规化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
