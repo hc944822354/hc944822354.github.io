@@ -1,0 +1,934 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Andeper的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="mongo数据统计与解释统计时间：2019-3-28  各个库的表及大小本次数据总大小为681.7GB,共分为以下几个库：  db_name  大小76.4GB  IMP 大小 75GB    filesData  大小为39.4GB IMP 大小 39GB    fileData_files大小为 98.94GB IMP.files 大小3.49KB 测试数据，不用考虑 IMP.chunks 大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andeper的个人博客">
+<meta property="og:url" content="http://andeper.cn/2019/03/28/20190328mongo数据统计与解释/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="mongo数据统计与解释统计时间：2019-3-28  各个库的表及大小本次数据总大小为681.7GB,共分为以下几个库：  db_name  大小76.4GB  IMP 大小 75GB    filesData  大小为39.4GB IMP 大小 39GB    fileData_files大小为 98.94GB IMP.files 大小3.49KB 测试数据，不用考虑 IMP.chunks 大">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-28T12:42:23.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Andeper的个人博客">
+<meta name="twitter:description" content="mongo数据统计与解释统计时间：2019-3-28  各个库的表及大小本次数据总大小为681.7GB,共分为以下几个库：  db_name  大小76.4GB  IMP 大小 75GB    filesData  大小为39.4GB IMP 大小 39GB    fileData_files大小为 98.94GB IMP.files 大小3.49KB 测试数据，不用考虑 IMP.chunks 大">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://andeper.cn/2019/03/28/20190328mongo数据统计与解释/"/>
+
+
+
+
+
+  <title>  | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/03/28/20190328mongo数据统计与解释/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T20:42:23+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/28/20190328mongo数据统计与解释/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/28/20190328mongo数据统计与解释/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="mongo数据统计与解释"><a href="#mongo数据统计与解释" class="headerlink" title="mongo数据统计与解释"></a>mongo数据统计与解释</h1><p align="right">统计时间：2019-3-28</p>
+
+<h2 id="各个库的表及大小"><a href="#各个库的表及大小" class="headerlink" title="各个库的表及大小"></a>各个库的表及大小</h2><p>本次数据总大小为681.7GB,共分为以下几个库：</p>
+<ul>
+<li><p>db_name  大小76.4GB</p>
+<ul>
+<li>IMP 大小 75GB </li>
+</ul>
+</li>
+<li>filesData  大小为39.4GB<ul>
+<li>IMP 大小 39GB </li>
+</ul>
+</li>
+<li>fileData_files大小为 98.94GB<ul>
+<li>IMP.files 大小3.49KB 测试数据，不用考虑</li>
+<li>IMP.chunks 大小488KB 测试数据，不用考虑</li>
+<li>FB2.files 大小8GB</li>
+<li>FB2.chunks 90GB</li>
+</ul>
+</li>
+<li>ND_1大小为 6.077GB<ul>
+<li>file 6GB 可以不考虑</li>
+</ul>
+</li>
+<li>ND_1_files 大小为 461.738GB<ul>
+<li>由于下面的数据分类依据的是不同的域名，数量巨大，不予表示</li>
+</ul>
+</li>
+</ul>
+<p><em>注：库大小和表大小均来自mongo数据库命令，库查询大小语句db.stats(1073741824);以及db.表名.stats(1073741824)</em></p>
+<h2 id="第一部分数据来源"><a href="#第一部分数据来源" class="headerlink" title="第一部分数据来源"></a>第一部分数据来源</h2><p>第一部分数据来源于 <a href="http://xfmro77i3lixucja.onion" target="_blank" rel="noopener">http://xfmro77i3lixucja.onion</a></p>
+<p>为一个暗网书籍杂志发布网站</p>
+<p>涉及到的库为 db_name、filesData</p>
+<p>涉及表 IMP </p>
+<p><em>注：第一次爬取时数据库名错写为db_name，后来发现错误后更正为filesData，但是由于网站封锁快，所以接着第一次爬取的进度爬取，两者的表结构完全一致。</em></p>
+<p>存储结构为（类型的缺省值为字符串）：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    '_id':主键,</span><br><span class="line">    'name':为书籍或者杂志名称，为一个列表(可能存在别称),</span><br><span class="line">    'type':书籍杂志类别,</span><br><span class="line">    'url': 书籍的url,</span><br><span class="line">    'language':语言，简写,</span><br><span class="line">    'author':作者,</span><br><span class="line">    'press':出版社，可能有多家出版社，所以是个列表,</span><br><span class="line">    "coverType": 封面的格式,</span><br><span class="line">    "coverUrl":封面的链接,</span><br><span class="line">    "bookBytes": 书籍的二进制数据,</span><br><span class="line">    "coverBytes": 封面的二进制数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以取数据的时候只需要把需要的书籍的二进制数据取出来写入文件就可以打开了</p>
+<p> <em>注：有的书籍下载过程中被网站删除或者网络不稳定，所以可能存在只有链接没有数据的情况</em></p>
+<h2 id="第二部分数据来源"><a href="#第二部分数据来源" class="headerlink" title="第二部分数据来源"></a>第二部分数据来源</h2><p>第二部分数据来源 <a href="http://fb2lib3argrtulnw.onion" target="_blank" rel="noopener">http://fb2lib3argrtulnw.onion</a></p>
+<p>涉及库 fileData_files</p>
+<p>与第一部分类似的，第二部分数据也为一个暗网书籍杂志发布网站，</p>
+<p>但是由于第二部分数据有部分内容大于mongo默认的单条数据大小限制（16MB）</p>
+<p>所以第二部分采用了 mongo的GridFS存储大文件</p>
+<p>FB2.files存储格式</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_id"</span>: id,</span><br><span class="line">    <span class="attr">"description"</span>: &#123;</span><br><span class="line">        <span class="attr">"name"</span>: 作品名称,</span><br><span class="line">        <span class="attr">"author"</span>: 作者,</span><br><span class="line">        <span class="attr">"describe"</span>: 描述,</span><br><span class="line">        <span class="attr">"type"</span>: 类型,</span><br><span class="line">        <span class="attr">"language"</span>: 语言,</span><br><span class="line">        <span class="attr">"coverType"</span>: 封面格式,</span><br><span class="line">        <span class="attr">"coverUrl"</span>: 封面网址,</span><br><span class="line">        <span class="attr">"file_type"</span>: 文件类型,</span><br><span class="line">        <span class="attr">"url"</span>: 文件链接,</span><br><span class="line">        <span class="attr">"coverBytes"</span>:封面二进制数据</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"md5"</span>: 数据的md5值,</span><br><span class="line">    <span class="attr">"chunkSize"</span>: 文件大小,</span><br><span class="line">    <span class="attr">"length"</span>: 文件长度,</span><br><span class="line">    <span class="attr">"uploadDate"</span>: 上传日期</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>FB2.chunks 存储格式</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_id"</span>: 文件二进制块id,</span><br><span class="line">    <span class="attr">"files_id"</span>: <span class="string">"5bd52dc7c577d9349192311b"</span>,</span><br><span class="line">    <span class="attr">"n"</span>: 当前二进制数据所在块号,</span><br><span class="line">    <span class="attr">"data"</span>: 具体的二进制数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注：有的文件可能超过了16M，所以需要分为好多块来存储，files里面的length/chunkSize ,chunks里面的n就代表着当前块属于第几块</em></p>
+<h2 id="第三部分数据来源"><a href="#第三部分数据来源" class="headerlink" title="第三部分数据来源"></a>第三部分数据来源</h2><p>第三部分数据来源于通用爬虫采集的页面里面所包含的文件、视频或者图片</p>
+<p>涉及库  ND_1_files、 ND_1</p>
+<p><em>注：第三次数据首先开始采集的时候由于没有考虑mongo的默认的单条数据最大限制（16MB）所以产生了第一次不完全数据ND_1,此部分数据可以不用考虑，也可作为参考</em></p>
+<p>​      <em>发现这个问题之后做出了调整采用mongo的GridFS存储文件 所以产生了ND_1_files</em></p>
+<p>ND_1的file的存储结构如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_id"</span>: id,</span><br><span class="line">    <span class="attr">"url"</span>: 文件url,</span><br><span class="line">    <span class="attr">"site"</span>: 文件所属网站,</span><br><span class="line">    <span class="attr">"time"</span>: 采集时间,</span><br><span class="line">    <span class="attr">"content"</span>: 获取的二进制数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ND_1_files 此部分数据采用GridFS存储，以域名的主体部分区分每个表（比如 <a href="http://fb2lib3argrtulnw.onion的主体就是fb2lib3argrtulnw），所以就生成了一对一对的" target="_blank" rel="noopener">http://fb2lib3argrtulnw.onion的主体就是fb2lib3argrtulnw），所以就生成了一对一对的</a></p>
+<p>*.files 和*.chunks 文件，所有的*.files 存储格式相同，<em>\</em>.chunks也相同</p>
+<p>*.files的存储格式如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_id"</span>: id,</span><br><span class="line">    <span class="attr">"description"</span>: //描述来源于header，所以描述中有许多有用的信息，下面只列出主要的</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"Content-Type"</span>: 二进制数据编码方式,</span><br><span class="line">        <span class="attr">"Referer"</span>: 文件来源网页url,</span><br><span class="line">        <span class="attr">"url"</span>: 文件的url</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"md5"</span>: 文件的md5值,</span><br><span class="line">    <span class="attr">"chunkSize"</span>: 文件块大小,</span><br><span class="line">    <span class="attr">"length"</span>: 文件长度,</span><br><span class="line">    <span class="attr">"uploadDate"</span>: 上传时间</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>*.chunks的存储格式如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_id"</span>: id,</span><br><span class="line">    <span class="attr">"url"</span>: 文件url,</span><br><span class="line">    <span class="attr">"site"</span>: 文件所属网站,</span><br><span class="line">    <span class="attr">"time"</span>: 采集时间,</span><br><span class="line">    <span class="attr">"content"</span>: 获取的二进制数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分网页与文件的链接纽带就是files里面的description的Referer</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>GridFS操作示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymongo</span><br><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"><span class="keyword">from</span> gridfs <span class="keyword">import</span> GridFS</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GFS</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, file_db,file_table)</span>:</span></span><br><span class="line">        self.file_db = file_db</span><br><span class="line">        self.file_table = file_table</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">createDB</span><span class="params">(self)</span>:</span> <span class="comment">#连接数据库，并创建文件数据库与数据表</span></span><br><span class="line">        client = MongoClient(<span class="string">'localhost'</span>,<span class="number">27017</span>)</span><br><span class="line">        db = client[self.file_db]</span><br><span class="line">        file_table = db[self.file_table]</span><br><span class="line">        <span class="keyword">return</span> (db,file_table)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertFile</span><span class="params">(self,db,filePath,query)</span>:</span> <span class="comment">#将文件存入数据表</span></span><br><span class="line">        fs = GridFS(db,self.file_table)</span><br><span class="line">        <span class="keyword">if</span> fs.exists(query):</span><br><span class="line">            print(<span class="string">'已经存在该文件'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">with</span> open(filePath,<span class="string">'rb'</span>) <span class="keyword">as</span> fileObj:</span><br><span class="line">                data = fileObj.read()</span><br><span class="line">                ObjectId = fs.put(data,filename = filePath.split(<span class="string">'/'</span>)[<span class="number">-1</span>])</span><br><span class="line">                print(ObjectId)</span><br><span class="line">                fileObj.close()</span><br><span class="line">            <span class="keyword">return</span> ObjectId</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getID</span><span class="params">(self,db,query)</span>:</span> <span class="comment">#通过文件属性获取文件ID，ID为文件删除、文件读取做准备</span></span><br><span class="line">        fs=GridFS(db, self.file_table)</span><br><span class="line">        ObjectId=fs.find_one(query)._id在线生成PDF</span><br><span class="line">        <span class="keyword">return</span> ObjectId</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getFile</span><span class="params">(self,db,id)</span>:</span> <span class="comment">#获取文件属性，并读出二进制数据至内存</span></span><br><span class="line">        fs = GridFS(db, self.file_table)</span><br><span class="line">        gf=fs.get(id)</span><br><span class="line">        bdata=gf.read() <span class="comment">#二进制数据</span></span><br><span class="line">        attri=&#123;&#125; <span class="comment">#文件属性信息</span></span><br><span class="line">        attri[<span class="string">'chunk_size'</span>]=gf.chunk_size</span><br><span class="line">        attri[<span class="string">'length'</span>]=gf.length</span><br><span class="line">        attri[<span class="string">"upload_date"</span>] = gf.upload_date</span><br><span class="line">        attri[<span class="string">"filename"</span>] = gf.filename</span><br><span class="line">        attri[<span class="string">'md5'</span>]=gf.md5在线生成PDF</span><br><span class="line">        print(attri)</span><br><span class="line">        <span class="keyword">return</span> (bdata, attri)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># def listFile(self,db): #列出所有文件名</span></span><br><span class="line">    <span class="comment">#     fs = GridFS(db, self.file_table)</span></span><br><span class="line">    <span class="comment">#     gf = fs.list()</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># def findFile(self,db,file_table): #列出所有文件二进制数据</span></span><br><span class="line">    <span class="comment">#     fs = GridFS(db, table)</span></span><br><span class="line">    <span class="comment">#     for file in fs.find():</span></span><br><span class="line">    <span class="comment">#         bdata=file.read()</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">write_2_disk</span><span class="params">(self,bdata, attri)</span>:</span> <span class="comment">#将二进制数据存入磁盘</span></span><br><span class="line">        name = <span class="string">"get_"</span>+attri[<span class="string">'filename'</span>]</span><br><span class="line">        <span class="keyword">if</span> name:</span><br><span class="line">            output = open(name, <span class="string">'wb'</span>)</span><br><span class="line">        output.write(bdata)</span><br><span class="line">        output.close()</span><br><span class="line">        print(<span class="string">"fetch image ok!"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self,db,id)</span>:</span> <span class="comment">#文件数据库中数据的删除</span></span><br><span class="line">        fs = GridFS(db, self.file_table)        </span><br><span class="line">        fs.delete(id) <span class="comment">#只能是id</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    gfs=GFS(<span class="string">'fileDB'</span>,<span class="string">'fileTable'</span>)</span><br><span class="line">    (file_db,fileTable) = gfs.createDB() <span class="comment">#创建数据库与数据表</span></span><br><span class="line">    filePath = <span class="string">'C:/Users/Administrator/Desktop/02655.jpeg'</span> <span class="comment">#插入的文件</span></span><br><span class="line">    query = &#123;<span class="string">'filename'</span>: <span class="string">'02655.jpeg'</span>&#125;</span><br><span class="line">    id=gfs.insertFile(file_db,filePath,query) <span class="comment">#插入文件</span></span><br><span class="line">    id=gfs.getID(file_db,query)</span><br><span class="line">    (bdata,attri)=gfs.getFile(file_db,id) <span class="comment">#查询并获取文件信息至内存</span></span><br><span class="line">    gfs.write_2_disk(bdata,attri) <span class="comment">#写入磁盘</span></span><br><span class="line">    <span class="comment"># gfs.remove(file_db,id) #删除数据库中文件</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/文献摘要之Convolutional-Neural-Networks-for-Sentence-Classification/" rel="next" title="文献摘要之Convolutional Neural Networks for Sentence Classification">
+                <i class="fa fa-chevron-left"></i> 文献摘要之Convolutional Neural Networks for Sentence Classification
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/28/20190328mongo数据统计与解释/"
+           data-title="" data-url="http://andeper.cn/2019/03/28/20190328mongo数据统计与解释/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mongo数据统计与解释"><span class="nav-number">1.</span> <span class="nav-text">mongo数据统计与解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#各个库的表及大小"><span class="nav-number">1.1.</span> <span class="nav-text">各个库的表及大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分数据来源"><span class="nav-number">1.2.</span> <span class="nav-text">第一部分数据来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分数据来源"><span class="nav-number">1.3.</span> <span class="nav-text">第二部分数据来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三部分数据来源"><span class="nav-number">1.4.</span> <span class="nav-text">第三部分数据来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">1.5.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+</body>
+</html>

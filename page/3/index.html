@@ -381,6 +381,161 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/14/Java面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/14/Java面试题/" itemprop="url">
+                  Java面试题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T20:28:00+08:00">
+                2017-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/14/Java面试题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/14/Java面试题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>java的话常规的题目如：抽象，多态，虚拟机双亲模型，gc，内存结构，多线程，线程池，自动装箱，io等。结合数据结构问的重点是容器，抛了引子，会写源码，ok了。 然后并发库，equal方法源码等。之后排序，各种应用场景排序，大规模排序，分桶。<br>偏项目，每一面都会问项目，二面，三面扩展知识比较多，涉及多线程比较多，虚拟机比较多，或者源码。</p>
+<p>1.hashtable和hashmap的区别， hashmap底层的实现机制：负载因子、冲突解决方式。Java 8的优化。<br>2.string 和stringbuffer的区别。<br>3.JVM内存模型，每个区域存放的内容。<br>4.JVM垃圾回收算法。<br>5.JVM类加载机制、双亲委托模型。<br>6.问我notify<br>7.synchronized关键字、Lock，并解释它们之间的区别。</p>
+<h5 id="HashMap原理"><a href="#HashMap原理" class="headerlink" title="HashMap原理"></a>HashMap原理</h5><p>底层是数组加链表实现的哈希表。允许null作为键，null作为值。线程不安全。</p>
+<h5 id="为什么用数组-链表实现？"><a href="#为什么用数组-链表实现？" class="headerlink" title="为什么用数组+链表实现？"></a>为什么用数组+链表实现？</h5><p>利用拉链法解决冲突：把所有的同义词用单链表链接起来。该方法下，哈希表每个单元中存放的不再是元素本身，而是相应同义词单链表的头指针。<br>HashMap维护了一个Entry数组，Entry内部类有key,value，hash和next四个字段，其中next也是一个Entry类型。<br>可以将Entry数组理解为一个个的散列桶。每一个桶实际上是一个单链表。当执行put操作时，会根据key的hashcode定位到相应的桶。<br>遍历单链表检查该key是否已经存在，如果存在，覆盖该value，反之，新建一个新的Entry，并放在单链表的头部。<br>当通过传递key调用get方法时，它再次使用key.hashCode()来找到相应的散列桶，然后使用key.equals()方法找出单链表中正确的Entry，然后返回它的值。 </p>
+<h5 id="Java运行时数据区域？"><a href="#Java运行时数据区域？" class="headerlink" title="Java运行时数据区域？"></a>Java运行时数据区域？</h5><h5 id="方法区里存放什么？"><a href="#方法区里存放什么？" class="headerlink" title="方法区里存放什么？"></a>方法区里存放什么？</h5><p>当时只想到常量和静态变量…然后觉得不妥，赶紧补充：由于程序计数器、JVM栈、本地方法栈3个区域随线程而生随线程而灭，对这几个区域内存的回收和分配具有确定性。<br>而方法区和堆则不一样，程序需要在运行时才知道创建哪些对象，对这部分内存的分配是动态的，GC关注的也就是这部分内存。<br>本地方法栈：和jvm栈所发挥的作用类似，区别是jvm栈为jvm执行java方法（字节码）服务，而本地方法栈为jvm使用的native方法服务。<br>JVM栈：局部变量表、操作数栈、动态链接、方法出口。<br>方法区：用于存储已被虚拟机加载的类信息，常量、静态变量、即时编译器编译后的代码等。<br>堆：存放对象实例。</p>
+<h5 id="怎样判断是否需要收集？"><a href="#怎样判断是否需要收集？" class="headerlink" title="怎样判断是否需要收集？"></a>怎样判断是否需要收集？</h5><p>引用计数法：对象没有任何引用与之关联(无法解决循环引用)<br>可达性分析法：通过一组称为GC<br>Root的对象为起点,从这些节点向下搜索，如果某对象不能从这些根对象的一个(至少一个)所到达,则判定该对象应当回收。</p>
+<h5 id="什么可作为GCRoot的对象？"><a href="#什么可作为GCRoot的对象？" class="headerlink" title="什么可作为GCRoot的对象？"></a>什么可作为GCRoot的对象？</h5><p>虚拟机栈中引用的对象。方法区中类静态属性引用的对象，方法区中类常量引用的对象，本地方法栈中JNI引用的对象。<br>总结：JVM这块是由自己读过的书本引出，总的来说，也算是整个面试环节里答得最好的模块了，因为这一周也的确用心准备了这块的知识点。所以大家一定要着重复习JVM这块的知识。</p>
+<h5 id="红黑树数据结构？"><a href="#红黑树数据结构？" class="headerlink" title="红黑树数据结构？"></a>红黑树数据结构？</h5><p>  看见别人的面经里都是问B+树，所以看了一下午B+树，反而红黑树没怎么着重准备。只回答了红黑树的五个性质。本质是二叉搜索树，左节点小于根节点，右节点大于根节点。</p>
+<p>  看看具体具体答案，又是没回答完整…..</p>
+<p>  红黑树本质上是一颗二叉搜索树，它满足二叉搜索树的基本性质——即树中的任何节点的值大于它的左子节点，且小于它的右子节点。<br>  一颗红黑树必须满足以下几点条件：<br>  规则1、根节点必须是黑色。<br>  规则2、任意从根到叶子的路径不包含连续的红色节点。<br>  规则3、任意从根到叶子的路径的黑色节点总数相同。<br>  作为红黑树节点，其基本属性有：节点的颜色、左子节点指针、右子节点指针、父节点指针、节点的值。<br>  这些约束确保了红黑树的关键特性：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。<br>  因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限<br>  允许红黑树在最坏情况下都是高效的，而不同于普通的二叉查找树。</p>
+<p>  在很多树数据结构的表示中，一个节点有可能只有一个子节点，而叶子节点包含数据。用这种范例表示红黑树是可能的，但是这会改变一些性质并使算法复杂。</p>
+<p>  为此，本文中我们使用”nil叶子”或”空（null）叶子”，如上图所示，它不包含数据而只充当树在此结束的指示。这些节点在绘图中经常被省略，导致了这些树好像同上述原则相矛盾，而实际上不是这样。<br>  与此有关的结论是所有节点都有两个子节点，尽管其中的一个或两个可能是空叶子。<br>  因为每一个红黑树也是一个特化的二叉查找树，因此红黑树上的只读操作与普通二叉查找树上的只读操作相同。<br>  然而，在红黑树上进行插入操作和删除操作会导致不再符合红黑树的性质。恢复红黑树的性质需要少量（O(log<br>  n)）的颜色变更（实际是非常快速的）和不超过三次树旋转（对于插入操作是两次）。<br>  虽然插入和删除很复杂，但操作时间仍可以保持为O(log n)次</p>
+<h5 id="JDK1-8的改进"><a href="#JDK1-8的改进" class="headerlink" title="JDK1.8的改进"></a>JDK1.8的改进</h5><p>（lambda表达式、HashMap升级、ConcurrentHashMap升级、synchronized升级），此处没有答出<br>枚举器的升级（可能是我搞错了），增加了Iteable.forEach方法，Iterator.remove() 现在有一个默认的,会抛出异常的实现,lambda表达式的意义</p>
+<h5 id="快排的思想，Partition"><a href="#快排的思想，Partition" class="headerlink" title="快排的思想，Partition"></a>快排的思想，Partition</h5><h5 id="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"><a href="#垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器" class="headerlink" title="垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器"></a>垃圾回收，是否做过调优，新生代老年代的概念与晋升，以及新生代与老年代的垃圾回收，CMS垃圾收集器</h5><p>你Java学的怎么样？<br>    我：</p>
+<p>   还可以，有研究过部分JDK源码，比如常用的集合类如HashMap/Hashtable、ArrayList/LinkedList、Vector等，还有Java5之后的并发包JUC如concurrentHashMap、Executor框架、CopyOnWrite容器等。自己很欣赏Java巧妙的垃圾回收机制，看过周志明的《深入理解Java虚拟机》，因此对JVM相关的知识有所掌握……</p>
+<pre><code>面：
+</code></pre><p>   嗯，学的挺深的，那你把JVM的结构和类加载原理说下。</p>
+<pre><code>我：
+</code></pre><p>   马上拿起桌上的笔和纸，把虚拟机运行时包含的几个数据区和执行引擎画了下，包括方法区、虚拟机栈、本地方法栈、堆和程序计数器，然后介绍每个区域有什么作用，最后讲ClassLoader的类加载机制，还顺便说了下双亲委派机制。</p>
+<pre><code>面：
+</code></pre><p>   （面试官点头表示满意）你刚刚说Java的GC机制很巧妙，那么它的巧妙之处在哪里？</p>
+<pre><code>我：
+</code></pre><p>   我从两个方面说下自己的理解：一是Java的内存分配原理与C/C++不同，C/C++每次采用malloc或new申请内存时都要进行brk和mmap等系统调用，而系统调用发生在内核空间，每次都要中断进行切换，这需要一定的开销，而Java虚拟机是先一次性分配一块较大的空间，然后每次new时都在该空间上进行分配和释放，减少了系统调用的次数，节省了一定的开销，这有点类似于内存池的概念；二是有了这块空间过后，如何进行分配和回收就跟GC机制有关了，然后我详细介绍了GC原理、画图表示年轻代（Eden区和Survival区）、年老代、比例分配及为啥要这样分代回收（我认为巧妙就在于这里），有了GC基本结构后，我又详述了下GC是具体如何进行内存分配和垃圾回收的。</p>
+<h5 id="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"><a href="#简单描述一下多态（接口）在Java里是如何实现的（运行时多态）" class="headerlink" title="简单描述一下多态（接口）在Java里是如何实现的（运行时多态）"></a>简单描述一下多态（接口）在Java里是如何实现的（运行时多态）</h5><p>1、对多态理解<br>2、写两个线程，交替打印1到100的奇数和偶数，在纸上写出<br>     3、有没有使用过Lock，怎么使用，和synchronized有什么区别，从jvm角度解释<br>     4、StringBuilder 和 StringBuffer区别，为什么，里面实现<br>     5、ArrayList 和 LinkedList 区别，原理  </p>
+<pre><code> jvm  
+ 1、gc垃圾回收  
+ 2、静态分派和动态分派  
+ 3、四种引用的区别
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/14/算法面试题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1836,142 +1991,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2017/03/08/关于String/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/update/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andeper的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/08/关于String/" itemprop="url">
-                  关于String
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T22:21:34+08:00">
-                2017-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/08/关于String/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/08/关于String/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-String类"><a href="#1-String类" class="headerlink" title="1.String类"></a>1.String类</h4><p>String类被final所修饰，String对象是不可变量，String实现了Serializable，Comparable，CharSequence，CharSequence接口。</p>
-<h4 id="2-String属性"><a href="#2-String属性" class="headerlink" title="2.String属性"></a>2.String属性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</span><br></pre></td></tr></table></figure>
-<p>String类中包含了一个不可变的char数组来存放字符串，一个int型的变量hash来存放计算后的哈希值</p>
-<h4 id="3-String构造函数"><a href="#3-String构造函数" class="headerlink" title="3.String构造函数"></a>3.String构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不含参数的构造函数，一般没什么用，因为value是不可变量</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//参数为String类型</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(String original)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = original.value;</span><br><span class="line">    <span class="keyword">this</span>.hash = original.hash;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//参数为char数组，使用java.utils包中的Arrays类复制</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOf(value, value.length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//从bytes数组中的offset位置开始，将长度为length的字节，以charsetName格式编码，拷贝到value</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">byte</span> bytes[], <span class="keyword">int</span> offset, <span class="keyword">int</span> length, String charsetName)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (charsetName == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"charsetName"</span>);</span><br><span class="line">    checkBounds(bytes, offset, length);</span><br><span class="line">    <span class="keyword">this</span>.value = StringCoding.decode(charsetName, bytes, offset, length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用public String(byte bytes[], int offset, int length, String charsetName)构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">byte</span> bytes[], String charsetName)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(bytes, <span class="number">0</span>, bytes.length, charsetName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-String常用方法"><a href="#4-String常用方法" class="headerlink" title="4.String常用方法"></a>4.String常用方法</h4><h5 id="1-equals"><a href="#1-equals" class="headerlink" title="1.equals"></a>1.equals</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">            String anotherString = (String)anObject;</span><br><span class="line">            <span class="keyword">int</span> n = value.length;</span><br><span class="line">            <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">                <span class="keyword">char</span> v1[] = value;</span><br><span class="line">                <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">                <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-<p>先比较是不是同一个对象，再判断是不是String数据类型，把String转成char数组之后判断数组的长度是否相等，然后从后往前单个判断char，都相等则返回true</p>
-<h5 id="2-hashCode"><a href="#2-hashCode" class="headerlink" title="2.hashCode"></a>2.hashCode</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> h = hash;</span><br><span class="line">        <span class="keyword">if</span> (h == <span class="number">0</span> &amp;&amp; value.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">char</span> val[] = value;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">                h = <span class="number">31</span> * h + val[i];</span><br><span class="line">            &#125;</span><br><span class="line">            hash = h;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> h;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>hashcode计算方法是s[0]_31^(n-1) + s[1]_31^(n-2) + … + s[n-1]</p>
-<h4 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h4><p>String是不可变类型，返回类型为String的String方法每次返回都是新的String<br>对象<br>String的三种比较方式：<br>内存比较：直接对比两个引用所指向的内存值，精确间接直接明了<br>equals字符串值比较，比较两个引用所指对象字面值是否相等<br>hashCode字符串数值化比较：两个hashCode相同，不保证内存相同，不保证字面值相同。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2021,7 +2040,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
