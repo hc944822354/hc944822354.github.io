@@ -1,0 +1,882 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Andeper的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Short Text Clustering via Convolutional Neural Networks AbstractShort text clustering has become an increasing important task with the popularity of social media, and it is a challenging problem due t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks">
+<meta property="og:url" content="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="Short Text Clustering via Convolutional Neural Networks AbstractShort text clustering has become an increasing important task with the popularity of social media, and it is a challenging problem due t">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/TIM图片20190403220837.png">
+<meta property="og:image" content="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/TIM图片20190403220922.png">
+<meta property="og:updated_time" content="2019-04-03T14:11:37.250Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks">
+<meta name="twitter:description" content="Short Text Clustering via Convolutional Neural Networks AbstractShort text clustering has become an increasing important task with the popularity of social media, and it is a challenging problem due t">
+<meta name="twitter:image" content="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/TIM图片20190403220837.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/"/>
+
+
+
+
+
+  <title> 文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T20:37:31+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Short Text Clustering via Convolutional Neural Networks</p>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>Short text clustering has become an increasing important task with the popularity of social media, and it is a challenging problem due to its sparseness of text representation. In this paper, we propose a Short Text Clustering via Convolutional neural networks (abbr. to STCC), which is more beneficial for clustering by considering one constraint on learned features through a self-taught learning framework without using any external tags/labels. First, we embed the original keyword features into compact binary codes with a localitypreserving constraint. Then, word embeddings are explored and fed into convolutional neural networks to learn deep feature representations, with the output units fitting the pre-trained binary code in the training process. After obtaining the learned representations, we use K-means to cluster them. Our extensive experimental study on two public short text datasets shows that the deep feature representation learned by our approach can achieve a significantly better performance than some other existing features, such as term frequency-inverse document frequency, Laplacian eigenvectors and average embedding, for clustering.<br>随着社交媒体的普及，短文本聚类已成为一项日益重要的任务，由于其文本表示的稀疏性，它是一个具有挑战性的问题。在本文中，我们通过卷积神经网络（简称STCC）提出了一种短文本聚类，通过自学习学习框架考虑学习特征的一个约束而不使用任何外部标签/标签，这对聚类更有利。首先，我们将原始关键字特征嵌入到具有局部保持约束的紧凑二进制代码中。然后，探索单词嵌入并将其馈入卷积神经网络以学习深度特征表示，其中输出单元在训练过程中拟合预训练的二进制代码。在获得学习的表示后，我们使用K-means来聚类它们。我们对两个公共短文本数据集的广泛实验研究表明，通过我们的方法学习的深度特征表示可以实现比其他一些现有特征明显更好的性能，例如术语频率 - 逆文档频率，拉普拉斯特征向量和平均嵌入，用于聚类。</p>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h3><p>Different from the normal text clustering, short text clustering has the problem of sparsity(Aggarwal and Zhai, 2012). Most words only occur once in each short text, as a result, the term frequencyinverse document frequency (TF-IDF) measure cannot work well in the short text setting. In order to address this problem, some researchers work on expanding and enriching the context of data from Wikipedia (Banerjee et al., 2007) or an ontology (Fodeh et al., 2011). However, these methods involve solid natural language processing (NLP) knowledge and still use high-dimensional representation which may result in a waste of both memory and computation time. Another way to overcome these issues is to explore some sophisticated models to cluster short texts. For example, Yin and Wang (2014) proposed a Dirichlet multinomial mixture model-based approach for short text clustering and Cai et al. (2005) clustered texts using Locality Preserving Indexing (LPI) algorithm. Yet how to design an effective model is an open question, and most of these methods directly trained based on bagof-words (BoW) are shallow structures which cannot preserve the accurate semantic similarities.<br>与普通文本聚类不同，短文本聚类具有稀疏性问题（Aggarwal和Zhai，2012）。大多数单词仅在每个短文本中出现一次，因此，术语频率反向文档频率（TF-IDF）度量在短文本设置中不能很好地起作用。为了解决这个问题，一些研究人员致力于扩展和丰富维基百科（Banerjee等，2007）或本体论（Fodeh等，2011）的数据背景。然而，这些方法涉及固体自然语言处理（NLP）知识并且仍然使用高维表示，这可能导致浪费存储器和计算时间。克服这些问题的另一种方法是探索一些复杂的模型来聚类短文本。例如，Yin和Wang（2014）提出了一种基于Dirichlet多项式混合模型的短文本聚类方法和Cai等人。 （2005）使用局部保持索引（LPI）算法的聚类文本。然而，如何设计一个有效的模型是一个悬而未决的问题，而且大多数基于bagof-words（BoW）直接训练的方法都是浅层结构，不能保持准确的语义相似性。<br>With the recent revival of interest in Deep Neural Network (DNN), many researchers have concentrated on using Deep Learning to learn features. Hinton and Salakhutdinov (2006) use deep auto encoder (DAE) to learn text representation from raw text representation. Recently, with the help of word embedding, neural networks demonstrate their great performance in terms of constructing text representation, such as Recursive Neural Network (RecNN) (Socher et al., 2011; Socher et al., 2013) and Recurrent Neural Network (RNN) (Mikolov et al.,2011). However, RecNN exhibits high time complexity to construct the textual tree, and RNN, using the layer computed at the last word to represent the text, is a biased model (Lai et al., 2015). More recently, Convolution Neural Network (CNN), applying convolutional filters to capture local features, has achieved a better performance in many NLP applications, such as sentence modeling (Blunsom et al.,2014), relation classification (Zeng et al., 2014), and other traditional NLP tasks (Collobert et al., 2011).Most of the previous works focus CNN on solving supervised NLP tasks, while in this paper we aim to explore the power of CNN on one unsupervised NLP task, short text clustering.<br>随着最近人们对深度神经网络（DNN）兴趣的兴起，许多研究人员将注意力集中在使用深度学习来学习特征。 Hinton和Salakhutdinov（2006）使用深度自动编码器（DAE）来学习原始文本表示的文本表示。最近，在文字嵌入的帮助下，神经网络在构建文本表示方面表现出了很好的表现，如递归神经网络（RecNN）（Socher等，2011; Socher等，2013）和递归神经网络（ RNN）（Mikolov等，2011）。然而，RecNN表现出构建文本树的高时间复杂度，并且使用在最后一个词处计算的层来表示文本的RNN是偏向模型（Lai等人，2015）。最近，卷积神经网络（CNN）应用卷积滤波器捕获局部特征，在许多NLP应用中取得了更好的性能，例如句子建模（Blunsom等，2014），关系分类（Zeng et al。，2014） ）和其他传统的NLP任务（Collobert等，2011）。以前的大部分工作都集中在CNN上解决有监督的NLP任务，而在本文中我们的目的是探讨CNN在一个无监督的NLP任务，短文本聚类上的力量。 。<br><img src="/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/TIM图片20190403220837.png" alt="figure1"><br>To address the above challenges, we systematically introduce a short text clustering method via convolutional neural networks. An overall architecture of the proposed method is illustrated in Figure 1. Given a short text collection X, the goal of this work is to cluster these texts into clusters C based on the deep feature representation h learned from CNN models. In order to train the CNN models, we,inspired by (Zhang et al., 2010), utilize a self-taught learning framework in our work. In particular, we first embed the original features into compact binary code B with a locality-preserving constraint. Then word vectors S projected from word embeddings are fed into a CNN model to learn the feature representation h and the output units are used to fit the pretrained binary code B. After obtaining the learned features, traditional K-means algorithm is employed to cluster texts into clusters C. The main contributions of this paper are summarized as follows:<br>1). To the best of our knowledge, this is the first attempt to explore the feasibility and effectiveness of combining CNN and traditional semantic constraint, with the help of word embedding to solve one unsupervised learning task, short text clustering.<br>2). We learn deep feature representations with locality-preserving constraint through a self-taught learning framework, and our approach do not use any external tags/labels or complicated NLP preprocessing.<br>3). We conduct experiments on two short text datasets. The experimental results demonstrate that the proposed method achieves excellent performance in terms of both accuracy and normalized mutual information.The remainder of this paper is organized as follows: In Section 2, we first describe the proposed approach STCC and implementation details. Experimental results and analyses are presented in Section 3. In Section 4, we briefly survey several related works. Finally, conclusions are given in the last Section.<br>为了解决上述挑战，我们通过卷积神经网络系统地引入了一种短文本聚类方法。图1中示出了所提出方法的总体结构。给定短文本集X，该工作的目标是基于从CNN模型学习的深度特征表示将这些文本聚类成聚类C.为了训练CNN模型，我们受到（Zhang et al。，2010）的启发，在我们的工作中使用自学的学习框架。特别是，我们首先将原始特征嵌入到具有局部性保留约束的紧凑二进制代码B中。然后将从字嵌入投射的字向量S馈入CNN模型以学习特征表示h，并且使用输出单元来拟合预训练的二进制码B.在获得学习的特征之后，使用传统的K均值算法来对文本进行聚类。本文的主要贡献概括如下：<br>1）。据我们所知，这是首次尝试探索CNN与传统语义约束相结合的可行性和有效性，借助于单词嵌入来解决一个无监督学习任务，即短文本聚类。<br>2）。我们通过自学的学习框架学习具有局部性保留约束的深度特征表示，并且我们的方法不使用任何外部标签/标签或复杂的NLP预处理。<br>3）。我们对两个短文本数据集进行了实验。实验结果表明，该方法在准确性和规范化互信息方面均取得了良好的性能。本文的其余部分安排如下：第2节，我们首先描述了提出的方法STCC和实现细节。实验结果和分析见第3节。在第4节中，我们简要地调查了几个相关的工作。最后，最后一节给出了结论。</p>
+<h3 id="2-Methodology"><a href="#2-Methodology" class="headerlink" title="2 Methodology"></a>2 Methodology</h3><h4 id="2-1-Convolutional-Neural-Networks"><a href="#2-1-Convolutional-Neural-Networks" class="headerlink" title="2.1 Convolutional Neural Networks"></a>2.1 Convolutional Neural Networks</h4><p><img src="/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/TIM图片20190403220922.png" alt="figure2"><br>In this section, we will briefly review one popular deep convolutional neural network, Dynamic Convolutional Neural Network (DCNN) (Blunsom et al., 2014), which is the foundation of our proposed method.<br>Taking a neural network with two convolutional layers in Figure 2 as an example, the network transforms raw input text to a powerful representation.Particularly, let $X = \{x_i:x_i \in \mathbb{R}^{d\times1} \}_{i=1,2,\cdots,n}$ denote the set of input $n$ texts, where $d$ is the dimensionality of the original keyword features. Each raw text vector $x_i$ is projected into a matrix representation $S \in \mathbb{R}^{d_w\times s}$ by looking up a word embedding E, where $d_w$ is the dimension of word embedding features and $s$ is the length of one text. We also let $\tilde W = \{W_i\}_{i=1,2}$ and $W_O$ denote the weights of the neural networks. The network defines a transformation $f(\cdot):\mathbb R^{d\times1}\to \mathbb R^{r\times1}(d\gg r)$ which transforms an raw input text $x$ to a r-dimensional deep representation h. There are three basic operations described as follows:<br><strong>– Wide one-dimensional convolution</strong> This operation is applied to an individual row of the sentence matrix $S\in \mathbb R^{d_w\times s}$, and yields a set of sequences $C_i\in \mathbb R^{s+m-1}$where $m$ is the width of convolutional filter.<br><strong>– Folding</strong> In this operation, every two rows in a feature map component-wise are simply summed.For a map of $d_w$ rows, folding returns a map of $d_w/2$ rows, thus halving the size of the representation.<br><strong>– Dymantic k-max pooling</strong> Given a fixed pooling parameter ktop for the topmost convolutional layer, the parameter k of k-max pooling in the l-th convolutional layer can be computed as follows:<script type="math/tex">k_l = max(k_{top},\left \lceil \frac{L-l}{L} \right \rceil)</script><br>where L is the total number of convolutional layers in the network.<br>在本节中，我们将简要回顾一种流行的深度卷积神经网络 - 动态卷积神经网络(DCNN) (Blunsom et al., 2014)，这是我们提出的方法的基础。<br>以图2中带有两个卷积层的神经网络为例，网络将原始输入文本转换为强大的表示。特别是，让$X = \{x_i:x_i \in \mathbb{R}^{d\times1} \}_{i=1,2,\cdots,n}$表示输入$n$ 个文本的集合，其中$d$是原始关键字要素的维度。通过查找嵌入E的单词，将每个原始文本向量$x_i$投影到矩阵表示$S \in \mathbb{R}^{d_w\times s}$中，其中$d_w$是单词嵌入要素的维度$s$是一个文本的长度。我们还让$\tilde W = \{W_i\}_{i=1,2}$和$W_O$表示神经网络的权重。网络定义转换$f(\cdot):\mathbb R^{d\times1}\to \mathbb R^{r\times1}(d\gg r)$将原始输入文本$x$转换为r维深度表示h。有三种基本操作描述如下：</p>
+<ul>
+<li>宽一维卷积 此操作适用于句子矩阵 $S\in \mathbb R^{d_w\times s}$的单个行，并产生一组序列$C_i\in \mathbb R^{s+m-1}$where $m$其中$m$是卷积滤波器的宽度。</li>
+<li>折叠在此操作中，特征映射中的每两行都是简单求和的。对于$d_w$ rows的映射，folding返回$d_w/2$ rows的映射，从而将表示的大小减半。</li>
+<li>Dymantic k-max pooling给定最顶层卷积层的固定池参数ktop，第l个卷积层中k-max池的参数k可以如下计算：<script type="math/tex">k_l = max(k_{top},\left \lceil \frac{L-l}{L} \right \rceil)</script><br>其中L是网络中卷积层的总数。<h4 id="2-2-Locality-preserving-Constraint"><a href="#2-2-Locality-preserving-Constraint" class="headerlink" title="2.2 Locality-preserving Constraint"></a>2.2 Locality-preserving Constraint</h4>Here, we first pre-train binary code B based on the keyword features with a locality-preserving constraint, and choose Laplacian affinity loss, also used in some previous works (Weiss et al., 2009; Zhang et al., 2010). The optimization can be written as:<script type="math/tex">\min_B\sum_{i,j=1}^nS_{ij}\left \| b_i-b_j \right \|_F^2   s.t.B\in\{-1,1\}^{n\times q},B^T1=0,B^TB=I</script><br>where $S_{ij}$ is the pairwise similarity between texts $x_i$ and $x_j$ , and $\left | \cdot \right |_F$ is the Frobenius norm. The problem is relaxed by discarding $B \in \{-1, 1\}^{n\times q}$, and the q-dimensional real-valued vectors $\tilde B$ can be learned from Laplacian Eigenmap. Then, we get the binary code B via the media vector $median(\tilde B)$. In particular, we construct the $n\times n$ local similarity matrix $S$ by using heat kernel as follows:<script type="math/tex">S_{ij}=\left\{\begin{matrix}exp(-\frac{\left \| x_i-x_j \right \|^2}{2\sigma^2}),&if\,x_i\in N_k(x_j)or\,vice\,versa \\0,&otherwise\end{matrix}\right.</script><br>where,$\sigma$is a tuning parameter (default is 1) and $N_k(x)$ represents the set of k-nearest-neighbors of x.The last layer of CNN is an output layer as follows:<script type="math/tex">O = W_Oh, (4)</script>where $h$ is the deep feature representation, $o\in \mathbb R^q$ is the output vector and $W_O\in \mathbb R^{q\times r}$is weight matrix. In order to fit the pre-trained binary code B, we apply q logistic operations to the output vector O as follows:<script type="math/tex">p_i=\frac{exp(O_i)}{1+exp(O_i)}(5)</script><br>在这里，我们首先基于具有局部性保留约束的关键字特征预先训练二进制代码B，并选择拉普拉斯亲和力损失，也用于先前的一些工作中(Weiss et al., 2009; Zhang et al., 2010)。优化可写为：<script type="math/tex">\min_B\sum_{i,j=1}^nS_{ij}\left \| b_i-b_j \right \|_F^2   s.t.B\in\{-1,1\}^{n\times q},B^T1=0,B^TB=I</script><br>其中$S_{ij}$是文本$x_i$和$x_j$之间的成对相似性,$\left | \cdot \right |_F$是Frobenius规范。通过丢弃$B \in \{-1, 1\}^{n\times q}$来放宽问题，并且可以从拉普拉斯算子图中学习q维实值向量$\tilde B$。然后，我们通过媒体向量$median(\tilde B)$得到二进制代码B.特别是，我们使用热内核构造$n\times n$局部相似性矩阵$S$，如下所示：<script type="math/tex">S_{ij}=\left\{\begin{matrix}exp(-\frac{\left \| x_i-x_j \right \|^2}{2\sigma^2}),&if\,x_i\in N_k(x_j)or\,vice\,versa \\0,&otherwise\end{matrix}\right.</script><br>其中，$ \sigma $是一个调整参数（默认为1），$N_k(x)$表示x的k-最近邻居的集合.CNN的最后一层是输出层，如下所示：<script type="math/tex">O =W_Oh(4)</script>其中$ h $是深度特征表示，$o\in \mathbb R^q$是输出向量而$W_O\in \mathbb R^{q\times r}$是权重矩阵。为了拟合预先训练的二进制代码B，我们将q逻辑运算应用于输出向量O，如下所示：<script type="math/tex">p_i=\frac{exp(O_i)}{1+exp(O_i)}(5)</script><h4 id="2-3-Learning"><a href="#2-3-Learning" class="headerlink" title="2.3 Learning"></a>2.3 Learning</h4>All of the parameters to be trained are defined as $\theta$.<script type="math/tex; mode=display">\theta=\{E,\tilde W,W_O\}(6)$$Given the training text collection X, and the pretrained binary code B, the log likelihood of the parameters can be written down as follows:$$J(\theta)=\sum_{i=1}^nlogp(b_i|x_i,\theta)(6)</script>Following the previous work (Blunsom et al.,2014), we train the network with mini-batches by back-propagation and perform the gradient-based optimization using the Adagrad update rule (Duchi et al., 2011). For regularization, we employ dropout with 50% rate to the penultimate layer (Blunsom et al., 2014; Kim, 2014).<br>所有要训练的参数都定义为$\theta$。<script type="math/tex; mode=display">\theta=\{E,\tilde W,W_O\}(6)$$给定训练文本集合X和预训练二进制代码B，参数的对数似然可以写成如下：$$J(\theta)=\sum_{i=1}^nlogp(b_i|x_i,\theta)(6)</script>在之前的工作(Blunsom et al.,2014)之后，我们通过反向传播对小批量网络进行训练，并使用Adagrad更新规则执行基于梯度的优化(Duchi et al., 2011)。 对于正则化，我们使用50％率的退出率到倒数第二层(Blunsom et al., 2014; Kim, 2014)<h4 id="2-4-K-means-for-Clustering"><a href="#2-4-K-means-for-Clustering" class="headerlink" title="2.4 K-means for Clustering"></a>2.4 K-means for Clustering</h4>With the given short texts, we first utilize the trained deep neural network to obtain the semantic representations h, and then employ traditional K-means algorithm to perform clustering.<br>利用给定的短文本，我们首先利用训练好的深度神经网络获得语义表示h，然后采用传统的K-means算法进行聚类。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/01/文献摘要之Semi-supervised-Clustering-for-Short-Text-via-Deep-Representation-Learning/" rel="next" title="文献摘要之Semi-supervised-Clustering-for-Short-Text-via-Deep-Representation-Learning">
+                <i class="fa fa-chevron-left"></i> 文献摘要之Semi-supervised-Clustering-for-Short-Text-via-Deep-Representation-Learning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/"
+           data-title="文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks" data-url="http://andeper.cn/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Methodology"><span class="nav-number">3.</span> <span class="nav-text">2 Methodology</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Convolutional-Neural-Networks"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Convolutional Neural Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Locality-preserving-Constraint"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Locality-preserving Constraint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Learning"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Learning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-K-means-for-Clustering"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 K-means for Clustering</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+</body>
+</html>
