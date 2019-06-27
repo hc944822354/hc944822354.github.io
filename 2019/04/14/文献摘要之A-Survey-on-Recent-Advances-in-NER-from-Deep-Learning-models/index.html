@@ -1,0 +1,887 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Andeper的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1 IntroductionNamed entity recognition is the task of identifying named entities like person, location, organization,drug, time, clinical procedure, biological protein, etc. in text. NER systems are o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models">
+<meta property="og:url" content="http://andeper.cn/2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/index.html">
+<meta property="og:site_name" content="Andeper的个人博客">
+<meta property="og:description" content="1 IntroductionNamed entity recognition is the task of identifying named entities like person, location, organization,drug, time, clinical procedure, biological protein, etc. in text. NER systems are o">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-14T08:01:14.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models">
+<meta name="twitter:description" content="1 IntroductionNamed entity recognition is the task of identifying named entities like person, location, organization,drug, time, clinical procedure, biological protein, etc. in text. NER systems are o">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://andeper.cn/2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/"/>
+
+
+
+
+
+  <title> 文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models | Andeper的个人博客 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+	<div id="vk_api_transport"></div>
+	<script type="text/javascript">
+		window.vkAsyncInit = function() {
+			VK.init({
+				apiId: 
+			});
+
+			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
+
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+			
+		};
+		setTimeout(function() {
+			var el = document.createElement("script");
+			el.type = "text/javascript";
+			el.src = "//vk.com/js/api/openapi.js";
+			el.async = true;
+			document.getElementById("vk_api_transport").appendChild(el);
+		}, 0);
+	</script>
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8aabc26c969f399d0abe524a29699f13";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andeper的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andeper.cn/2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/update/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andeper的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T09:30:22+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h3><p>Named entity recognition is the task of identifying named entities like person, location, organization,drug, time, clinical procedure, biological protein, etc. in text. NER systems are often used as the first step in question answering, information retrieval, co-reference resolution, topic modeling, etc. Thus it is important to highlight recent advances in named entity recognition, especially recent neural NER architectures which have achieved state of the art performance with minimal feature engineering.<br>The first NER task was organized by Grishman and Sundheim (1996) in the Sixth Message Understanding Conference. Since then, there have been numerous NER tasks (Tjong Kim Sang and De Meulder, 2003; Tjong Kim Sang, 2002; Piskorski et al., 2017; Segura Bedmar et al., 2013; Bossy et al., 2013;Uzuner et al., 2011). Early NER systems were based on handcrafted rules, lexicons, orthographic features and ontologies. These systems were followed by NER systems based on feature-engineering and machine learning (Nadeau and Sekine, 2007). Starting with Collobert et al. (2011), neural network NER systems with minimal feature engineering have become popular. Such models are appealing because they typically do not require domain specific resources like lexicons or ontologies, and are thus poised to be more domain independent. Various neural architectures have been proposed, mostly based on some form of recurrent neural networks (RNN) over characters, sub-words and/or word embeddings.<br>We present a comprehensive survey of recent advances in named entity recognition. We describe knowledge-based and feature-engineered NER systems that combine in-domain knowledge, gazetteers, orthographic and other features with supervised or semi-supervised learning. We contrast these systems with neural network architectures for NER based on minimal feature engineering, and compare amongst the neural models with different representations of words and sub-word units. We show in Table 1 and Table 2 and discuss in Section 7 how neural NER systems have improved performance over past works including supervised, semi-supervised, and knowledge based NER systems. For example, NN models on news corpora improved the previous state-of-the-art by 1.59% in Spanish, 2.34% in German, 0.36% in English, and 0.14%, in Dutch, without any external resources or feature engineering. We provide resources, including links to shared tasks on NER, and links to the code for each category of NER system. To the best of our knowledge, this is the first survey focusing on neural architectures for NER,and comparing to previous feature-based systems.<br>We first discuss previous summary research on NER in section 2. Then we explain our selectioncriterion and methodology for selecting which systems to review in section 3. We highlight standard,past and recent NER datasets (from shared tasks and other research) in section 4 and evaluation metrics in section 5. We then describe NER systems in section 6 categorized into knowledge-based (section 6.1),bootstrapped (section 6.2), feature-engineered (section 6.3) and neural networks (section 6.4).<br>命名实体识别是在文本中识别诸如人，位置，组织，药物，时间，临床程序，生物蛋白等命名实体的任务。 NER系统通常被用作问题回答，信息检索，共同参考分辨率，主题建模等的第一步。因此，重要的是突出命名实体识别的最新进展，特别是最近已经实现状态的神经NER架构。艺术表现与最小的特征工程。<br>第一个NER任务由Grishman和Sundheim（1996）在第六次消息理解会议上组织。从那以后，有许多NER任务（Tjong Kim Sang和De Meulder，2003; Tjong Kim Sang，2002; Piskorski等，2017; Segura Bedmar等，2013; Bossy等，2013; Uzuner等。，2011）。早期的NER系统基于手工制作的规则，词典，正交特征和本体。这些系统之后是基于特征工程和机器学习的NER系统（Nadeau和Sekine，2007）。从Collobert等人开始。 （2011），具有最小特征工程的神经网络NER系统已经变得流行。这些模型很有吸引力，因为它们通常不需要域特定资源，如词典或本体，因此可以更加独立于域。已经提出了各种神经架构，主要基于对字符，子字和/或字嵌入的某种形式的递归神经网络（RNN）。<br>我们对命名实体识别的最新进展进行了全面的调查。我们描述了基于知识和特征设计的NER系统，它们将领域内知识，地名录，正字法和其他特征与监督或半监督学习相结合。我们将这些系统与基于最小特征工程的NER的神经网络架构进行对比，并在具有不同表示的单词和子单词单元的神经模型之间进行比较。我们在表1和表2中显示，并在第7节中讨论神经NER系统如何比过去的工作（包括监督，半监督和基于知识的NER系统）提高了性能。例如，新闻语料库中的NN模型在西班牙语中提高了先前的最新技术水平1.59％，德语为2.34％，英语为0.36％，荷兰语为0.14％，没有任何外部资源或特征工程。我们提供资源，包括NER上共享任务的链接，以及每个NER系统类别代码的链接。据我们所知，这是第一个专注于NER神经架构的调查，并与之前基于特征的系统进行比较。<br>我们首先在第2节讨论NER的先前总结研究。然后我们解释我们的选择标准和方法，以选择第3节中要审查的系统。我们在第4节中突出显示标准，过去和最近的NER数据集（来自共享任务和其他研究）和第5节中的评估指标。然后我们在第6节中描述NER系统，分为基于知识（第6.1节），自举（第6.2节），特征设计（第6.3节）和神经网络（第6.4节）。</p>
+<h3 id="2-Previous-surveys"><a href="#2-Previous-surveys" class="headerlink" title="2 Previous surveys"></a>2 Previous surveys</h3><p>The first comprehensive NER survey was Nadeau and Sekine (2007), which covered a variety of supervised, semi-supervised and unsupervised NER systems, highlighted common features used by NER systems during that time, and explained NER evaluation metrics that are still in use today. Sharnagat(2014) presented a more recent NER survey that also included supervised, semi-supervised, and unsupervised NER systems, and included a few introductory neural network NER systems. There have also been surveys focused on NER systems for specific domains and languages, including biomedical NER,(Leaman and Gonzalez, 2008), Chinese clinical NER (Lei et al., 2013), Arabic NER (Shaalan, 2014;Etaiwi et al., 2017), and NER for Indian languages (Patil et al., 2016).<br>The existing surveys primarily cover feature-engineered machine learning models (including supervised, semi-supervised, and unsupervised systems), and mostly focus on a single language or a single domain. There is not yet, to our knowledge, a comprehensive survey of modern neural network NER systems, nor is there a survey that compares feature engineered and neural network systems in both multi-lingual (CoNLL 2002 and CoNLL 2003) and multi-domain (e.g., news and medical) settings.<br>第一次全面的NER调查是Nadeau和Sekine（2007），其中涵盖了各种监督，半监督和无监督的NER系统，突出了NER系统在此期间使用的常见特征，并解释了当前仍在使用的NER评估指标 。 Sharnagat（2014）提出了一项更新的NER调查，其中还包括监督，半监督和无监督的NER系统，并包括一些入门神经网络NER系统。还有针对特定领域和语言的NER系统的调查，包括生物医学NER，（Leaman和Gonzalez，2008），中国临床NER（Lei等，2013），阿拉伯语NER（Shaalan，2014; Etaiwi等。 ，2017）和印度语言的NER（Patil等，2016）。<br>现有的调查主要涵盖特征设计的机器学习模型（包括监督，半监督和无监督系统），主要集中在单一语言或单一领域。据我们所知，尚未对现代神经网络NER系统进行全面调查，也没有一项调查比较多语言（CoNLL 2002和CoNLL 2003）和多域（例如CoNLL 2002和CoNLL 2003）中的特征工程和神经网络系统。 ，新闻和医疗）设置。</p>
+<h3 id="3-Methodology"><a href="#3-Methodology" class="headerlink" title="3 Methodology"></a>3 Methodology</h3><p>To identify articles for this survey, we searched Google, Google Scholar, and Semantic Scholar. Our query terms included named entity recognition, neural architectures for named entity recognition, neural network based named entity recognition models, deep learning models for named entity recognition,etc. We sorted the papers returned from each query by citation count and read at least the top three,considering a paper for our survey if it either introduced a neural architecture for named entity recognition, or represented a top-performing model on an NER dataset. We included an article presenting a neural architecture only if it was the first article to introduce the architecture; otherwise, we traced citations back until we found the original source of the architecture. We followed the same approach for feature-engineering NER systems. We also included articles that implemented these systems for different languages or domain. In total, 154 articles were reviewed and 83 articles were selected for the survey<br>为了识别此调查的文章，我们搜索了Google，Google学术搜索和语义学者。我们的查询术语包括命名实体识别，命名实体识别的神经架构，基于神经网络的命名实体识别模型，命名实体识别的深度学习模型等。我们通过引用计数对每个查询返回的论文进行排序，并至少读取前三个，考虑到我们调查的论文，如果它引入了用于命名实体识别的神经架构，或者代表了NER数据集上的最佳表现模型。我们收录了一篇介绍神经结构的文章，只要它是第一篇介绍该结构的文章;否则，我们追溯引用，直到找到建筑的原始来源。我们对特征工程NER系统采用了相同的方法。我们还包括为不同语言或域实现这些系统的文章。共审查了154篇文章，选择了83篇文章进行调查</p>
+<h3 id="4-NER-datasets"><a href="#4-NER-datasets" class="headerlink" title="4 NER datasets"></a>4 NER datasets</h3><p>Since the first shared task on NER (Grishman and Sundheim, 1996)1, many shared tasks and datasets for NER have been created. CoNLL 2002 (Tjong Kim Sang, 2002)2 and CoNLL 2003 (Tjong Kim Sang and De Meulder, 2003)3 were created from newswire articles in four different languages (Spanish, Dutch, English, and German) and focused on 4 entities - PER (person), LOC (location), ORG (organization) and MISC (miscellaneous including all other types of entities).<br>NER shared tasks have also been organized for a variety of other languages, including Indian languages (Rajeev Sangal and Singh, 2008), Arabic (Shaalan, 2014), German (Benikova et al., 2014), and slavic languages (Piskorski et al., 2017). The named entity types vary widely by source of dataset and language. For example, Rajeev Sangal and Singh (2008)’s southeast Asian language data has named entity types person, designation, temporal expressions, abbreviations, object number, brand, etc. Benikova et al. (2014)’s data, which is based on German wikipedia and online news, has named entity types similar to that of CoNLL 2002 and 2003: PERson, ORGanization, LOCation and OTHer. The shared task4 organized by Piskorski et al. (2017) covering 7 slavic languages (Croatian, Czech, Polish, Russian, Slovak,Slovene, Ukrainian) also has person, location, organization and miscellaneous as named entity types.<br>In the biomedical domain, Kim et al. (2004) organized a BioNER task on MedLine abstracts, focusing on protien, DNA, RNA and cell attribute entity types. Uzuner et al. (2007) presented a clinical note de-identification task that required NER to locate personal patient data phrases to be anonymized. The 2010 I2B2 NER task5 (Uzuner et al., 2011), which considered clinical data, focused on clinical problem, test and treatment entity types. Segura Bedmar et al. (2013) organized a Drug NER shared task6 as part of SemEval 2013 Task 9, which focused on drug, brand, group and drug n (unapproved or new drugs) entity types. (Krallinger et al., 2015) introduced the similar CHEMDNER task 7 focusing more on chemical and drug entities like trivial, systematic, abbreviation, formula, family, identifier, etc. Biology and microbiology NER datasets8(Hirschman et al., 2005; Bossy et al., 2013; Deleger et al., 2016) ˙have been collected from PubMed and biology websites, and focus mostly on bacteria, habitat and geolocation entities. In biomedical NER systems, segmentation of clinical and drug entities is considered to be a difficult task because of complex orthographic structures of named entities (Liu et al., 2015).<br>NER tasks have also been organized on social media data, e.g., Twitter, where the performance of classic NER systems degrades due to issues like variability in orthography and presence of grammatically incomplete sentences (Baldwin et al., 2015). Entity types on Twitter are also more variable (person, company, facility, band, sportsteam, movie, TV show, etc.) as they are based on user behavior on Twitter.Though most named entity annotations are flat, some datasets include more complex structures. Ohta et al. (2002) constructed a dataset of nested named entities, where one named entity can contain another.Strassel et al. (2003) highlighted both entity and entity head phrases. And discontinuous entities are common in chemical and clinical NER datasets (Krallinger et al., 2015). Eltyeb and Salim (2014) presented an survey of various NER systems developed for such NER datasets with a focus on chemical NER.<br>自从第一个关于NER的共同任务（Grishman和Sundheim，1996）1以来，已经创建了许多NER的共享任务和数据集。 CoNLL 2002（Tjong Kim Sang，2002）2和CoNLL 2003（Tjong Kim Sang和De Meulder，2003）3是由四种不同语言（西班牙语，荷兰语，英语和德语）的新闻专线文章创建的，专注于4个实体 -  PER （人），LOC（地点），ORG（组织）和MISC（杂项包括所有其他类型的实体）。<br>还为各种其他语言组织了NER共享任务，包括印度语（Rajeev Sangal和Singh，2008），阿拉伯语（Shaalan，2014），德语（Benikova等，2014）和斯拉夫语（Piskorski等。 。，2017）。命名的实体类型因数据集和语言的来源而异。例如，Rajeev Sangal和Singh（2008）的东南亚语言数据已将实体类型命名为人，名称，时间表达，缩写，对象编号，品牌等.Benikova等。 （2014）的数据基于德国维基百科和在线新闻，已经命名了类似于CoNLL 2002和2003的实体类型：PERson，ORGanization，LOCation和OTHer。由Piskorski等人组织的共享任务4。 （2017年）涵盖7种斯拉夫语（克罗地亚语，捷克语，波兰语，俄语，斯洛伐克语，斯洛文尼亚语，乌克兰语）也有人，地点，组织和杂项作为命名实体类型。<br>在生物医学领域，Kim等人。 （2004）在MedLine摘要上组织了BioNER任务，重点关注protien，DNA，RNA和细胞属性实体类型。 Uzuner等。 （2007）提出了临床记录去识别任务，该任务要求NER定位要匿名的个人患者数据短语。考虑临床数据的2010 I2B2 NER task5（Uzuner et al。，2011）专注于临床问题，测试和治疗实体类型。 Segura Bedmar等。 （2013）组织了一个药物NER共享任务6，作为SemEval 2013任务9的一部分，其重点是药物，品牌，群体和药物n（未批准或新药）实体类型。 （Krallinger等，2015）介绍了类似的CHEMDNER任务7，重点关注化学和药物实体，如琐碎，系统，缩写，公式，家族，标识符等。生物学和微生物学NER数据集8（Hirschman等，2005; Bossy） et al。，2013; Deleger et al。，2016）˙已经从PubMed和生物学网站收集，主要关注细菌，栖息地和地理定位实体。在生物医学NER系统中，由于命名实体的复杂正交结构，临床和药物实体的分割被认为是一项艰巨的任务（Liu et al。，2015）。<br>还在社交媒体数据（例如，Twitter）上组织了NER任务，其中经典NER系统的性能由于诸如拼写法的可变性和语法上不完整的句子的存在之类的问题而降级（Baldwin等人，2015）。 Twitter上的实体类型也更加多变（人，公司，设施，乐队，体育团队，电影，电视节目等），因为它们基于Twitter上的用户行为。虽然大多数命名实体注释都是扁平的，但有些数据集包含更复杂的结构。 Ohta等人。 （2002）构建了一个嵌套命名实体的数据集，其中一个命名实体可以包含另一个.Strassel等。 （2003）强调了实体和实体头短语。不连续实体在化学和临床NER数据集中很常见（Krallinger等，2015）。 Eltyeb和Salim（2014）提出了针对此类NER数据集开发的各种NER系统的调查，重点是化学NER。</p>
+<h3 id="5-NER-evaluation-metrics"><a href="#5-NER-evaluation-metrics" class="headerlink" title="5 NER evaluation metrics"></a>5 NER evaluation metrics</h3><p>Grishman and Sundheim (1996) scored NER performance based on type, whether the predicted label was correct regardless of entity boundaries, and text, whether the predicted entity boundaries were correct regardless of the label. For each score category, precision was defined as the number of entities a system predicted correctly divided by the number that the system predicted, recall was defined as the number of entities a system predicted correctly divided by the number that were identified by the human annotators, and (micro) F-score was defined as the harmonic mean of precision and recall from both type and text.<br>The exact match metrics introduced by CoNLL (Tjong Kim Sang and De Meulder, 2003; Tjong Kim Sang, 2002) considers a prediction to be correct only when the predicted label for the complete entity is matched to exactly the same words as the gold label of that entity. CoNLL also used (micro) F-score, taking the harmonic mean of the exact match precision and recall.<br>The relaxed F1 and strict F1 metrics have been used in many NER shared tasks (Segura Bedmar et al.,2013; Krallinger et al., 2015; Bossy et al., 2013; Deleger et al., 2016). Relaxed F1 considers a prediction to be correct as long as part of the named entity is identified correctly. Strict F1 requires the character offsets of a prediction and the human annotation to match exactly. In these data, unlike CoNLL, word offsets are not given, so relaxed F1 is intended to allow comparison despite different systems having different word boundaries due to different segmentation techniques (Liu et al., 2015).<br>Grishman和Sundheim（1996）根据类型评估了NER表现，无论实体边界如何，预测标签是否正确，以及文本，无论标签如何，预测实体边界是否正确。对于每个分数类别，精度定义为系统正确预测的实体数量除以系统预测的数量，召回定义为系统正确预测的实体数量除以人类注释器识别的数量，和（微）F分数被定义为精度的调和平均值和从类型和文本中回忆。<br>CoNLL引入的精确匹配度量（Tjong Kim Sang和De Meulder，2003; Tjong Kim Sang，2002）认为只有当完整实体的预测标签与完全相同的单词匹配时，预测才是正确的。那个实体。 CoNLL还使用（微）F分数，取精确匹配精度和召回的调和平均值。<br>轻松的F1和严格的F1指标已经用于许多NER共享任务中（Segura Bedmar等人，2013; Krallinger等人，2015; Bossy等人，2013; Deleger等人，2016）。只要正确识别出部分命名实体，轻松F1就会认为预测是正确的。严格的F1要求预测的字符偏移和人类注释完全匹配。在这些数据中，与CoNLL不同，没有给出字偏移，因此松弛的F1旨在允许进行比较，尽管由于不同的分割技术，不同的系统具有不同的字边界（Liu等，2015）。</p>
+<h3 id="6-NER-systems"><a href="#6-NER-systems" class="headerlink" title="6 NER systems"></a>6 NER systems</h3><h4 id="6-1-Knowledge-based-systems"><a href="#6-1-Knowledge-based-systems" class="headerlink" title="6.1 Knowledge-based systems"></a>6.1 Knowledge-based systems</h4><p>Knowledge-based NER systems do not require annotated training data as they rely on lexicon resources and domain specific knowledge. These work well when the lexicon is exhaustive, but fail, for example,on every example of the drug n class in the DrugNER dataset (Segura Bedmar et al., 2013), since drug n is defined as unapproved or new drugs, which are by definition not in the DrugBank dictionaries (Knoxet al., 2010). Precision is generally high for knowledge-based NER systems because of the lexicons, but recall is often low due to domain and language-specific rules and incomplete dictionaries. Another drawback of knowledge based NER systems is the need of domain experts for constructing and maintaining the knowledge resources.<br>基于知识的NER系统不需要带注释的训练数据，因为它们依赖于词典资源和领域特定知识。 当词典是详尽的时，这些方法很有效，但是例如，在DrugNER数据集（Segura Bedmar等，2013）中药物类的每个例子都失败了，因为药物n被定义为未经批准或新药， 根据定义，不在DrugBank词典中（Knoxet al。，2010）。 由于词汇的原因，基于知识的NER系统的精度通常较高，但由于域和语言特定的规则以及不完整的词典，召回通常较低。 基于知识的NER系统的另一个缺点是需要领域专家来构建和维护知识资源。</p>
+<h4 id="6-2-Unsupervised-and-bootstrapped-systems"><a href="#6-2-Unsupervised-and-bootstrapped-systems" class="headerlink" title="6.2 Unsupervised and bootstrapped systems"></a>6.2 Unsupervised and bootstrapped systems</h4><p>Some of the earliest systems required very minimal training data. Collins and Singer (1999) used only labeled seeds, and 7 features including orthography (e.g., capitalization), context of the entity, words contained within named entities, etc. for classifying and extracting named entities. Etzioni et al. (2005) proposed an unsupervised system to improve the recall of NER systems applying 8 generic pattern extractors to open web text, e.g., NP is a <class1>, NP1 such as NPList2. Nadeau et al. (2006) presented an unsupervised system for gazetteer building and named entity ambiguity resolution based on Etzioniet al. (2005) and Collins and Singer (1999) that combined an extracted gazetteer with commonly available gazetteers to achieve F-scores of 88%, 61%, and 59% on MUC-7 (Chinchor and Robinson, 1997) location, person, and organization entities, respectively.<br>Zhang and Elhadad (2013) used shallow syntactic knowledge and inverse document frequency (IDF) for an unsupervised NER system on biology (Kim et al., 2004) and medical (Uzuner et al., 2011) data, achieving 53.8% and 69.5% accuracy, respectively. Their model uses seeds to discover text having potential named entities, detects noun phrases and filters any with low IDF values, and feeds the filtered list to a classifier (Alfonseca and Manandhar, 2002) to predict named entity tags.<br>一些最早的系统需要非常少的训练数据。 Collins和Singer（1999）仅使用标记的种子，并且7个特征包括正字法（例如，大写），实体的上下文，命名实体中包含的单词等，用于分类和提取命名实体。 Etzioni等。 （2005）提出了一种无监督系统来改进NER系统的召回，该系统应用8个通用模式提取器来打开网络文本，例如，NP是<class1>，NP1，例如NPList2。 Nadeau等。 （2006）提出了一个无监督的地名录建筑系统和基于Etzioniet al的命名实体模糊解决方案。 （2005）和柯林斯和辛格（1999）将提取的地名词典与常用的地名录相结合，使得MUC-7（Chinchor和Robinson，1997）的位置，人和的F分数分别达到88％，61％和59％。组织实体。<br>Zhang和Elhadad（2013）对生物学（Kim et al。，2004）和医学（Uzuner et al。，2011）数据的无监督NER系统使用浅层句法知识和逆文档频率（IDF），达到53.8％和69.5％准确性，分别。他们的模型使用种子来发现具有潜在命名实体的文本，检测名词短语并过滤任何具有低IDF值的文本，并将过滤后的列表提供给分类器（Alfonseca和Manandhar，2002）以预测命名实体标签。</class1></class1></p>
+<h4 id="6-3-Feature-engineered-supervised-systems"><a href="#6-3-Feature-engineered-supervised-systems" class="headerlink" title="6.3 Feature-engineered supervised systems"></a>6.3 Feature-engineered supervised systems</h4><p>Supervised machine learning models learn to make predictions by training on example inputs and their expected outputs, and can be used to replace human curated rules. Hidden Markov Models (HMM),Support Vector Machines (SVM), Conditional Random Fields (CRF), and decision trees were common machine learning systems for NER.<br>Zhou and Su (2002) used HMM (Rabiner and Juang, 1986; Bikel et al., 1997) an NER system on MUC-6 and MUC-7 data, achieving 96.6% and 94.1% F score, respectively. They included 11 orthographic features (1 numeral, 2 numeral, 4 numeral, all caps, numerals and alphabets, contains underscore or not, etc.) a list of trigger words for the named entities (e.g., 36 trigger words and affixes, like river, for the location entity class), and a list of words (10000 for the person entity class) from various gazetteers.<br>Malouf (2002) compared the HMM with Maximum Entropy (ME) by adding multiple features. Their best model included capitalization, whether a word was the first in a sentence, whether a word had appeared before with a known last name, and 13281 first names collected from various dictionaries. The model achieved 73.66%, 68.08% Fscore on Spanish and Dutch CoNLL 2002 dataset respectively.<br>The winner of CoNLL 2002 (Carreras et al., 2002) used binary AdaBoost classifiers, a boosting algorithm that combines small fixed-depth decision trees (Schapire, 2013). They used features like capitalization, trigger words, previous tag prediction, bag of words, gazetteers, etc. to represent simple binary relations and these relations were used in conjunction with previously predicted labels. They achieved 81.39% and 77.05% F scores on the Spanish and Dutch CoNLL 2002 datasets, respectively.<br>Li et al. (2005) implemented a SVM model on the CoNLL 2003 dataset and CMU seminar documents.They experimented with multiple window sizes, features (orthographic, prefixes suffixes, labels, etc.)from neighboring words, weighting neighboring word features according to their position, and class weights to balance positive and negative class. They used two SVM classifiers, one for detecting named entity starts and one for detecting ends. They achieved 88.3% F score on the English CoNLL 2003 data.<br>On the MUC6 data, Takeuchi and Collier (2002) used part-of-speech (POS) tags, orthographic features, a window of 3 words to the left and to the right of the central word, and tags of the last 3 words as features to the SVM. The final tag was decided by the voting of multiple one-vs-one SVM outputs.<br>Ando and Zhang (2005a) implemented structural learning (Ando and Zhang, 2005b) to divide the main task into many auxiliary tasks, for example, predicting labels by looking just at the context and masking the current word. The best classifier for each auxiliary task was selected based on its confidence. This model had achieved 89.31% and 75.27% F score on English and German, respectively.<br>Agerri and Rigau (2016) developed a semi-supervised system9 by presenting NER classifiers with features including orthography, character n-grams, lexicons, prefixes, suffixes, bigrams, trigrams, and unsupervised cluster features from the Brown corpus, Clark corpus and k-means clustering of open text using word embeddings (Mikolov et al., 2013). They achieved near state of the art performance on CoNLL datasets: 84.16%, 85.04%, 91.36%, 76.42% on Spanish, Dutch, English, and German, respectively.<br>In DrugNER (Segura Bedmar et al., 2013), Liu et al. (2015) achieved state-of-the-art results by using a CRF with features like lexicon resources from Food and Drug Administration (FDA), DrugBank, Jochem (Hettne et al., 2009) and word embeddings (trained on a MedLine corpus). For the same task, Rocktaschel et al. (2013) used a CRF with features constructed from dictionaries (e.g., Jochem (Hettne ¨et al., 2009)), ontologies (ChEBI ontologies), prefixes-suffixes from chemical entities, etc.<br>监督机器学习模型学习通过对示例输入及其预期输出的训练来进行预测，并且可以用于替换人类策划的规则。隐马尔可夫模型（HMM），支持向量机（SVM），条件随机场（CRF）和决策树是NER的常用机器学习系统。<br>Zhou和Su（2002）使用HMM（Rabiner和Juang，1986; Bikel等，1997）对MUC-6和MUC-7数据的NER系统，分别达到96.6％和94.1％F得分。它们包括11个正交特征（1个数字，2个数字，4个数字，所有大写字母，数字和字母，包含下划线或不包括下划线等）命名实体的触发词列表（例如，36个触发词和词缀，如河，对于位置实体类），以及来自各种地名录的单词列表（人类实体类为10000）。<br>Malouf（2002）通过添加多个特征将HMM与最大熵（ME）进行了比较。他们最好的模型包括大写，一个单词是句子中的第一个单词，一个单词是否曾出现过已知的姓氏，以及从各种词典中收集的13281个名字。该模型分别在西班牙和荷兰CoNLL 2002数据集上获得了73.66％，68.08％的Fscore。<br>2002年CoNLL的获胜者（Carreras等人，2002年）使用了二元AdaBoost分类器，这是一种结合了小型固定深度决策树的增强算法（Schapire，2013）。他们使用诸如大写，触发词，先前的标签预测，词袋，地名词典等特征来表示简单的二元关系，并且这些关系与先前预测的标签结合使用。他们分别在西班牙和荷兰的CoNLL 2002数据集上获得了81.39％和77.05％的F分数。<br>李等人。 （2005）在CoNLL 2003数据集和CMU研讨会文档上实现了SVM模型。他们试验了相邻单词的多个窗口大小，特征（正字法，前缀后缀，标签等），根据它们的位置加权相邻的单词特征，以及阶级权重以平衡正面和负面阶级。他们使用了两个SVM分类器，一个用于检测命名实体启动，另一个用于检测结束。他们在英国CoNLL 2003数据上获得了88.3％的F分数。<br>在MUC6数据上，Takeuchi和Collier（2002）使用了词性（POS）标签，正交特征，中心词左侧和右侧的3个单词窗口，以及后3个单词的标签SVM的功能。最终标签由多个一对一SVM输出的投票决定。<br>Ando和Zhang（2005a）实施了结构学习（Ando和Zhang，2005b），将主要任务划分为许多辅助任务，例如，通过查看上下文和屏蔽当前单词来预测标签。基于其置信度选择每个辅助任务的最佳分类器。该模型分别在英语和德语上获得89.31％和75.27％的F分。<br>Agerri和Rigau（2016）通过呈现NER分类器开发了一个半监督系统9，其具有包括正字法，字符n-gram，词典，前缀，后缀，双字母，三元组和来自布朗语料库，克拉克语料库和k-的无监督聚类特征的特征。意味着使用文字嵌入聚类开放文本（Mikolov等，2013）。他们在CoNLL数据集上取得了近乎最先进的表现：分别为西班牙语，荷兰语，英语和德语的84.16％，85.04％，91.36％，76.42％。<br>在DrugNER（Segura Bedmar等，2013）中，Liu等。 （2015）通过使用具有食品和药物管理局（FDA），DrugBank，Jochem（Hettne等，2009）的词汇资源和词汇嵌入（在MedLine语料库上训练）等特征的CRF获得了最新成果）。对于同样的任务，Rocktaschel等人。 （2013）使用具有由字典构建的特征的CRF（例如，Jochem（Hettne¨etal。，2009）），本体（ChEBI本体），来自化学实体的前缀 - 后缀等。</p>
+<h4 id="6-4-Feature-inferring-neural-network-systems"><a href="#6-4-Feature-inferring-neural-network-systems" class="headerlink" title="6.4 Feature-inferring neural network systems"></a>6.4 Feature-inferring neural network systems</h4><p>Collobert and Weston (2008) proposed one of the first neural network architectures for NER, with feature vectors constructed from orthographic features (e.g., capitalization of the first character), dictionaries and lexicons. Later work replaced these manually constructed feature vectors with word embeddings (Collobert et al., 2011), which are representations of words in n-dimensional space, typically learned over large collections of unlabeled data through an unsupervised process such as the skip-gram model (Mikolov et al., 2013). Studies have shown the importance of such pre-trained word embeddings for neural network based NER systems (Habibi et al., 2017), and similarly for pre-trained character embeddings in character-based languages like Chinese (Li et al., 2015; Yin et al., 2016).<br>Modern neural architectures for NER can be broadly classified into categories depending upon their representation of the words in a sentence. For example, representations may be based on words, characters, other sub-word units or any combination of these.<br>Collobert和Weston（2008）提出了NER的第一个神经网络架构之一，其特征向量由正交特征（例如，第一个字符的大写），字典和词典构成。后来的工作用字嵌入替代了这些手工构造的特征向量（Collobert等，2011），它们是n维空间中单词的表示，通常通过无监督过程（例如skip-gram模型）在大量未标记数据集上学习。 （Mikolov等，2013）。研究表明，这种预训练的单词嵌入对于基于神经网络的NER系统的重要性（Habibi等，2017），以及类似于在中文等基于字符的语言中预训练的字符嵌入（Li et al。，2015; Yin et al。，2016）。<br>NER的现代神经结构可以根据它们在句子中的单词的表示大致分类。例如，表示可以基于单词，字符，其他子单词单元或这些的任何组合。</p>
+<h5 id="6-4-1-Word-level-architectures"><a href="#6-4-1-Word-level-architectures" class="headerlink" title="6.4.1 Word level architectures"></a>6.4.1 Word level architectures</h5><p>In this architecture, the words of a sentence are given as input to Recurrent Neural Networks (RNN) and each word is represented by its word embedding, as shown in Figure 1.<br>The first word-level NN model was proposed by Collobert et al. (2011)10. The architecture was similar to the one shown in Figure 1, but a convolution layer was used instead of the Bi-LSTM layer and the output of the convolution layer was given to a CRF layer for the final prediction. The authors achieved 89.59% F1 score on English CoNLL 2003 dataset by including gazetteers and SENNA embeddings.<br>Huang et al. (2015) presented a word LSTM model (Figure 1) and showed that adding a CRF layer to the top of the word LSTM improved performance, achieving 84.26% F1 score on English CoNLL 2003 dataset. Similar systems were applied to other domains: DrugNER by Chalapathy et al. (2016) achieving 85.19% F1 score (under an unofficial evaluation) on MedLine test data (Segura Bedmar et al., 2013), and medical NER by Xu et al. (2017) achieving 80.22% F1 on disease NER corpus using this architecture.In similar tasks, Plank et al. (2016) implemented the same model for multilingual POS tagging.<br>With slight variations, Yan et al. (2016) implemented word level feed forward NN, bi-directional LSTM (bi-LSTM) and window bi-LSTM for NER of English, German and Arabic. They also highlighted the performance improvement after adding various features like CRF, case, POS, word embeddings and achieved 88.91% F1 score on English and 76.12% on German.<br>在这种体系结构中，句子的单词作为递归神经网络（RNN）的输入给出，每个单词由其单词嵌入表示，如图1所示。<br>第一个词级NN模型由Collobert等人提出。 （2011）10。该体系结构类似于图1中所示的体系结构，但是使用卷积层代替Bi-LSTM层，并且将卷积层的输出给予CRF层用于最终预测。通过包括地名索引和SENNA嵌入，作者在英语CoNLL 2003数据集上获得了89.59％的F1分数。<br>黄等人。 （2015）提出了一个单词LSTM模型（图1），并显示在单词LSTM的顶部添加CRF层提高了性能，在英语CoNLL 2003数据集上获得了84.26％的F1分数。类似的系统应用于其他领域：Champathy等人的Drugner。 （2016）在MedLine测试数据（Segura Bedmar等人，2013）和Xu等人的医学NER上获得85.19％F1评分（在非官方评估下）。 （2017）使用这种架构在疾病NER语料库中实现了80.22％的F1。在类似的任务中，Plank等人。 （2016）实现了多语言POS标签的相同模型。<br>Yan等人略有变化。 （2016）为英语，德语和阿拉伯语的NER实施了单词级前馈NN，双向LSTM（bi-LSTM）和窗口双LSTM。他们还强调了在添加CRF，案例，POS，文字嵌入等各种功能后的性能提升，英语成绩为88.91％，德语成绩为76.12％。</p>
+<h5 id="6-4-2-Character-level-architectures"><a href="#6-4-2-Character-level-architectures" class="headerlink" title="6.4.2 Character level architectures"></a>6.4.2 Character level architectures</h5><p>In this model, a sentence is taken to be a sequence of characters. This sequence is passed through an RNN, predicting labels for each character (Figure 2). Character labels transformed into word labels via post processing. The potential of character NER neural models was first highlighted by Kim et al. (2016) using highway networks over convolution neural networks (CNN) on character sequences of words and then using another layer of LSTM + softmax for the final predictions.<br>This model was implemented by Pham and Le-Hong (2017) for Vietnamese NER and achieved 80.23% F-score on Nguyen et al. (2016)’s Vietnamese test data. Character models were also used in various other languages like Chinese (Dong et al., 2016) where it has achieved near state of the art performance.<br>Kuru et al. (2016) proposed CharNER 11 which implemented the character RNN model for NER on 7 different languages. In this character model, tag prediction over characters were converted to word tags using Viterbi decoder(Forney, 1973) achieving 82.18% on Spanish, 79.36% on Dutch, 84.52% on English and 70.12% on German CoNLL datasets. They also achieved 78.72 on Arabic, 72.19 on Czech and 91.30 on Turkish. Ling et al. (2015) proposed word representation using RNN (Bi-LSTM) over characters of the word and achieved state of the art results on POS task using this representation in multiple languages including 97.78% accuracy on English PTB(Marcus et al., 1993).<br>Gillick et al. (2015) implemented sequence to sequence model (Byte to Span- BTS) using encoder decoder architecture over sequence of characters of words in a window of 60 characters. Each character was encoded in bytes and BTS achieved high performance on CoNLL 2002 and 2003 dataset without any feature engineering. BTS achieved 82.95%, 82.84%,86.50%,76.22% Fscore on Spanish, Dutch, English and German CoNLL datasets respectively.<br>在该模型中，句子被认为是一系列字符。该序列通过RNN传递，预测每个字符的标签（图2）。字符标签通过后期处理转换为单词标签。 Kim等人首先强调了角色NER神经模型的潜力。 （2016）在卷积神经网络（CNN）上使用高速公路网络对字的字符序列，然后使用另一层LSTM + softmax进行最终预测。<br>该模型由Pham和Le-Hong（2017）为越南NER实施，并在Nguyen等人上获得了80.23％的F-分数。 （2016）的越南测试数据。人物模型也被用于其他语言，如中文（Dong et al。，2016），它已经达到了近乎最先进的性能。<br>库鲁等人。 （2016）提出了Charner 11，它为7种不同语言的NER实现了RNN模型。在这个角色模型中，使用维特比解码器（Forney，1973）将字符上的标签预测转换为字标签，西班牙语为82.18％，荷兰语为79.36％，英语为84.52％，德国CoNLL数据集为70.12％。他们在阿拉伯语中获得78.72，在捷克语中获得72.19，在土耳其语中获得91.30。凌等人。 （2015）提出了使用RNN（Bi-LSTM）对单词的字符进行单词表示，并使用多种语言的表示在POS任务上实现了最先进的结果，包括英语PTB的97.78％准确度（Marcus等，1993）。<br>吉利克等人。 （2015）使用编码器解码器架构在60个字符的窗口中的字符序列上实现序列到序列模型（字节到Span-BTS）。每个字符都以字节编码，BTS在CoNLL 2002和2003数据集上实现了高性能，无需任何特征工程。西班牙语，荷兰语，英语和德语CoNLL数据集中，BTS分别达到82.95％，82.84％，86.50％，76.22％Fscore。</p>
+<h5 id="6-4-3-Character-Word-level-architectures"><a href="#6-4-3-Character-Word-level-architectures" class="headerlink" title="6.4.3 Character+Word level architectures"></a>6.4.3 Character+Word level architectures</h5><p>Systems combining word context and the characters of a word have proved to be strong NER systems that need little domain specific knowledge or resources. There are two base models in this category. The first type of model represents words as a combination of a word embedding and a convolution over the characters of the word, follows this with a Bi-LSTM layer over the word representations of a sentence, and finally uses a softmax or CRF layer over the Bi-LSTM to generate labels. The architecture diagram for this model is same as Figure 3 but with the character Bi-LSTM replaced with a CNN12.<br>Ma and Hovy (2016) implemented this model to achieve 91.21% F1 score on the CoNLL 2003 English dataset and 97.55% POS-tagging accuracy on the WSJ portion of PTB (Marcus et al., 1993). They also showed lower performance by this model for out of vocabulary words.<br>Chiu and Nichols (2015) achieved 91.62% F1 score on the CoNLL 2003 English dataset and 86.28% F score on Onto notes 5.0 dataset (Pradhan et al., 2013) by adding lexicons and capitalization features to this model. Lexicon feature were encoded in the form or B(begin), I(inside) or E(end) PER, LOC, ORG and MISC depending upon the match from the dictionary.<br>This model has also been utilized for NER in languages like Japanese where Misawa et al. (2017) showed that this architecture outperformed other neural architectures on the organization entity class.<br>Limsopatham and Collier (2016) implemented a character+word level NER model for Twitter NER (Baldwin et al., 2015) by concatenating a CNN over characters, a CNN over orthographic features of characters, a word embedding, and a word orthographic feature embedding. This concatenated representation is passed through another Bi-LSTM layer and the output is given to CRF for predicting. This model achieved 65.89% F score on segmentation alone and 52.41% F score on segmentation and categorization.<br>Santos and Guimaraes (2015) implemented a model with a CNN over the characters of word, concatenated with word embeddings of the central word and its neighbors, fed to a feed forward network, and followed by the Viterbi algorithm to predict labels for each word. The model achieved 82.21% F score on Spanish CoNLL 2002 data and 71.23% F score on Portuguese NER data (Santos and Cardoso, 2007).<br>The second type of model concatenates word embeddings with LSTMs (sometimes bi-directional) over the characters of a word, passing this representation through another sentence-level Bi-LSTM, and predicting the final tags using a final softmax or CRF layer (Figure 3). Lample et al. (2016)13 introduced this architecture and achieved 85.75%, 81.74%, 90.94%, 78.76% Fscores on Spanish, Dutch, English and German NER dataset respectively from CoNLL 2002 and 2003.<br>Dernoncourt et al. (2017) implemented this model in the NeuroNER toolkit14 with the main goal of providing easy usability and allowing easy plotting of real time performance and learning statistics of the model. The BRAT annotation tool15 is also integrated with NeuroNER to ease the development of NN NER models in new domains. NeuroNER achieved 90.50% F score on the English CoNLL 2003 data.<br>Habibi et al. (2017) implemented the model for various biomedical NER tasks and achieved higher performance than the majority of other participants. For example, they achieved 83.71 F-score on the CHEMDNER data (Krallinger et al., 2015).<br>Bharadwaj et al. (2016)16 utilized phonemes (from Epitran) for NER in addition to characters and words. They also utilize attention knowledge over sequence of characters in word which is concatenated with the word embedding and character representation of word. This model achieved state of the art performance (85.81% F score) on Spanish CoNLL 2002 dataset.<br>A slightly improved system focusing on multi-task and multi-lingual joint learning was proposed by Yang et al. (2016) where word representation given by GRU (Gated Recurrent Unit) cell over characters plus word embedding was passed through another RNN layer and the output was given to CRF models trained for different tasks like POS, chunking and NER. Yang et al. (2017) further proposed transfer learning for multi-task and multi-learning, and showed small improvements on CoNLL 2002 and 2003 NER data, achieving 85.77%, 85.19%, 91.26% F scores on Spanish, Dutch and English, respectively.<br>结合单词上下文和单词字符的系统已被证明是强大的NER系统，需要很少的领域特定知识或资源。此类别中有两种基本模型。第一种类型的模型将单词表示为单词嵌入和单词字符上的卷积的组合，在句子的单词表示上使用Bi-LSTM层，最后使用softmax或CRF层。 Bi-LSTM生成标签。该模型的架构图与图3相同，但字符Bi-LSTM替换为CNN12。<br>Ma和Hovy（2016）实施了这个模型，在CoNLL 2003英语数据集上获得91.21％的F1分数，在PTB的WSJ部分获得97.55％的POS标记准确率（Marcus等，1993）。对于词汇单词，他们也表现出较低的表现。<br>Chiu和Nichols（2015）通过在该模型中添加词典和大写特征，在CoNLL 2003英语数据集上获得91.62％F1得分，在Onto notes 5.0数据集上获得86.28％F得分（Pradhan等，2013）。词典特征以形式或B（开始），I（内部）或E（结束）PER，LOC，ORG和MISC编码，取决于字典中的匹配。<br>该模型也被用于日本语言中的NER，Misawa等人。 （2017）表明，这种架构在组织实体类上优于其他神经架构。<br>Limsopatham和Collier（2016）通过在字符上连接CNN，在字符的正字特征，字嵌入和单词正字特征嵌入上连接CNN，为Twitter NER（Baldwin等，2015）实现了字符+单词级NER模型。 。该连接表示通过另一个Bi-LSTM层传递，输出被提供给CRF进行预测。该模型单独分割得分为65.89％，分割和分类得分为52.41％。<br>Santos和Guimaraes（2015）在字的字符上实现了CNN模型，与中心字及其邻居的字嵌入连接，馈送到前馈网络，然后是维特比算法来预测每个字的标签。该模型在西班牙CoNLL 2002数据上获得82.21％F评分，在葡萄牙NER数据上获得71.23％F评分（Santos和Cardoso，2007）。<br>第二种类型的模型将单词嵌入与LSTM（有时是双向）连接在一个单词的字符上，将该表示通过另一个句子级别的Bi-LSTM，并使用最终的softmax或CRF层预测最终的标签（图3） ）。 Lample等。 （2016）13引入了这种架构，分别从2002年和2003年的CoNLL上获得了西班牙语，荷兰语，英语和德语NER数据集的85.75％，81.74％，90.94％，78.76％Fscores。<br>Dernoncourt等人。 （2017）在NeuroNER工具包14中实现了这个模型，其主要目标是提供简单的可用性，并允许轻松绘制模型的实时性能和学习统计数据。 BRAT注释工具15还与NeuroNER集成，以便在新领域中轻松开发NN NER模型。 NeuroNER在英国CoNLL 2003数据上获得了90.50％的F评分。<br>Habibi等。 （2017）实施了各种生物医学NER任务的模型，并取得了比大多数其他参与者更高的性能。例如，他们在CHEMDNER数据上获得了83.71 F-分数（Krallinger等，2015）。<br>Bharadwaj等人。 （2016）16除了字符和单词之外，还使用了来自NIT的音素（来自Epitran）。它们还利用对词中字符序列的注意知识，这些字符与单词嵌入和单词的字符表示相结合。该模型在西班牙CoNLL 2002数据集上实现了最先进的性能（85.81％F得分）。<br>Yang等人提出了一种略微改进的系统，侧重于多任务和多语言联合学习。 （2016）其中由GRU（门控递归单元）单元格给出的字符加字符加上字嵌入的字表示通过另一个RNN层，并且输出被给予针对不同任务（如POS，分块和NER）训练的CRF模型。杨等人。 （2017）进一步提出了多任务和多学习的转学习，并对CoNLL 2002和2003 NER数据进行了小幅改进，分别达到西班牙语，荷兰语和英语的85.77％，85.19％，91.26％F分数。</p>
+<h5 id="6-4-4-Character-Word-affix-model"><a href="#6-4-4-Character-Word-affix-model" class="headerlink" title="6.4.4 Character + Word + affix model"></a>6.4.4 Character + Word + affix model</h5><p>Yadav et al. (2018) implemented a model that augments the character+word NN architecture with one of the most successful features from feature-engineering approaches: affixes. Affix features were used in early NER systems for CoNLL 2002 (Tjong Kim Sang, 2002; Cucerzan and Yarowsky, 2002) and 2003 (Tjong Kim Sang and De Meulder, 2003) and for biomedical NER (Saha et al., 2009), but had not been used in neural NER systems. They extended the Lample et al. (2016) character+word model to learn affix embeddings17 alongside the word embeddings and character RNNs (Figure 4). They considered all n-gram prefixes and suffixes of words in the training corpus, and selected only those whose frequency was above a threshold, T. Their word+character+affix model achieved 87.26%, 87.54%, 90.86%, 79.01% on Spanish, Dutch, English and German CoNLL datasets respectively. Yadav et al. (2018) also showed that affix embeddings capture complementary information to that captured by RNNs over the characters of a word, that selecting only high frequency (realistic) affixes was important, and that embedding affixes was better than simply expanding the other embeddings to reach a similar number of hyper-parameters.<br>亚达夫等人。 （2018）实现了一个模型，该模型使用特征工程方法中最成功的特征之一来增强字符+单词NN体系结构：词缀。在CoNLL 2002（Tjong Kim Sang，2002; Cucerzan和Yarowsky，2002）和2003（Tjong Kim Sang和De Meulder，2003）以及生物医学NER（Saha等，2009）的早期NER系统中使用了词缀特征，但是尚未用于神经NER系统。他们扩展了Lample等人。 （2016）字符+单词模型学习词缀嵌入17以及单词嵌入和字符RNN（图4）。他们考虑了训练语料库中所有n-gram前缀和单词后缀，并且仅选择频率高于阈值T的那些。他们的单词+字符+词缀模型在西班牙语上达到87.26％，87.54％，90.86％，79.01％ ，荷兰语，英语和德语CoNLL数据集。亚达夫等人。 （2018）还表明，词缀嵌入捕获RNN捕获的关于词的字符的补充信息，仅选择高频（真实）词缀是重要的​​，并且嵌入词缀比简单地扩展其他嵌入到达a相似数量的超参数。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks/" rel="next" title="文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks">
+                <i class="fa fa-chevron-left"></i> 文献摘要之Short-Text-Clustering-via-Convolutional-Neural-Networks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/14/文献摘要之Web-Scale-Distributional-Similarity-and-Entity-Set-Expansion/" rel="prev" title="文献摘要之Web-Scale-Distributional-Similarity-and-Entity-Set-Expansion">
+                文献摘要之Web-Scale-Distributional-Similarity-and-Entity-Set-Expansion <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/"
+           data-title="文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models" data-url="http://andeper.cn/2019/04/14/文献摘要之A-Survey-on-Recent-Advances-in-NER-from-Deep-Learning-models/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/update/avatar.jpg"
+               alt="Andeper" />
+          <p class="site-author-name" itemprop="name">Andeper</p>
+           
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的技术博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Previous-surveys"><span class="nav-number">2.</span> <span class="nav-text">2 Previous surveys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Methodology"><span class="nav-number">3.</span> <span class="nav-text">3 Methodology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-NER-datasets"><span class="nav-number">4.</span> <span class="nav-text">4 NER datasets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-NER-evaluation-metrics"><span class="nav-number">5.</span> <span class="nav-text">5 NER evaluation metrics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-NER-systems"><span class="nav-number">6.</span> <span class="nav-text">6 NER systems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-Knowledge-based-systems"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 Knowledge-based systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-Unsupervised-and-bootstrapped-systems"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 Unsupervised and bootstrapped systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-Feature-engineered-supervised-systems"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 Feature-engineered supervised systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-Feature-inferring-neural-network-systems"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 Feature-inferring neural network systems</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-1-Word-level-architectures"><span class="nav-number">6.4.1.</span> <span class="nav-text">6.4.1 Word level architectures</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-2-Character-level-architectures"><span class="nav-number">6.4.2.</span> <span class="nav-text">6.4.2 Character level architectures</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-3-Character-Word-level-architectures"><span class="nav-number">6.4.3.</span> <span class="nav-text">6.4.3 Character+Word level architectures</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-4-Character-Word-affix-model"><span class="nav-number">6.4.4.</span> <span class="nav-text">6.4.4 Character + Word + affix model</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andeper</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andeper"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+</body>
+</html>
